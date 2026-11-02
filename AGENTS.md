@@ -39,7 +39,7 @@ Invocación: `@dev-web implementa la tarea T003 de specs/001-base-y-paginas-lega
 
 ## 5b. MCP y despliegue (Art. XII)
 
-- El MCP de Render está en `opencode.json` (`RENDER_API_KEY` como variable de entorno del sistema). **Solo `devops-mcp` lo usa.**
+- El MCP de Render está en `opencode.json` (`RENDER_API_KEY` como variable de entorno del sistema). **Trabajo humano mínimo:** registrarse en Render, crear la API key y aprobar acciones; el resto lo hace `devops-mcp`. **Solo `devops-mcp` lo usa.**
 - Cada spec termina con su tarea «Despliegue» (`@devops-mcp`). No empieces la siguiente spec hasta que pase.
 
 ## 6. Comandos

@@ -87,3 +87,4 @@ vaiven-landing-page/            # raíz del repositorio
 2. Solo el agente `devops-mcp` usa el MCP.
 3. **Cada spec termina desplegada:** la última tarea es «Despliegue» (después de la revisión de conformidad): `node scripts/check.mjs` en verde, `trigger_deploy`, verificación de las páginas publicadas (códigos 200, enlaces internos, encabezados) y anotación de la URL en `memoria.md`.
 4. El origen del despliegue (repositorio que Render consume) queda **por definir** cuando se integre el repositorio.
+7. **Trabajo humano mínimo:** la persona solo se registra en Render, crea la API key (`RENDER_API_KEY`) y aprueba las acciones. Crear el static site, desplegar y verificar las páginas lo hace `devops-mcp` desde OpenCode con el MCP de Render.

@@ -1,7 +1,8 @@
 # Tareas L001 — Base del sitio y páginas legales (landing)
 
 - **Dueño:** MO-B · **Estado:** sin ejecutar · `[P]` = paralelizable
-- **Ruta crítica:** T001–T008 deben terminar el **1 de nov** para completar la ficha de Google Play y empezar la prueba cerrada.
+- **Lo único humano (Art. XII):** registrarse en Render, crear `RENDER_API_KEY` y aprobar acciones; crear el static site, desplegar y verificar lo hace `devops-mcp` desde OpenCode.
+- **Ruta crítica:** T001–T008 deben terminar el **5 de nov** para completar la ficha de Google Play y empezar la prueba cerrada.
 
 - [ ] **T001** Raíz del sitio y archivos de configuración
   - Archivos: `index.html` (provisional), `robots.txt`, `_headers`, `.gitignore`, `README.md`

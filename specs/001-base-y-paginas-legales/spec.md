@@ -1,10 +1,10 @@
 # Spec L001 — Base del sitio y páginas legales (landing)
 
-- **Dueño:** MO-B · **Prioridad:** P0 · **Ventana:** 30 oct–1 nov · **Depende de:** nada (arranca en paralelo)
+- **Dueño:** MO-B · **Prioridad:** P0 · **Ventana:** 2–5 nov · **Depende de:** nada (arranca en paralelo)
 - **Constitución:** landing v1.1.0 · **Estado:** Borrador
 
 ## 1. Objetivo y por qué
-Poner en línea, gratis y lo antes posible, un sitio estático con las **tres páginas legales** que Google Play pide como URL públicas (aviso de privacidad, términos y eliminación de cuenta). Sin ellas no se puede crear la ficha ni iniciar la prueba cerrada, que es la ruta crítica hacia el 20 de noviembre.
+Poner en línea, gratis y lo antes posible, un sitio estático con las **tres páginas legales** que Google Play pide como URL públicas (aviso de privacidad, términos y eliminación de cuenta). Sin ellas no se puede crear la ficha ni iniciar la prueba cerrada, que es la ruta crítica hacia la prueba cerrada del 9 de noviembre.
 
 ## 2. Historias
 | # | Prio. | Historia |
