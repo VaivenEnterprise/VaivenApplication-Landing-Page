@@ -1,6 +1,8 @@
 # Constitución — VAIVÉN Landing
 
-> **Versión 1.1.0** · 2026-10-28 · Enmendada el 2026-11-01 (repositorios separados; **MINOR:** se elimina todo lo de repositorio y pipeline y se agrega el Art. XII de despliegue por MCP) · Máxima autoridad del proyecto `vaiven-landing-page/`. Si algo la contradice, gana este documento.
+> **Versión 1.2.0** · 2026-10-28 · Enmendada el 2026-11-01 (repositorios separados; **MINOR:** se elimina todo lo de repositorio y pipeline y se agrega el Art. XII de despliegue por MCP) · Máxima autoridad del proyecto `vaiven-landing-page/`. Si algo la contradice, gana este documento.
+>
+> **Enmienda 1.2.0 (2026-11-02, MINOR):** se agrega el Art. XIII (repositorio y pull requests en GitHub, con MCP de GitHub); se reemplaza la declaración de «sin repositorio».
 > Comparte con las constituciones de `vaiven-backend/` y `vaiven-frontend/` las reglas de idioma (es-MX) y de secretos.
 
 ## Art. I — Metodología
@@ -86,5 +88,14 @@ vaiven-landing-page/            # raíz del repositorio
 1. La landing se publica como **static site gratuito de Render** (`create_static_site`) y se actualiza con `trigger_deploy`, ambos por el **MCP de Render** declarado únicamente en `opencode.json`. Su API key vive en una variable de entorno local, nunca en el repositorio. Esto reemplaza a Cloudflare Pages.
 2. Solo el agente `devops-mcp` usa el MCP.
 3. **Cada spec termina desplegada:** la última tarea es «Despliegue» (después de la revisión de conformidad): `node scripts/check.mjs` en verde, `trigger_deploy`, verificación de las páginas publicadas (códigos 200, enlaces internos, encabezados) y anotación de la URL en `memoria.md`.
-4. El origen del despliegue (repositorio que Render consume) queda **por definir** cuando se integre el repositorio.
+4. El origen del despliegue es el repositorio de GitHub de la landing (Art. XIII): Render lo consume y publica la rama `main`.
 7. **Trabajo humano mínimo:** la persona solo se registra en Render, crea la API key (`RENDER_API_KEY`) y aprueba las acciones. Crear el static site, desplegar y verificar las páginas lo hace `devops-mcp` desde OpenCode con el MCP de Render.
+
+### Art. XIII — Repositorio y pull requests en GitHub (enmienda 1.2.0)
+1. El código vive en un repositorio de GitHub (`vaiven-landing-page`). La rama `main` está protegida: no se empuja directo ni se fuerzan pushes; todo cambio entra por pull request.
+2. Una rama por spec (`spec/NNN-nombre`) y una PR por spec, que se abre cuando su tarea de cierre pasa. Otra persona la revisa y la fusiona; la spec siguiente puede partir de la rama anterior mientras tanto.
+3. La PR cita la spec y las tareas cerradas, el resultado de la verificación (sin secretos) y el veredicto de `revisor-constitucion`. Commits y títulos en español, en imperativo, con el número de spec.
+4. Nunca se suben secretos (`.env`, claves, tokens, `*.pem`, cadenas de conexión); `.gitignore` los excluye. Si uno se sube por error, se rota de inmediato.
+5. El MCP de GitHub se declara **únicamente en `opencode.json`** y solo lo usa el agente `gestor-repo`: crea ramas, hace commits y abre PR. **Nunca** fusiona, cierra, borra ni cambia la configuración del repositorio. Las acciones de escritura piden aprobación.
+6. **Trabajo humano mínimo:** la persona crea el repositorio, protege `main`, crea un token de acceso con permisos mínimos limitado a este repositorio (`GITHUB_PERSONAL_ACCESS_TOKEN` como variable del sistema), y revisa y fusiona las PR. El resto lo hace `gestor-repo` desde OpenCode.
+7. No hay pipeline automatizado (CI) definido: las verificaciones son locales y el despliegue lo hace `devops-mcp` o `probador-expo` según el proyecto.

@@ -25,6 +25,7 @@ Sitio **estático** (HTML + CSS + JS mínimo, sin compilar) que presenta VAIVÉN
 |---|---|---|
 | `spec-writer` | Redacta `spec.md`, `plan.md`, `tasks.md` y `memoria.md` | `specs/`, `memoria.md` |
 | `dev-web` | Implementa tareas de HTML/CSS/JS y textos | sitio |
+| `gestor-repo` | Crea ramas, commits y PR en GitHub por MCP; único agente con permiso para el MCP de GitHub; nunca fusiona ni borra | No |
 | `devops-mcp` | Crea y despliega el static site de Render por MCP; único agente con permiso para el MCP | No |
 | `revisor-constitucion` | Verifica conformidad (también del contenido legal contra la app) | nada |
 
@@ -58,3 +59,6 @@ Sin `npm install`: no hay dependencias.
 
 ## 8. Cierre de tarea
 1. `node scripts/check.mjs` sin errores. 2. Revisión visual a 360/768/1280 px. 3. Marcar `[x]` en `tasks.md`. 4. Anexar a `memoria.md` si hubo decisión. 5. Tarea final de la spec: despliegue por MCP con `@devops-mcp` (Art. XII).
+
+## Repositorio y PR (Art. XIII)
+- Una rama por spec (`spec/NNN-nombre`) y una PR por spec; `main` protegida. Solo `@gestor-repo` usa el MCP de GitHub (token `GITHUB_PERSONAL_ACCESS_TOKEN`); nunca fusiona ni borra: una persona revisa y fusiona. Nunca se suben secretos.

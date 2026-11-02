@@ -2,7 +2,7 @@
 
 - **Dueño:** MO-B · **Estado:** sin ejecutar · `[P]` = paralelizable
 - **Lo único humano (Art. XII):** registrarse en Render, crear `RENDER_API_KEY` y aprobar acciones; crear el static site, desplegar y verificar lo hace `devops-mcp` desde OpenCode.
-- **Ruta crítica:** T001–T008 deben terminar el **5 de nov** para completar la ficha de Google Play y empezar la prueba cerrada.
+- **Ruta crítica:** T001–T010 deben terminar el **5 de nov** para completar la ficha de Google Play y empezar la prueba cerrada.
 
 - [ ] **T001** Raíz del sitio y archivos de configuración
   - Archivos: `index.html` (provisional), `robots.txt`, `_headers`, `.gitignore`, `README.md`
@@ -52,23 +52,29 @@
   - Aceptación: `node scripts/check.mjs` sin errores; sitemap con las URL; revisión visual a 360/768/1280 px anotada
   - Refs: CA-02 · P-08
 
-- [ ] **T009** Despliegue por MCP y URL para la ficha
+- [ ] **T009** Repositorio en GitHub y MCP de GitHub (**persona** + `gestor-repo`)
+  - Archivos: `.gitignore`, `memoria.md` (solo anexar)
+  - Agente: — (la persona crea el repositorio, protege `main` y crea el token) + `gestor-repo` · Depende de: T001
+  - Aceptación: repositorio `vaiven-landing-page` creado en GitHub con `main` protegida (PR obligatoria, sin push directo ni force-push); `GITHUB_PERSONAL_ACCESS_TOKEN` (permisos mínimos, limitado a este repositorio) definido como variable del sistema y OpenCode reiniciado; `opencode mcp list` muestra `github` conectado; un agente de desarrollo rechaza una herramienta de GitHub y `gestor-repo` la ejecuta; `.gitignore` excluye `.env`, `*.pem` y claves; `gestor-repo` abre una PR de prueba sin secretos y una persona la revisa y la fusiona (Render consumirá este repositorio)
+  - Refs: Art. XIII
+
+- [ ] **T010** Despliegue por MCP y URL para la ficha
   - Archivos: `docs/publicacion.md`, `assets/js/config.js` y `sitemap.xml`/`canonical` con la URL real, `memoria.md` (solo anexar)
-  - Agente: `devops-mcp` (y `dev-web` para los archivos) · Depende de: T008
+  - Agente: `devops-mcp` (y `dev-web` para los archivos) · Depende de: T008, T009
   - Aceptación: `node scripts/check.mjs` en verde; `create_static_site` crea el sitio gratuito y `trigger_deploy` lo publica en un subdominio `onrender.com` (P-09); CA-01 y CA-06; URL de privacidad y de eliminación de cuenta anotadas en `memoria.md` y entregadas a quien llena la ficha de Play
   - Refs: RF-08
 
-- [ ] **T010** Revisión legal humana y conformidad
+- [ ] **T011** Revisión legal humana y conformidad
   - Archivos: `privacidad/index.html`, `terminos/index.html`, `eliminar-cuenta/index.html` (quitar la etiqueta de borrador), `memoria.md` (solo anexar)
-  - Agente: `revisor-constitucion` + **persona responsable** · Depende de: T009
+  - Agente: `revisor-constitucion` + **persona responsable** · Depende de: T010
   - Aceptación: una persona aprobó los textos y se quitó la etiqueta; correo y responsable reales; veredicto **CONFORME**; hito «Landing legal» marcado en el ROADMAP
   - Refs: RF-09 · Art. VI
 
-- [ ] **T011** Despliegue final por MCP
+- [ ] **T012** Despliegue final por MCP
   - Archivos: `memoria.md` (solo anexar)
-  - Agente: `devops-mcp` · Depende de: T010
+  - Agente: `devops-mcp` · Depende de: T011
   - Aceptación: `node scripts/check.mjs` en verde; `trigger_deploy` y espera; las páginas publicadas devuelven 200 sin la etiqueta de borrador; enlaces internos y encabezados de `_headers` verificados; URL anotada en `memoria.md`. **La spec L002 no empieza hasta que esta tarea pase.**
   - Refs: Art. XII.3
 
-| Total | 11 tareas |
+| Total | 12 tareas |
 |---|---|
