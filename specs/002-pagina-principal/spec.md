@@ -1,6 +1,6 @@
 # Spec L002 — Página principal informativa (landing)
 
-- **Dueño:** MO-B · **Prioridad:** P1 · **Ventana:** 2–9 nov (actualización final tras publicar la app) · **Depende de:** L001
+- **Dueño:** MO-B · **Prioridad:** P1 · **Ventana:** 9–16 nov (actualización final tras publicar la app) · **Depende de:** L001
 - **Constitución:** landing v1.1.0 · **Estado:** Borrador
 
 ## 1. Objetivo y por qué

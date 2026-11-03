@@ -25,7 +25,7 @@ Solo informa: no tiene formularios ni servicios. Los textos deben coincidir con 
 
 1. Define `RENDER_API_KEY` como variable de entorno del sistema y reinicia OpenCode; `opencode mcp list` debe mostrar `render`.
 2. Cada spec termina con «Despliegue»: `@devops-mcp` publica el static site `vaiven-landing` en Render y verifica las páginas. **La spec siguiente no empieza hasta que pase.**
-3. El origen que Render consume (repositorio o imagen) queda por definir al integrar el repositorio. Repositorio, ramas, revisión y pipeline: se integrarán de cero.
+3. Render consume el repositorio de GitHub de la landing. Una rama y una PR por spec con `main` protegida, por el MCP de GitHub y `@gestor-repo` (Art. XIII); sin pipeline automatizado.
 
 ## Cómo se usa con OpenCode
 
