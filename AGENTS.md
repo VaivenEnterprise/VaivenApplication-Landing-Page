@@ -58,3 +58,4 @@ Sin `npm install`: no hay dependencias.
 
 ## 8. Cierre de tarea
 1. `node scripts/check.mjs` sin errores. 2. Revisión visual a 360/768/1280 px. 3. Marcar `[x]` en `tasks.md`. 4. Anexar a `memoria.md` si hubo decisión. 5. Tarea final de la spec: despliegue por MCP con `@devops-mcp` (Art. XII).
+
