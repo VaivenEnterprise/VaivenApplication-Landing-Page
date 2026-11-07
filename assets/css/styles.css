@@ -1,0 +1,212 @@
+/* Tokens de diseño — VAIVÉN con paleta oficial e imagen de fondo */
+:root {
+  --color-texto: #3f3939;
+  --color-texto-claro: #666;
+  --color-acento: #ff6721;
+  --color-fondo: #ffffff;
+  --color-secundario: #3f3939;
+  --color-fondo-suave: #f5f0eb;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --font-titulo: "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  --font-cuerpo: "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --font-tamaño-base: 16px;
+  --font-tamaño-l: 32px;
+  --font-tamaño-xl: 48px;
+  --font-peso-normal: 400;
+  --font-peso-negrita: 700;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+}
+
+/* Reset y base */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: var(--font-tamaño-base); scroll-behavior: smooth; }
+body {
+  font-family: var(--font-cuerpo);
+  color: var(--color-texto);
+  background: var(--color-fondo);
+  line-height: 1.6;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+}
+.skip-link:focus { left: 0; top: 0; width: auto; height: auto; padding: var(--space-2); background: var(--color-acento); color: white; z-index: 9999; }
+
+/* Contenedor */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-3); }
+
+/* Header compacto con colores oficiales */
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  padding: 0 var(--space-3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-fondo);
+  border-bottom: 1px solid rgba(255,103,33,0.3);
+  z-index: 100;
+}
+.site-header .container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.logo { font-family: var(--font-titulo); font-weight: var(--font-peso-negrita); font-size: 1.6rem; color: var(--color-acento); text-decoration: none; }
+.btn-download {
+  display: inline-block;
+  background: var(--color-acento);
+  color: white;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: var(--font-peso-negrita);
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+}
+.btn-download:hover { background: #d4571e; transform: translateY(-1px); }
+
+/* Área principal hero con imagen de fondo */
+.hero-area { padding: var(--space-8) 0 0 0; max-width: 1200px; margin: 0 auto; position: relative; }
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.hero-text {
+  color: var(--color-texto);
+  max-width: 500px;
+}
+.hero-text h1 {
+  font-family: var(--font-titulo);
+  font-size: var(--font-tamaño-xl);
+  font-weight: var(--font-peso-negrita);
+  color: var(--color-acento);
+  line-height: 1.3;
+  margin: 0 0 var(--space-4);
+}
+.hero-text p {
+  color: var(--color-texto-claro);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0 0 var(--space-4);
+}
+.hero-text .btn-download {
+  display: inline-block;
+  background: var(--color-acento);
+  color: white;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: var(--font-peso-negrita);
+  font-size: 1.05rem;
+}
+
+/* Ilustración SVG superpuesta */
+.hero-illustration {
+  text-align: center;
+  max-width: 250px;
+}
+.hero-illustration svg {
+  max-width: 100%;
+  height: auto;
+  fill: var(--color-acento) !important;
+}
+
+/* Fraja inferior - 3 conceptos */
+.strip-concepts {
+  background: var(--color-secundario);
+  padding: var(--space-4) 0;
+  margin: var(--space-4) 0;
+}
+.strip-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.strip-concept {
+  text-align: center;
+  flex: 1;
+  min-width: 100px;
+}
+.strip-concept svg {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto var(--space-2);
+  fill: var(--color-acento);
+}
+.strip-concept span {
+  color: var(--color-texto);
+  font-size: 0.85rem;
+}
+
+/* Footer */
+.site-footer {
+  padding: var(--space-4) 0;
+  border-top: 1px solid rgba(255,103,33,0.3);
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+.site-footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.site-footer .footer-links {
+  display: flex;
+  gap: var(--space-2);
+}
+.site-footer a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+}
+.site-footer a:hover { text-decoration: underline; }
+.site-footer .copyright {
+  margin-top: var(--space-2);
+  text-align: center;
+  width: 100%;
+  color: rgba(255,255,255,0.7);
+}
+
+/* Responsive */
+@media (max-width: 48em) {
+  .site-header { height: 50px; padding: var(--space-2) var(--space-3); }
+  .site-header .container { flex-direction: column; gap: var(--space-3); }
+  .logo { font-size: 1.4rem; color: var(--color-acento); }
+  .btn-download { font-size: 0.85rem; padding: var(--space-1) var(--space-2); }
+  .hero-content { grid-template-columns: 1fr; gap: var(--space-4); max-width: none; }
+  .hero-text h1 { font-size: var(--font-tamaño-l); color: var(--color-acento); }
+  .hero-text p { font-size: 1rem; }
+  .strip-concepts { padding: var(--space-3) 0; }
+  .strip-content { gap: var(--space-3); }
+  .site-footer { padding: var(--space-3) 0; font-size: 0.8rem; }
+  .site-footer .container { gap: var(--space-3); }
+  .site-footer .footer-links { order: 2; width: 100%; justify-content: center; }
+  .site-footer .copyright { margin-top: var(--space-1); }
+}
