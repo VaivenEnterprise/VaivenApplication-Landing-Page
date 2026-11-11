@@ -7,26 +7,28 @@
   <title>Aviso de privacidad — VAIVÉN</title>
   <meta name="description" content="Aviso de privacidad de VAIVÉN: qué datos recopilamos, cómo los usamos, con quiénes los compartimos y cómo ejercer tus derechos ARCO.">
   <link rel="canonical" href="https://vaiven-landing.onrender.com/privacidad/">
-  <link rel="icon" type="image/png" href="/assets/img/icon.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
   <meta property="og:title" content="Aviso de privacidad — VAIVÉN">
-  <meta property="og:description" content="Aviso de privacidad de VAIVÉN">
+  <meta property="og:description" content="Aviso de privacidad de VAIVÉN: datos, uso, derechos ARCO y contacto.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vaiven-landing.onrender.com/privacidad/">
-  <link rel="stylesheet" href="/assets/css/legal.css">
+  <meta property="og:image" content="https://vaiven-landing.onrender.com/assets/img/og-image.png">
+  <meta property="og:locale" content="es_MX">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script type="module" src="/assets/js/site.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-  <header>
-    <a class="brand" href="/" aria-label="VAIVÉN, página principal">
-      <img src="/assets/img/logo.jpeg" width="637" height="649" alt="VAIVÉN — Las cosas van y vienen">
-    </a>
+  <header class="site-header">
+    <a class="brand" href="/"><img src="/assets/img/logo.svg" width="119" height="32" alt="VAIVÉN, ir al inicio"></a>
   </header>
 
   <main id="contenido">
-    <article>
+    <article class="legal">
       <p class="legal-badge">Borrador pendiente de revisión legal</p>
-      <p class="legal-updated">Última actualización: <?php echo date('F d, Y'); ?></p>
+      <p class="legal-updated" data-legal-updated>Última actualización: 6 de noviembre de 2026</p>
       <h1>Aviso de privacidad</h1>
 
       <section>
@@ -36,72 +38,74 @@
 
       <section>
         <h2>2. Datos que recopilamos</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Dato</th>
-              <th>Para qué se usa</th>
-              <th>Obligatorio</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Correo electrónico</td>
-              <td>Identificación y envío de notificaciones sobre reservas</td>
-              <td>Sí</td>
-            </tr>
-            <tr>
-              <td>Nombre</td>
-              <td>Trato personal y identificación en la plataforma</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td>Teléfono opcional</td>
-              <td>Contacto directo entre las partes</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td>Contraseña (solo como huella cifrada)</td>
-              <td>Acceso a la cuenta de la persona usuaria</td>
-              <td>Sí</td>
-            </tr>
-            <tr>
-              <td>Ubicación aproximada</td>
-              <td>Mostrar objetos cercanos a la persona solicitante</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td>Fotos de objetos y de evidencia</td>
-              <td>Identificación y validación de objetos en reservas</td>
-              <td>Sí</td>
-            </tr>
-            <tr>
-              <td>Mensajes y reservas</td>
-              <td>Gestión de la comunicación y confirmación de encuentros</td>
-              <td>Sí</td>
-            </tr>
-            <tr>
-              <td>Calificaciones</td>
-              <td>Evaluación del desempeño de las partes</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td>Reportes e incidencias</td>
-              <td>Resolución de conflictos entre las partes</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td>Token de notificaciones</td>
-              <td>Enviar alertas y actualizaciones sobre reservas</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td>Datos técnicos de peticiones</td>
-              <td>Seguridad, depuración y mejora del servicio</td>
-              <td>Sí</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Dato</th>
+                <th scope="col">Para qué se usa</th>
+                <th scope="col">Obligatorio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Correo electrónico</td>
+                <td>Identificación y envío de notificaciones sobre reservas</td>
+                <td>Sí</td>
+              </tr>
+              <tr>
+                <td>Nombre</td>
+                <td>Trato personal e identificación en la plataforma</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Teléfono opcional</td>
+                <td>Contacto directo entre las partes</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Contraseña (solo como huella cifrada)</td>
+                <td>Acceso a la cuenta de la persona usuaria</td>
+                <td>Sí</td>
+              </tr>
+              <tr>
+                <td>Ubicación aproximada</td>
+                <td>Mostrar objetos cercanos a la persona solicitante</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Fotos de objetos y de evidencia</td>
+                <td>Identificación y validación de objetos en reservas</td>
+                <td>Sí</td>
+              </tr>
+              <tr>
+                <td>Mensajes y reservas</td>
+                <td>Gestión de la comunicación y confirmación de encuentros</td>
+                <td>Sí</td>
+              </tr>
+              <tr>
+                <td>Calificaciones</td>
+                <td>Evaluación del desempeño de las partes</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Reportes e incidencias</td>
+                <td>Resolución de conflictos entre las partes</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Token de notificaciones</td>
+                <td>Enviar alertas y actualizaciones sobre reservas</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Datos técnicos de peticiones</td>
+                <td>Seguridad, depuración y mejora del servicio</td>
+                <td>Sí</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section>
@@ -113,10 +117,10 @@
         <h2>4. Con quiénes los compartimos</h2>
         <p>Los datos pueden compartirse con los siguientes proveedores técnicos:</p>
         <ul>
-          <li>Base de datos: Almacenamiento seguro de información de personas usuaria y reservas.</li>
-          <li>Almacenamiento de imágenes: Guardado de fotos de objetos y evidencia asociada a reservas.</li>
-          <li>Hosting: Infraestructura para la operación del sitio y la app.</li>
-          <li>Servicio de notificaciones: Envío de correos y alertas push sobre reservas y actualizaciones.</li>
+          <li>Base de datos: almacenamiento seguro de información de personas usuarias y reservas.</li>
+          <li>Almacenamiento de imágenes: guardado de fotos de objetos y evidencia asociada a reservas.</li>
+          <li>Hosting: infraestructura para la operación del sitio y la app.</li>
+          <li>Servicio de notificaciones: envío de correos y alertas push sobre reservas y actualizaciones.</li>
         </ul>
         <p>También compartimos datos con la contraparte de una reserva (fotos de objetos, calificaciones, mensajes) para cumplir con el propósito de la plataforma, manteniendo siempre la protección de datos según la ley aplicable.</p>
       </section>
@@ -128,19 +132,19 @@
 
       <section>
         <h2>6. Tus derechos (ARCO) y cómo ejercerlos</h2>
-        <p>Según la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares</strong> (LPDPPP), puedes ejercer tus derechos de:</p>
+        <p>Según la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares</strong>, puedes ejercer tus derechos de:</p>
         <ul>
-          <li><strong>Acceso:</strong> Solicitar una copia de tus datos personales que tratamos.</li>
-          <li><strong>Rectificación:</strong> Solicitar la corrección de tus datos personales inexactos o incompletos.</li>
-          <li><strong>Cancelación:</strong> Solicitar el borrado de tus datos personales.</li>
-          <li><strong>Oposición:</strong> Oponerte al tratamiento de tus datos para fines específicos.</li>
+          <li><strong>Acceso:</strong> solicitar una copia de los datos personales que tratamos.</li>
+          <li><strong>Rectificación:</strong> solicitar la corrección de tus datos personales inexactos o incompletos.</li>
+          <li><strong>Cancelación:</strong> solicitar el borrado de tus datos personales.</li>
+          <li><strong>Oposición:</strong> oponerte al tratamiento de tus datos para fines específicos.</li>
         </ul>
-        <p>Para ejercer estos derechos, envía un correo a <a href="mailto:vaivenedeltrabajo@gmail.com">vaivenedeltrabajo@gmail.com</a>. Respondemos en un plazo de 20 días hábiles.</p>
+        <p>Para ejercer estos derechos, envía un correo a <a href="mailto:vaivenedeltrabajo@gmail.com" data-support-link data-support-email>vaivenedeltrabajo@gmail.com</a>. Respondemos en un plazo de 20 días hábiles.</p>
       </section>
 
       <section>
         <h2>7. Seguridad</h2>
-        <p>Tomamos medidas de seguridad técnicas y organizativas para proteger tus datos personales contra destrucción accidental, pérdida accidental, alteración, divulgación no autorizada o acceso no autorizado. Sin embargo, ninguna transmisión de datos a través de Internet o almacenamiento electrónico es 100% seguro.</p>
+        <p>Tomamos medidas de seguridad técnicas y organizativas para proteger tus datos personales contra destrucción accidental, pérdida accidental, alteración, divulgación no autorizada o acceso no autorizado. Sin embargo, ninguna transmisión de datos a través de Internet o almacenamiento electrónico es completamente segura.</p>
       </section>
 
       <section>
@@ -150,36 +154,24 @@
 
       <section>
         <h2>9. Cambios al aviso</h2>
-        <p>Nos reservamos el derecho de actualizar este aviso de privacidad en cualquier momento. Te notificaremos sobre cambios significativos publicando la nueva aviso en esta página y, si es necesario, te informaremos por correo electrónico.</p>
+        <p>Nos reservamos el derecho de actualizar este aviso de privacidad en cualquier momento. Te notificaremos los cambios significativos publicando el nuevo aviso en esta página y, si es necesario, te informaremos por correo electrónico.</p>
       </section>
 
       <section>
         <h2>10. Contacto</h2>
-        <p>Si tienes alguna pregunta o comentario sobre este aviso de privacidad, contáctanos en <a href="mailto:vaivenedeltrabajo@gmail.com">vaivenedeltrabajo@gmail.com</a>.</p>
+        <p>Si tienes alguna pregunta o comentario sobre este aviso de privacidad, contáctanos en <a href="mailto:vaivenedeltrabajo@gmail.com" data-support-link data-support-email>vaivenedeltrabajo@gmail.com</a>.</p>
       </section>
     </article>
-
-    <nav class="social-buttons" aria-label="Síguenos en redes sociales">
-      <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en Facebook">
-        <img src="/assets/img/social-facebook.svg" alt="Facebook">
-      </a>
-      <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en X (Twitter)">
-        <img src="/assets/img/social-x.svg" alt="X (Twitter)">
-      </a>
-      <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en YouTube">
-        <img src="/assets/img/social-youtube.svg" alt="YouTube">
-      </a>
-    </nav>
   </main>
 
-  <footer>
+  <footer class="site-footer">
     <nav class="footer-links" aria-label="Enlaces legales y de contacto">
       <a href="/privacidad/">Privacidad</a>
       <a href="/terminos/">Términos y condiciones</a>
       <a href="/eliminar-cuenta/">Eliminar cuenta</a>
-      <a href="mailto:vaivenedeltrabajo@gmail.com">Contacto</a>
+      <a href="mailto:vaivenedeltrabajo@gmail.com" data-support-link>Contacto</a>
     </nav>
-    <span class="copyright" data-support-email>© 2026 VAIVÉN. Borrador pendiente de revisión legal.</span>
+    <p class="copyright">© 2026 VAIVÉN</p>
   </footer>
 </body>
 </html>
