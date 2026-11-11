@@ -2,6 +2,16 @@ import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 
+// Quita comentarios HTML sin regex y repite hasta que no quede ninguno (CodeQL js/incomplete-multi-character-sanitization).
+function stripHtmlComments(value){
+  let out=String(value);
+  for(;;){
+    const start=out.indexOf('<!--');
+    if(start===-1) return out;
+    const end=out.indexOf('-->',start+4);
+    out=end===-1?out.slice(0,start):out.slice(0,start)+out.slice(end+3);
+  }
+}
 export function validatePR(pr) {
   const errors = [];
   const head = pr.head.ref, base = pr.base.ref;
@@ -25,7 +35,7 @@ export function validatePR(pr) {
   // Los titulos son texto libre; nunca se ejecutan como comandos.
   if (!bot) for (const heading of ['Resumen','Validación','Seguridad']) {
     const section = (pr.body || '').match(new RegExp('^## ' + heading + '\\s*\\n([\\s\\S]*?)(?=^## |$(?![\\s\\S]))','m'));
-    const text = section?.[1].replace(/<!--[\s\S]*?-->/g,'').trim();
+    const text = stripHtmlComments(section?.[1] ?? '').trim();
     if (!text || text.length < 8) errors.push('Completa la seccion ' + heading + ' del PR.');
   }
   return errors;
