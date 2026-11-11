@@ -219,3 +219,13 @@ La persona responsable entregó `vaiven-diseno-landing.md` (tokens de la app mó
 
 - Verificación: `check.mjs` verde; sin desplazamiento en ambos temas en 1920×1080, 1280×720, 1024×600, 768×1024, 390×844, 360×640, 320×568 y 915×412; contraste en oscuro: texto 14.6–15.4:1, texto suave 7.7–8.7:1, acento 7.6:1, píldoras 8.6–9.8:1.
 - ROADMAP: L002 pasa a 22 tareas (total 408); replicar en los otros dos repositorios.
+
+## Aprobaciones y origen del fondo — 2026-11-11 [spec-writer · revisor-constitucion]
+
+Respuestas de la persona responsable:
+- **Enmiendas 1.3.0 y 1.4.0 aprobadas** («estamos conformes con todo»): íconos de redes sociales, portada en una pantalla, fondo propio, tipografía Plus Jakarta Sans alojada en el sitio y sistema de diseño de la app. Se marcan L002-T018 y T021.
+- **Origen y licencia de `assets/img/fondo.webp` (Art. V.4, D-016):** imagen **generada por inteligencia artificial**, aportada por la persona responsable; no es una fotografía real ni viene de un banco de imágenes. Las personas que aparecen no existen. Los términos de uso de la herramienta generadora (nombre y condiciones de uso comercial) no se indicaron: conviene anotarlos aquí. Se marca L002-T004.
+- **Pendientes por decisión de la persona:** URL de los perfiles sociales (L002-T016) y revisión legal humana de los textos (L001-T011).
+- **Revisión visual (L002-T009):** la persona reporta «un par de errores nada graves» de UI/UX en la responsividad móvil, sin detallarlos; se atienden cuando los indique o los encuentre `dev-web`.
+
+Veredicto actualizado de conformidad (sobre el de esta misma fecha): Art. V.4 ahora **cumple** con el origen anotado (falta el nombre de la herramienta de IA); las enmiendas 1.3.0 y 1.4.0 están aprobadas. Siguen abiertos CA-09 (no se pudo contrastar con las specs de backend y móvil), la revisión legal (L001-T011) y T009/T010 de L002. L002-T011 sigue sin marcar.
