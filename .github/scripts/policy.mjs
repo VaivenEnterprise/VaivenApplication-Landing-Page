@@ -5,13 +5,23 @@ import {pathToFileURL} from 'node:url';
 export function validatePR(pr) {
   const errors = [];
   const head = pr.head.ref, base = pr.base.ref;
-  const branch = /^(feat|feature|fix|bugfix|hotfix|chore|ci|docs|refactor|test|perf|security|release|build|revert)\/SCRUM-\d{2,}-SPEC-\d{2,}-T\d{3,}$/;
-  if (!['main','develop'].includes(base)) errors.push('El destino debe ser develop o main.');
+  const branch = /^(feat|feature|fix|bugfix|hotfix|chore|ci|docs|refactor|test|perf|security|release|build|revert)\/(?:SCRUM-\d{2,}-)?SPEC-\d{2,}-T\d{3,}$/;
+  const phase = /^(feat|feature|fix|bugfix|hotfix|chore|ci|docs|refactor|test|perf|security|release|build|revert)\/(?:SCRUM-\d{2,}-)?SPEC-\d{2,}-Fase-\d+$/;
+  const spec = /^spec\/(?:SCRUM-\d{2,}-)?SPEC-(\d{2,})$/;
+  const targetSpec = base.match(spec);
+  if (!['main','develop'].includes(base) && !targetSpec)
+    errors.push('El destino debe ser develop, main o spec/SPEC-02.');
   const bot = pr.user?.login === 'dependabot[bot]' && head.startsWith('dependabot/');
   if (base === 'main' && head !== 'develop' && !(head.startsWith('hotfix/') && branch.test(head)))
-    errors.push('main solo recibe develop o hotfix/SCRUM-01-SPEC-01-T001.');
-  if (base === 'develop' && head !== 'main' && !branch.test(head) && !bot)
-    errors.push('Usa tipo/SCRUM-01-SPEC-01-T001: tipo en minusculas, SCRUM/SPEC/T en mayusculas y todos los numeros.');
+    errors.push('main solo recibe develop o hotfix/SPEC-01-T001.');
+  if (base === 'develop' && head !== 'main' && !branch.test(head) && !phase.test(head) && !spec.test(head) && !bot)
+    errors.push('Usa spec/SPEC-01 o tipo/SPEC-01-T001 o tipo/SPEC-01-Fase-3: tipo en minusculas, SCRUM/SPEC/T en mayusculas y todos los numeros.');
+  if (targetSpec && head !== 'develop') {
+    const taskSpec = (branch.test(head) || phase.test(head)) && head.match(/(?:\/|-)SPEC-(\d+)-(?:T\d+|Fase-\d+)$/);
+    // Los tickets SCRUM pueden diferir entre tareas; SPEC identifica la integracion.
+    if (!taskSpec || BigInt(taskSpec[1]) !== BigInt(targetSpec[1]))
+      errors.push('La rama de spec solo recibe tareas o fases de la misma SPEC o sincronizacion desde develop.');
+  }
   // Los titulos son texto libre; nunca se ejecutan como comandos.
   if (!bot) for (const heading of ['Resumen','Validación','Seguridad']) {
     const section = (pr.body || '').match(new RegExp('^## ' + heading + '\\s*\\n([\\s\\S]*?)(?=^## |$(?![\\s\\S]))','m'));

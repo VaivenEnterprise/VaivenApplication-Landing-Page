@@ -63,4 +63,6 @@ Sin `npm install`: no hay dependencias.
 1. `node scripts/check.mjs` sin errores. 2. Revisión visual a 360/768/1280 px. 3. Marcar `[x]` en `tasks.md`. 4. Anexar a `memoria.md` si hubo decisión. 5. Tarea final de la spec: despliegue por MCP con `@devops-mcp` (Art. XII).
 
 ## Repositorio y PR (Art. XIII)
-- Una rama por spec (`spec/NNN-nombre`) y una PR por spec; `main` protegida. Solo `@gestor-repo` usa el MCP de GitHub (token `GITHUB_PERSONAL_ACCESS_TOKEN`); nunca fusiona ni borra: una persona revisa y fusiona. Nunca se suben secretos.
+- Una rama de integracion por spec (`spec/SPEC-NN`), creada desde `develop`: implementar sus tareas ahi o en ramas `tipo/SPEC-NN-TNNN` con PR hacia la misma SPEC. Al completar la spec, PR hacia `develop`; publicar con PR `develop` -> `main`. Se conserva tarea -> `develop`. El segmento `SCRUM-NN-` es opcional tras la barra en ambos formatos; los nombres anteriores siguen siendo validos. Titulos de PR libres; completar Resumen, Validación y Seguridad. Solo `@gestor-repo` usa el MCP de GitHub; nunca fusiona ni borra: una persona revisa y fusiona. Nunca se suben secretos.
+
+- Tambien se admiten ramas por fase `tipo/SPEC-NN-Fase-N` (ejemplo: `feat/SPEC-02-Fase-3`, con SCRUM opcional), creadas desde la spec y con PR hacia esa misma SPEC o hacia develop. Implementar sus tareas una por una. No enviar fases directamente a main. Ver `docs/devsecops.md`.
