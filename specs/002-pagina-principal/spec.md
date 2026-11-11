@@ -1,7 +1,7 @@
 # Spec L002 — Página principal informativa (landing)
 
 - **Dueño:** MO-B · **Prioridad:** P1 · **Ventana:** 9–16 nov (actualización final tras publicar la app) · **Depende de:** L001
-- **Constitución:** landing v1.3.0 (enmienda pendiente de aprobación de una persona) · **Estado:** Borrador
+- **Constitución:** landing v1.4.0 (enmiendas 1.3.0 y 1.4.0 aprobadas el 2026-11-11) · **Estado:** Borrador
 - **Reescrita el 2026-11-11 (one-screen).** La versión anterior describía una landing de varias secciones con navegación por anclas. Esa estructura se descartó en las decisiones D-013 y D-014, pero la spec nunca se actualizó. Esta versión describe el sitio que existe y manda sobre la anterior.
 - **Actualizada el 2026-11-11 (fondo propio, botón destacado y redes).** Cambios pedidos por la persona responsable: (1) la imagen de fondo pasa a ser una fotografía aportada por ella (`assets/img/fondo.webp`); (2) la portada debe verse **completa de entrada, sin desplazamiento**, también en teléfonos; (3) el botón de Google Play se **destaca** como llamada principal; (4) se agregan los **íconos de Facebook, Instagram, X, YouTube y TikTok**. El punto 4 contradecía el Art. V.3 y esta misma spec (§5, «Fuera de alcance»): por eso se enmienda la constitución a **v1.3.0** y se retira esa exclusión.
 
@@ -92,3 +92,5 @@ Además, por D-013/D-014: **navegación por secciones y anclas**, secciones larg
 - [NEEDS CLARIFICATION: origen y licencia de `assets/img/fondo.webp` (fotografía que aportó la persona responsable el 2026-11-11 y que sustituye a `Fondo.jpeg`). El Art. V.4 pide anotar origen y licencia en `memoria.md`; el agente no puede verificarlos. Si no se puede acreditar (o si fue generada con IA y se quiere avisarlo), hay que anotarlo o sustituirla.]
 - [NEEDS CLARIFICATION: URL de los perfiles de VAIVÉN en Facebook, Instagram, X, YouTube y TikTok. Hoy están vacías en `SITE.social` y los íconos se ven sin enlace. No se inventan cuentas.]
 - [NEEDS CLARIFICATION: aprobación humana de la enmienda 1.3.0 de la constitución (Art. II.1, V.3, V.4, VII y VIII.7).]
+
+> **Resuelto (2026-11-11):** la paleta, los radios, las sombras y la tipografía de la portada y de las páginas legales son los del sistema de diseño de la app (`vaiven-diseno-landing.md`): primario `#C24E24`, fondo `#FAF6F0`, tinta `#2A1F1A`, Plus Jakarta Sans. Sustituye a las dos paletas anteriores de esta pregunta. El logotipo conserva sus colores propios. Ver P-23.

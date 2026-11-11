@@ -33,7 +33,7 @@ Cabecera y pie salen de `docs/plantilla.html` (copiar tal cual).
 ## CSS
 - Variables en `:root` (`--color-*`, `--space-*`, `--radius-*`, `--font-*`); nunca valores literales en reglas.
 - Mobile-first: reglas base para 320 px y `@media (min-width: 48em)` / `(min-width: 64em)`.
-- Tipografía: `system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`.
+- Tipografía: Plus Jakarta Sans alojada en `assets/fonts/` (enmienda 1.4.0), con `system-ui, -apple-system, "Segoe UI", Roboto, sans-serif` de respaldo. Tokens con los nombres de `vaiven-diseno-landing.md` (`--primary`, `--bg`, `--ink`, `--radius-*`, `--shadow-*`).
 - Foco visible con `:focus-visible`; respetar `prefers-reduced-motion` y `prefers-color-scheme` (opcional).
 - Nombres de clase por bloque (`.hero`, `.steps`, `.faq`), sin ids para estilos.
 
