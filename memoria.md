@@ -168,3 +168,54 @@ La persona responsable entregó el logotipo (JPEG 2752×1536: emblema de dos fle
 - `check.mjs` pasa en verde; la portada sigue sin desplazamiento en 1920×1080, 1280×720, 768×1024, 360×640 y 320×568.
 - **Pendiente:** si existe el archivo original del diseñador (SVG/AI), reemplazar la vectorización: los bordes son una aproximación de un JPEG. La paleta del logotipo coincide con D-015 (`#ff6721` / `#3f3939`) y difiere del sitio (`#f36a21` / `#1c1715`): sigue como pregunta abierta de la spec L002.
 
+## Estado tras el despliegue de la portada — 2026-11-11 [spec-writer]
+
+La landing está publicada desde `main` (Render). Cambios de documentación de esta fecha:
+- `ROADMAP.md` (§ conteo de tareas): L002 pasa de 11 a **19 tareas** (T001–T019 de `specs/002-pagina-principal/tasks.md`) y el total general de 397 a **405**. Es una copia compartida: hay que replicar el ajuste en `vaiven-backend` y `vaiven-frontend`.
+- Siguen abiertos, y no los resuelve el agente: origen y licencia de `fondo.webp` (D-016), revisión legal de privacidad/términos/eliminación (L001-T011), URL de los cinco perfiles (L002-T016), insignia oficial de Play y `playUrl` (T007, T012), enmienda 1.3.0 (T018), cabeceras de `_headers` en Render y Lighthouse sobre el sitio desplegado (T010).
+- Auditoría posterior, a petición de la persona responsable: se marcaron L001-T001 a T008 y L002-T001, T002, T003, T005, T006, T014, T015, T017 y T019 (verificadas con `check.mjs` y el contenido del repositorio). Siguen abiertas L001-T009 a T012 (sin evidencia verificable de la protección de `main`, de `docs/publicacion.md` ni de la revisión legal) y el resto de L002.
+
+## Veredicto de conformidad de la portada — 2026-11-11 [revisor-constitucion]
+
+Alcance: `index.html`, `assets/`, `_headers` frente a la constitución v1.3.0 (Art. II, III, V, VII, VIII) y CA-09.
+
+| Artículo | Resultado | Evidencia |
+|---|---|---|
+| II (solo información) | Cumple | Sin `<form>` en ninguna página; sin registro, pagos ni paneles; solo Google Play (sin App Store); contacto por `mailto:`. |
+| III (stack mínimo) | Cumple con nota | Un CSS de 16 KB, JS de 2.6 KB, sin dependencias. La tabla del Art. III describe el JS como «menú móvil y enlace a Google Play»; hoy también activa los enlaces de redes, que solo ampara la enmienda 1.3.0 (pendiente). |
+| V.1–V.2, V.5 (contenido) | Cumple | Español de México; sin cifras, reseñas ni comparaciones. «Comparte / Encuentra / Conecta» y «presta, encuentra» corresponden a lo descrito en `VAIVEN_Idea_y_Objetivo.pdf` (publicar, búsqueda, chat). |
+| V.3 (marcas de terceros) | Cumple, sujeto a 1.3.0 | Solo `social.svg` (Simple Icons, CC0); el botón de Play es propio, de texto. Los íconos sociales dependen de la enmienda 1.3.0. |
+| **V.4 (fotografía de fondo)** | **No cumple** | `fondo.webp` no tiene origen ni licencia anotados en `memoria.md` (D-016 lo marca «sin verificar»). |
+| VII (privacidad) | Cumple | Sin cookies ni analítica; ningún recurso externo; enlaces externos con `rel="noopener noreferrer"`, `https` y dominio de la red (`check.mjs`). `_headers` con CSP `default-src 'self'`. |
+| VIII (accesibilidad y rendimiento) | Cumple | Un `h1`, `lang="es-MX"`, `alt`, objetivos de 44 px, una sola pantalla medida en Chrome real, Lighthouse local 100×4, imágenes ≤ 150 KB. Falta repetirlo en el sitio publicado y en dispositivos reales (L002-T009, T010). |
+| CA-09 (cada dato existe en las specs) | Parcial | Verificado contra el documento de idea y objetivo. Las specs de `vaiven-backend` y `vaiven-frontend` no están en este repositorio y no se pudieron contrastar. |
+
+**Veredicto: NO CONFORME todavía.** Para pasar a CONFORME: (1) anotar origen y licencia de `fondo.webp` o sustituirla (Art. V.4); (2) que una persona apruebe la enmienda 1.3.0 (L002-T018); (3) contrastar CA-09 con las specs de backend y móvil. Por eso L002-T011 y L002-T013 siguen sin marcar.
+
+## Tareas por MCP marcadas — 2026-11-11 [spec-writer]
+
+Por declaración de la persona responsable, las tareas de GitHub y Render ya se ejecutaron en OpenCode con los MCP (`gestor-repo`, `devops-mcp`) y se marcaron: L001-T009, L001-T010, L001-T012 y L002-T013. La evidencia vive en OpenCode, no en este repositorio.
+- **Inconsistencia a resolver:** L001-T012 y L002-T013 piden páginas publicadas sin la etiqueta de borrador y el botón de Play con la URL real, y hoy siguen con la etiqueta (L001-T011 abierta) y sin `playUrl`. Se marcaron por lo declarado; conviene repetir su verificación cuando T011 y T012 de L002 cierren y anotar la URL publicada aquí.
+
+## Sistema de diseño de la app en la landing — 2026-11-11 [dev-web · spec-writer · revisor-constitucion]
+
+La persona responsable entregó `vaiven-diseno-landing.md` (tokens de la app móvil) y pidió que la landing sea consistente con él.
+
+| ID | Fecha | Decisión | Fundamento |
+|---|---|---|---|
+| D-021 | 2026-11-11 | La portada y las páginas legales usan los tokens del documento: tema claro (`#FAF6F0`), primario `#C24E24`, tinta `#2A1F1A`, radios 8/14/20/28, sombras con tinte terracota y Plus Jakarta Sans alojada en `assets/fonts/` (27 KB, SIL OFL). **Reemplaza** las paletas `#ff6721/#3f3939` (D-015) y `#f36a21/#1c1715`: se cierra esa pregunta abierta. El logotipo conserva sus colores. | Pedido de la persona; enmienda 1.4.0 (pendiente de aprobación) |
+| D-022 | 2026-11-11 | **No** se agregan las secciones 2–6 de la estructura sugerida del documento (cómo funciona, modalidades, capturas, confianza, llamada final): chocan con la portada de una sola pantalla (Art. VIII.7, pedida antes por la persona) y con el Art. II. Se mantiene el titular «Las cosas van y vienen.» (lema del logotipo) en lugar de «Presta y renta objetos cerca de ti». | Art. VIII.7; pedido previo |
+
+- Excepciones documentadas: el texto corrido baja de 16 px a 15 px en teléfonos de menos de 620 px de alto y a 14 px a 320×568, para que todo siga cabiendo sin desplazamiento. Sin enlace, el botón de Google Play no usa el estilo «deshabilitado» del documento (contraste 4.3:1 insuficiente): usa `primarySoft` con borde `primary`.
+- Verificación: `check.mjs` verde; sin desplazamiento en 1920×1080, 1366×768, 1280×720, 1280×600, 1024×768, 1024×600, 768×1024, 414×896, 390×844, 390×664, 375×667, 360×740, 360×640, 320×568 y 915×412 (Chrome real); contrastes: botón 4.53–5.88:1, tinta sobre degradado 10.6–15:1, píldoras 5.5–6.4:1, pie 5.2:1.
+- Pendiente de la persona: aprobar la enmienda 1.4.0 (T021); repetir Lighthouse sobre el sitio desplegado.
+- ROADMAP: L002 pasa a 21 tareas (total 407); replicar en los otros dos repositorios.
+
+## Tema claro u oscuro — 2026-11-11 [dev-web]
+
+| ID | Fecha | Decisión | Fundamento |
+|---|---|---|---|
+| D-023 | 2026-11-11 | La landing sigue el tema del sistema (`prefers-color-scheme`). El documento de diseño solo define el tema claro: los valores oscuros (`#1C1715`, `#2A221E`, `#F6EDE6`, acento `#FF8A5B`…) son una **propuesta** de `dev-web`, derivada de los mismos roles y de la paleta oscura anterior del sitio. Si la persona prefiere otros, se cambian solo en el bloque `@media (prefers-color-scheme: dark)` de `styles.css`. | Pedido de la persona; P-24 |
+
+- Verificación: `check.mjs` verde; sin desplazamiento en ambos temas en 1920×1080, 1280×720, 1024×600, 768×1024, 390×844, 360×640, 320×568 y 915×412; contraste en oscuro: texto 14.6–15.4:1, texto suave 7.7–8.7:1, acento 7.6:1, píldoras 8.6–9.8:1.
+- ROADMAP: L002 pasa a 22 tareas (total 408); replicar en los otros dos repositorios.
