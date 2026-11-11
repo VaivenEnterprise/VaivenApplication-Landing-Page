@@ -2,308 +2,413 @@
 <html lang="es-MX">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#25201e">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1c1715">
   <title>VAIVÉN — Las cosas van y vienen</title>
   <meta name="description" content="Comparte, presta y encuentra objetos con personas de tu comunidad. Las cosas van y vienen.">
   <link rel="canonical" href="https://vaiven-landing.onrender.com/">
+  <link rel="icon" type="image/png" href="assets/img/icon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
   <meta property="og:title" content="VAIVÉN — Las cosas van y vienen">
   <meta property="og:description" content="Comparte, presta y encuentra objetos con personas de tu comunidad.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vaiven-landing.onrender.com/">
-  <meta property="og:image" content="/assets/img/fondo.jpeg">
+  <meta property="og:image" content="https://vaiven-landing.onrender.com/assets/img/fondo.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       color-scheme: dark;
       --orange: #f36a21;
-      --ink: #25201e;
+      --orange-soft: #ff8a4b;
+      --orange-pale: #ffd0b8;
+      --ink: #1c1715;
       --white: #fff;
-      --muted: rgba(255,255,255,.82);
+      --muted: rgba(255, 255, 255, .82);
+      --line: rgba(255, 255, 255, .18);
+
+      /* Margen lateral único: header, texto y footer quedan siempre alineados.
+         En pantallas muy anchas el contenido se centra en un máx. de 1320px. */
+      --edge: max(clamp(20px, 5vw, 72px), calc((100% - 1320px) / 2));
     }
 
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
 
-    html, body { margin: 0; min-height: 100%; }
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      background: var(--ink);
+    }
 
     body {
-      min-height: 100svh;
+      margin: 0;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
+      min-height: 100dvh;
       color: var(--white);
       background: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
 
+    img { display: block; max-width: 100%; }
+
+    /* ───────── Estructura general ───────── */
     .page {
       position: relative;
       isolation: isolate;
       display: flex;
-      flex: 1;
-      min-height: 100svh;
       flex-direction: column;
+      min-height: 100vh;
+      min-height: 100dvh;
       overflow: hidden;
-      background-image:
-        linear-gradient(90deg, rgba(25,20,18,.88) 0%, rgba(25,20,18,.68) 38%, rgba(25,20,18,.12) 78%),
-        linear-gradient(0deg, rgba(20,16,14,.62) 0%, transparent 34%),
-        url("assets/img/fondo.jpeg");
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
     }
 
+    /* ───────── Header ───────── */
     .header {
-      position: relative;
-      z-index: 1;
-      width: min(1440px, 100%);
-      margin: 0 auto;
-      padding: 24px clamp(20px, 5vw, 72px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
+      position: absolute;
+      inset: 0 0 auto 0;
+      z-index: 3;
+      padding: 24px var(--edge);
+      padding-top: max(24px, env(safe-area-inset-top));
     }
 
     .brand {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: clamp(142px, 16vw, 190px);
-      padding: 5px 10px;
-      overflow: hidden;
-      border-radius: 13px;
+      display: inline-block;
+      padding: 7px;
+      border-radius: 18px;
       background: #fff;
-      box-shadow: 0 8px 28px rgba(0,0,0,.16);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, .28);
+      transition: transform .2s ease;
+    }
+
+    .brand:hover { transform: translateY(-2px); }
+
+    .brand:focus-visible {
+      outline: 3px solid var(--orange-soft);
+      outline-offset: 3px;
     }
 
     .brand img {
-      display: block;
-      width: 100%;
-      height: auto;
-      object-fit: contain;
+      height: clamp(64px, 7vw, 84px);
+      width: auto;
+      border-radius: 12px;
     }
 
-    .availability {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 11px 17px;
-      border: 1px solid rgba(255,255,255,.55);
-      border-radius: 999px;
-      background: rgba(32,26,23,.34);
-      color: #fff;
-      font-size: .88rem;
-      font-weight: 650;
-      letter-spacing: .01em;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      white-space: nowrap;
-    }
-
-    .availability::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--orange);
-      box-shadow: 0 0 0 4px rgba(243,106,33,.18);
-    }
-
-    main {
+    /* ───────── Hero ───────── */
+    .hero {
       position: relative;
-      z-index: 1;
-      width: min(1440px, 100%);
       flex: 1;
-      margin: 0 auto;
-      padding: 28px clamp(20px, 8vw, 116px) 48px;
       display: flex;
       align-items: center;
+      padding: 150px var(--edge) 64px;
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0 0 0 auto;
+      z-index: -1;
+      width: 58%;
+      /* La foto se funde con el fondo oscuro en el borde izquierdo. */
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 34%);
+              mask-image: linear-gradient(90deg, transparent 0, #000 34%);
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 62% center;
+    }
+
+    /* Oscurecimiento sutil para que la foto no compita con el texto. */
+    .hero-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(28, 23, 21, .55) 0%, transparent 38%);
+      pointer-events: none;
     }
 
     .hero-copy {
-      width: min(650px, 58%);
-      padding-bottom: 22px;
+      width: min(600px, 58%);
+      animation: rise .7s cubic-bezier(.2, .7, .2, 1) both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: none; }
     }
 
     .eyebrow {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       margin: 0 0 22px;
-      color: #ffd0b8;
+      color: var(--orange-pale);
       font-size: .78rem;
-      font-weight: 750;
-      letter-spacing: .19em;
+      font-weight: 700;
+      letter-spacing: .18em;
       text-transform: uppercase;
     }
 
     .eyebrow::before {
       content: "";
+      flex: none;
       width: 34px;
       height: 2px;
       background: var(--orange);
     }
 
     h1 {
-      max-width: 680px;
       margin: 0;
-      font-size: clamp(3rem, 6.1vw, 5.9rem);
-      line-height: .99;
-      letter-spacing: -.065em;
-      font-weight: 780;
+      font-size: clamp(2.7rem, 5.6vw, 5.4rem);
+      line-height: 1;
+      letter-spacing: -.05em;
+      font-weight: 800;
       text-wrap: balance;
     }
 
-    h1 span { color: #ff8a4b; }
+    h1 span {
+      display: block;
+      color: var(--orange-soft);
+    }
 
     .description {
-      max-width: 510px;
-      margin: 25px 0 0;
+      max-width: 27em;
+      margin: 24px 0 0;
       color: var(--muted);
-      font-size: clamp(1rem, 1.45vw, 1.2rem);
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
       line-height: 1.65;
       text-wrap: pretty;
     }
 
-    .values {
+    /* ───────── Google Play (próximamente) ───────── */
+    .store {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 32px;
+      padding: 10px 20px 10px 18px;
+      border-radius: 16px;
+      background: #fff;
+      color: #3b3836;
+      box-shadow: 0 12px 34px rgba(0, 0, 0, .32);
+    }
+
+    .store-label {
       display: flex;
       align-items: center;
+      gap: 12px;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .store-label::before {
+      content: "";
+      flex: none;
+      width: 8px;
+      height: 8px;
+      margin-left: 4px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 4px rgba(243, 106, 33, .2);
+    }
+
+    .store img {
+      height: 34px;
+      width: auto;
+      padding-left: 16px;
+      border-left: 1px solid #e7e2df;
+      box-sizing: content-box;
+    }
+
+    /* ───────── Valores ───────── */
+    .values {
+      display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 32px;
-      color: #fff;
-      font-size: .92rem;
-      font-weight: 700;
-      letter-spacing: .025em;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
     }
 
-    .values span {
-      padding: 9px 14px;
-      border: 1px solid rgba(255,255,255,.32);
+    .values li {
+      padding: 9px 16px;
+      border: 1px solid rgba(255, 255, 255, .3);
       border-radius: 999px;
-      background: rgba(255,255,255,.09);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      background: rgba(255, 255, 255, .08);
+      font-size: .92rem;
+      font-weight: 650;
+      letter-spacing: .02em;
+      -webkit-backdrop-filter: blur(6px);
+              backdrop-filter: blur(6px);
     }
 
-    .values b { color: #ff9a65; }
-
+    /* ───────── Footer ───────── */
     footer {
       position: relative;
-      z-index: 1;
-      width: min(1440px, 100%);
-      margin: 0 auto;
-      padding: 18px clamp(20px, 5vw, 72px) 22px;
+      z-index: 2;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px 28px;
-      border-top: 1px solid rgba(255,255,255,.24);
-      color: rgba(255,255,255,.72);
-      font-size: .78rem;
+      flex-wrap: wrap;
+      gap: 6px 28px;
+      padding: 16px var(--edge);
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+      border-top: 1px solid var(--line);
+      background: rgba(28, 23, 21, .78);
+      color: rgba(255, 255, 255, .72);
+      font-size: .8rem;
+      -webkit-backdrop-filter: blur(10px);
+              backdrop-filter: blur(10px);
     }
 
     .footer-links {
       display: flex;
-      align-items: center;
       flex-wrap: wrap;
-      gap: 10px 22px;
+      gap: 0 24px;
     }
 
     footer a {
+      display: inline-block;
+      padding: 6px 0;           /* área táctil más cómoda en móvil */
       color: #fff;
       text-decoration: none;
       transition: color .2s ease;
     }
 
-    footer a:hover, footer a:focus-visible { color: #ff9a65; }
+    footer a:hover { color: #ff9a65; }
 
     footer a:focus-visible {
       outline: 2px solid #ff9a65;
-      outline-offset: 4px;
-      border-radius: 2px;
+      outline-offset: 3px;
+      border-radius: 3px;
     }
 
-    .copyright { white-space: nowrap; }
-
-    @media (min-width: 1500px) {
-      .page { background-position: center 46%; }
+    /* ───────── Botones de redes sociales ───────── */
+    .social-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin: 40px 0 0;
     }
 
-    @media (max-width: 900px) {
-      .page {
-        background-image:
-          linear-gradient(90deg, rgba(25,20,18,.82), rgba(25,20,18,.43)),
-          linear-gradient(0deg, rgba(20,16,14,.78), transparent 55%),
-          url("assets/img/fondo.jpeg");
-        background-position: 58% center;
-      }
-      .hero-copy { width: min(650px, 78%); }
-      h1 { font-size: clamp(3rem, 8vw, 5rem); }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid var(--line);
+      transition: background .2s ease, transform .2s ease;
+      text-decoration: none;
     }
 
-    @media (max-width: 600px) {
-      .page {
-        min-height: 100svh;
-        overflow: visible;
-        background-image:
-          linear-gradient(180deg, rgba(25,20,18,.58) 0%, rgba(25,20,18,.76) 48%, rgba(25,20,18,.94) 100%),
-          url("assets/img/fondo.jpeg");
-        background-position: 57% center;
+    .social-btn img {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
+    .social-btn:hover {
+      background: rgba(255, 255, 255, .18);
+      transform: translateY(-2px);
+    }
+
+    .social-btn:focus-visible {
+      outline: 3px solid var(--orange-soft);
+      outline-offset: 2px;
+    }
+
+    /* ───────── Tablet vertical y móvil: foto arriba, texto debajo ───────── */
+    @media (max-width: 720px), (max-width: 1000px) and (orientation: portrait) {
+      .header { padding-top: max(16px, env(safe-area-inset-top)); }
+      .brand { padding: 5px; border-radius: 14px; }
+      .brand img { height: 56px; border-radius: 10px; }
+
+      .hero {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: 0 var(--edge) 40px;
       }
 
-      .header {
-        padding: 16px 18px;
-        gap: 12px;
+      .hero-media {
+        position: relative;
+        inset: auto;
+        z-index: 0;
+        flex: 1 0 auto;
+        width: auto;
+        min-height: clamp(300px, 44svh, 520px);
+        max-height: 70svh;
+        margin: 0 calc(var(--edge) * -1);   /* la foto ocupa todo el ancho */
+        -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+                mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
       }
 
-      .brand { width: 122px; border-radius: 9px; padding: 3px 7px; }
-      .availability { padding: 9px 11px; font-size: .7rem; gap: 7px; }
-
-      main {
-        min-height: 570px;
-        padding: 70px 25px 48px;
-        align-items: center;
+      .hero-media img {
+        position: absolute;
+        inset: 0;
+        object-position: 70% 40%;
       }
 
       .hero-copy {
         width: 100%;
-        max-width: 520px;
-        padding: 0;
+        max-width: 620px;
+        margin-top: -36px;                  /* se monta sobre el degradado */
+        position: relative;
       }
 
-      .eyebrow { margin-bottom: 17px; font-size: .68rem; }
-      h1 { font-size: clamp(3.15rem, 13vw, 4.5rem); }
-      .description { margin-top: 20px; font-size: 1rem; line-height: 1.55; }
-      .values { margin-top: 25px; gap: 8px; }
-      .values span { padding: 8px 11px; font-size: .82rem; }
-
-      footer {
-        padding: 19px 20px 22px;
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .footer-links { gap: 12px 18px; }
-      .copyright { white-space: normal; }
+      .eyebrow { margin-bottom: 16px; font-size: .7rem; }
+      h1 { font-size: clamp(2.6rem, 12.5vw, 4.6rem); }
+      .description { margin-top: 18px; font-size: 1rem; line-height: 1.6; }
+      .store { margin-top: 26px; }
+      .values { margin-top: 22px; gap: 8px; }
+      .values li { padding: 8px 13px; font-size: .85rem; }
     }
 
-    @media (max-height: 650px) and (min-width: 601px) {
-      .header { padding-top: 12px; padding-bottom: 12px; }
-      .brand { width: 145px; }
-      main { padding-top: 10px; padding-bottom: 14px; }
-      .hero-copy { padding-bottom: 0; }
-      .eyebrow { margin-bottom: 12px; }
-      h1 { font-size: clamp(2.7rem, 5vw, 4.4rem); }
-      .description { margin-top: 15px; font-size: 1rem; }
-      .values { margin-top: 19px; }
-      footer { padding-top: 12px; padding-bottom: 14px; }
+    /* Móviles muy angostos */
+    @media (max-width: 380px) {
+      .store { gap: 12px; padding: 9px 14px; }
+      .store img { height: 28px; padding-left: 12px; }
+      .store-label { font-size: .64rem; }
+      .values li { padding: 7px 11px; font-size: .8rem; }
+    }
+
+    /* Móvil en horizontal / pantallas bajas: compactar para no desbordar */
+    @media (max-height: 560px) and (orientation: landscape) {
+      .header { padding-block: 12px; }
+      .brand img { height: 48px; }
+      .hero { padding-top: 84px; padding-bottom: 28px; }
+      .eyebrow { margin-bottom: 10px; }
+      h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+      .description { margin-top: 12px; font-size: .95rem; line-height: 1.5; }
+      .store { margin-top: 18px; padding-block: 7px; }
+      .store img { height: 26px; }
+      .values { margin-top: 16px; }
+      footer { padding-block: 8px; }
+    }
+
+    @media (min-width: 1700px) {
+      .hero-media img { object-position: 60% 44%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
@@ -311,12 +416,16 @@
   <div class="page">
     <header class="header">
       <a class="brand" href="/" aria-label="VAIVÉN, página principal">
-        <img src="assets/img/logo.jpeg" alt="VAIVÉN — Las cosas van y vienen">
+        <img src="assets/img/logo.jpeg" width="637" height="649" alt="VAIVÉN — Las cosas van y vienen">
       </a>
-      <span class="availability">Próximamente en Google Play</span>
     </header>
 
-    <main id="contenido">
+    <main class="hero" id="contenido">
+      <div class="hero-media">
+        <img src="assets/img/fondo.jpeg" width="1264" height="823" fetchpriority="high"
+             alt="Dos personas intercambian una caja con juguetes y billetes; la caja lleva el logo de VAIVÉN">
+      </div>
+
       <section class="hero-copy" aria-labelledby="hero-title">
         <p class="eyebrow">Una comunidad que comparte</p>
         <h1 id="hero-title">Las cosas <span>van y vienen.</span></h1>
@@ -324,12 +433,36 @@
           Lo que hoy necesitas, alguien más puede compartirlo.
           Presta, encuentra y dale una nueva vida a los objetos
           con las personas de tu comunidad.
+
+          
         </p>
-        <div class="values" aria-label="Comparte, encuentra y conecta">
-          <span>Comparte</span><b aria-hidden="true">·</b>
-          <span>Encuentra</span><b aria-hidden="true">·</b>
-          <span>Conecta</span>
+        
+
+        <div class="store" role="group" aria-label="Próximamente en Google Play">
+          
+          <span class="store-label"><span>Próximamente<br>en</span></span>
+
+          <img src="assets/img/google-play.png" width="500" height="131" alt="Google Play">
+          <nav class="social-buttons" aria-label="Síguenos en redes sociales">
+          <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en Facebook">
+            <img src="/assets/img/social-facebook.svg" alt="Facebook">
+          </a>
+          <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en X (Twitter)">
+            <img src="/assets/img/social-x.svg" alt="X (Twitter)">
+          </a>
+          <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en YouTube">
+            <img src="/assets/img/social-youtube.svg" alt="YouTube">
+          </a>
+        </nav>
         </div>
+
+        <ul class="values" aria-label="Comparte, encuentra y conecta">
+          <li>Comparte</li>
+          <li>Encuentra</li>
+          <li>Conecta</li>
+        </ul>
+
+        
       </section>
     </main>
 
