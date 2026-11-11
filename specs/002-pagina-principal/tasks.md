@@ -22,7 +22,7 @@
   - Aceptación: un solo archivo CSS; tokens en `:root` (incluidos `--tap`, `--cta-h` y `--sombra-acento`); desde 320 px; **sin desplazamiento vertical ni horizontal** en las medidas de P-12 (escritorio, tableta y teléfono vertical); botón de Google Play como elemento de mayor peso visual; sin `@import`, sin recursos externos y ≤ 30 KB
   - Refs: RF-05, RF-12, RNF-01, RNF-02, P-01, P-12, P-13, P-17, P-20
 
-- [ ] **T004** Fondo de la portada y su origen
+- [x] **T004** Fondo de la portada y su origen
   - Archivos: `assets/img/fondo.webp` (sustituye a `Fondo.jpeg`), `index.html`, `memoria.md` (solo anexar)
   - Agente: `dev-web` · Depende de: T001 · **Construida en el árbol de trabajo (imagen); origen y licencia los anota una persona**
   - Aceptación: WebP 1600×893 ≤ 150 KB con `alt` descriptivo, `width`/`height` reales y `fetchpriority="high"`; `Fondo.jpeg` retirado del sitio; **la persona responsable anota en `memoria.md` el origen y la licencia de la fotografía** (o la sustituye); `check.mjs` verde
@@ -106,9 +106,9 @@
   - Aceptación: sin desplazamiento vertical ni horizontal en las medidas de P-12 (resultado anotado); en teléfono horizontal bajo (< 400 px) se acepta desplazamiento y se anota
   - Refs: RF-05, CA-04, Art. VIII.7, P-12
 
-- [ ] **T018** Enmienda 1.3.0 de la constitución (**la aprueba una persona**)
+- [x] **T018** Enmienda 1.3.0 de la constitución (**la aprueba una persona**)
   - Archivos: `constitution.md`
-  - Agente: `spec-writer` (redacción) · Depende de: — · **Redactada en el árbol de trabajo; sin aprobar**
+  - Agente: `spec-writer` (redacción) · Depende de: — · **Redactada y aprobada por la persona responsable el 2026-11-11**
   - Aceptación: una persona revisa y aprueba los cambios de los Art. II.1, V.3, V.4, VII.1, VII.2 y VIII.7; si no se aprueban, se revierten T014, T015 y el cambio de fondo antes de fusionar
   - Refs: Art. I.3, Art. XI
 
@@ -124,9 +124,9 @@
   - Aceptación: tokens y nombres de `vaiven-diseno-landing.md`; Plus Jakarta Sans local; sin desplazamiento en las medidas de P-12 (15 tamaños medidos en Chrome real); contraste AA (botón 4.53:1 en su tono más claro); `check.mjs` verde
   - Refs: P-23, RF-05, RF-12
 
-- [ ] **T021** Enmienda 1.4.0 de la constitución (**la aprueba una persona**)
+- [x] **T021** Enmienda 1.4.0 de la constitución (**la aprueba una persona**)
   - Archivos: `constitution.md`
-  - Agente: `spec-writer` (redacción) · Depende de: T020 · **Redactada; sin aprobar**
+  - Agente: `spec-writer` (redacción) · Depende de: T020 · **Redactada y aprobada por la persona responsable el 2026-11-11**
   - Aceptación: una persona aprueba la fuente alojada en el sitio (Art. III); si no la aprueba, se quita `assets/fonts/` y se usa la tipografía del dispositivo
   - Refs: Art. I.3, Art. III
 

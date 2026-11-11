@@ -1,7 +1,7 @@
 # Spec L002 — Página principal informativa (landing)
 
 - **Dueño:** MO-B · **Prioridad:** P1 · **Ventana:** 9–16 nov (actualización final tras publicar la app) · **Depende de:** L001
-- **Constitución:** landing v1.3.0 (enmienda pendiente de aprobación de una persona) · **Estado:** Borrador
+- **Constitución:** landing v1.4.0 (enmiendas 1.3.0 y 1.4.0 aprobadas el 2026-11-11) · **Estado:** Borrador
 - **Reescrita el 2026-11-11 (one-screen).** La versión anterior describía una landing de varias secciones con navegación por anclas. Esa estructura se descartó en las decisiones D-013 y D-014, pero la spec nunca se actualizó. Esta versión describe el sitio que existe y manda sobre la anterior.
 - **Actualizada el 2026-11-11 (fondo propio, botón destacado y redes).** Cambios pedidos por la persona responsable: (1) la imagen de fondo pasa a ser una fotografía aportada por ella (`assets/img/fondo.webp`); (2) la portada debe verse **completa de entrada, sin desplazamiento**, también en teléfonos; (3) el botón de Google Play se **destaca** como llamada principal; (4) se agregan los **íconos de Facebook, Instagram, X, YouTube y TikTok**. El punto 4 contradecía el Art. V.3 y esta misma spec (§5, «Fuera de alcance»): por eso se enmienda la constitución a **v1.3.0** y se retira esa exclusión.
 
