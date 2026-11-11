@@ -92,3 +92,5 @@ Además, por D-013/D-014: **navegación por secciones y anclas**, secciones larg
 - [NEEDS CLARIFICATION: origen y licencia de `assets/img/fondo.webp` (fotografía que aportó la persona responsable el 2026-11-11 y que sustituye a `Fondo.jpeg`). El Art. V.4 pide anotar origen y licencia en `memoria.md`; el agente no puede verificarlos. Si no se puede acreditar (o si fue generada con IA y se quiere avisarlo), hay que anotarlo o sustituirla.]
 - [NEEDS CLARIFICATION: URL de los perfiles de VAIVÉN en Facebook, Instagram, X, YouTube y TikTok. Hoy están vacías en `SITE.social` y los íconos se ven sin enlace. No se inventan cuentas.]
 - [NEEDS CLARIFICATION: aprobación humana de la enmienda 1.3.0 de la constitución (Art. II.1, V.3, V.4, VII y VIII.7).]
+
+> **Resuelto (2026-11-11):** la paleta, los radios, las sombras y la tipografía de la portada y de las páginas legales son los del sistema de diseño de la app (`vaiven-diseno-landing.md`): primario `#C24E24`, fondo `#FAF6F0`, tinta `#2A1F1A`, Plus Jakarta Sans. Sustituye a las dos paletas anteriores de esta pregunta. El logotipo conserva sus colores propios. Ver P-23.
