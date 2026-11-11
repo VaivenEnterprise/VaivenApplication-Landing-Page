@@ -40,17 +40,17 @@ if (play) {
 
 // Redes sociales: con URL https del dominio de la red, el ícono pasa a ser enlace; si no, queda sin enlace.
 const SOCIAL_HOSTS = {
-  facebook: /^(www\.)?facebook\.com$/,
-  instagram: /^(www\.)?instagram\.com$/,
-  x: /^(www\.)?(x|twitter)\.com$/,
-  youtube: /^(www\.)?(youtube\.com|youtu\.be)$/,
-  tiktok: /^(www\.)?tiktok\.com$/,
+  facebook: ["facebook.com", "www.facebook.com"],
+  instagram: ["instagram.com", "www.instagram.com"],
+  x: ["x.com", "www.x.com", "twitter.com", "www.twitter.com"],
+  youtube: ["youtube.com", "www.youtube.com", "youtu.be"],
+  tiktok: ["tiktok.com", "www.tiktok.com"],
 };
 
 function socialUrl(network) {
   try {
     const url = new URL(String(SITE.social?.[network] ?? "").trim());
-    return url.protocol === "https:" && SOCIAL_HOSTS[network]?.test(url.hostname) ? url.href : "";
+    return url.protocol === "https:" && SOCIAL_HOSTS[network]?.includes(url.hostname) ? url.href : "";
   } catch {
     return "";
   }

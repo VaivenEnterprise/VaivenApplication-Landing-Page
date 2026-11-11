@@ -43,9 +43,20 @@ function normalize(text) {
   return text.replace(/\s+/g, " ").trim();
 }
 
+// Quita comentarios HTML sin expresiones regulares y repite hasta que no quede ninguno
+// (CodeQL: js/bad-tag-filter, js/incomplete-multi-character-sanitization).
 function stripComments(html) {
-  return html.replace(/<!--[\s\S]*?-->/g, "");
+  let out = html;
+  for (;;) {
+    const start = out.indexOf("<!--");
+    if (start === -1) return out;
+    const end = out.indexOf("-->", start + 4);
+    out = end === -1 ? out.slice(0, start) : out.slice(0, start) + out.slice(end + 3);
+  }
 }
+
+// Escapa un texto para usarlo literal dentro de una expresión regular (los puntos de una URL no son «cualquier carácter»).
+const escapeRe = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 async function walk(dir, acc = []) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -144,7 +155,7 @@ for (const page of PAGES) {
   if (/<\?/.test(flat)) fail(`${where}: contiene una instrucción de plantilla (<?) que no se procesa`);
   if (/<style[\s>]/i.test(flat)) fail(`${where}: contiene <style> en línea (Art. III: un solo archivo CSS)`);
   if (/\sstyle="/i.test(flat)) fail(`${where}: contiene el atributo style (bloqueado por la CSP)`);
-  for (const m of clean.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+  for (const m of clean.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script[^>]*>/gi)) {
     const a = attrs(`<script ${m[1]}>`);
     if (a.src) continue;
     if ((a.type ?? "").toLowerCase() === "application/ld+json") continue;
@@ -224,7 +235,7 @@ for (const page of PAGES) {
       continue;
     }
     const sprite = await readIfExists(target);
-    if (!id || !new RegExp(`<symbol[^>]+id="${id}"`).test(sprite ?? ""))
+    if (!id || !new RegExp(`<symbol[^>]+id="${escapeRe(id)}"`).test(sprite ?? ""))
       fail(`${where}: el símbolo #${id} no existe en ${file}`);
   }
 
@@ -307,7 +318,7 @@ const robots = (await readIfExists("robots.txt")) ?? "";
 if (robots) {
   if (!/User-agent:\s*\*/i.test(robots)) fail("robots.txt: falta User-agent: *");
   if (!/Allow:\s*\//i.test(robots)) fail("robots.txt: falta Allow: /");
-  if (!new RegExp(`Sitemap:\\s*${SITE_URL}/sitemap\\.xml`, "i").test(robots))
+  if (!new RegExp(`Sitemap:\\s*${escapeRe(SITE_URL)}/sitemap\\.xml`, "i").test(robots))
     fail(`robots.txt: falta Sitemap: ${SITE_URL}/sitemap.xml`);
   else ok("robots.txt válido");
 }
@@ -343,11 +354,11 @@ if (headers) {
 
 // 7. Redes sociales de la portada (Art. VII.2): cinco redes, íconos sin enlace roto y URLs de config.js válidas
 const NETWORKS = {
-  facebook: /^(www\.)?facebook\.com$/,
-  instagram: /^(www\.)?instagram\.com$/,
-  x: /^(www\.)?(x|twitter)\.com$/,
-  youtube: /^(www\.)?(youtube\.com|youtu\.be)$/,
-  tiktok: /^(www\.)?tiktok\.com$/,
+  facebook: ["facebook.com", "www.facebook.com"],
+  instagram: ["instagram.com", "www.instagram.com"],
+  x: ["x.com", "www.x.com", "twitter.com", "www.twitter.com"],
+  youtube: ["youtube.com", "www.youtube.com", "youtu.be"],
+  tiktok: ["tiktok.com", "www.tiktok.com"],
 };
 const home = (await readIfExists("index.html")) ?? "";
 if (home) {
@@ -357,7 +368,7 @@ if (home) {
   }
   const cfg = (await readIfExists("assets/js/config.js")) ?? "";
   const social = cfg.match(/social:\s*\{([\s\S]*?)\}/)?.[1] ?? "";
-  for (const [net, host] of Object.entries(NETWORKS)) {
+  for (const [net, hosts] of Object.entries(NETWORKS)) {
     const value = social.match(new RegExp(`\\b${net}:\\s*"([^"]*)"`))?.[1];
     if (value === undefined) {
       fail(`config.js: falta social.${net}`);
@@ -366,7 +377,7 @@ if (home) {
     if (value === "") continue; // sin URL todavía: el ícono queda sin enlace
     try {
       const u = new URL(value);
-      if (u.protocol !== "https:" || !host.test(u.hostname)) fail(`config.js: social.${net} debe ser https y del dominio de la red (${value})`);
+      if (u.protocol !== "https:" || !hosts.includes(u.hostname)) fail(`config.js: social.${net} debe ser https y del dominio de la red (${value})`);
     } catch {
       fail(`config.js: social.${net} no es una URL válida (${value})`);
     }
