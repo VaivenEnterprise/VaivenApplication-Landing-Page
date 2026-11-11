@@ -11,7 +11,7 @@ Instrucciones para cualquier agente de OpenCode que trabaje en `vaiven-landing-p
 Si algo no está definido, **no lo inventes**: pregunta o anótalo como `[NEEDS CLARIFICATION]`.
 
 ## 2. Proyecto en una línea
-Sitio **estático** (HTML + CSS + JS mínimo, sin compilar) que presenta VAIVÉN, publica las páginas legales que exige Google Play y envía a la persona a descargar la app en Google Play. Sin servicios, sin formularios, sin analítica, sin costo.
+Sitio **estático** (HTML + CSS + JS mínimo, sin compilar) que presenta VAIVÉN en **una sola pantalla**, publica las páginas legales que exige Google Play, envía a la persona a descargar la app en Google Play y enlaza a las redes sociales de VAIVÉN. Sin servicios, sin formularios, sin analítica, sin costo.
 
 ## 3. Flujo SDD
 | Fase | Quién | Resultado |
@@ -53,6 +53,8 @@ Sin `npm install`: no hay dependencias.
 ## 7. Reglas duras
 - Solo se editan los archivos que lista la tarea.
 - Sin `<form>`, sin cookies, sin recursos de otros dominios, sin analítica, sin fuentes externas.
+- Redes sociales: solo los cinco glifos de `assets/img/social.svg` como enlaces a los perfiles; las URL van únicamente en `SITE.social` de `assets/js/config.js` y no se inventan. Sin widgets ni scripts de las redes (Art. V.3 y VII).
+- La portada (`body.home`) cabe en una pantalla sin desplazarse (Art. VIII.7): no uses alturas fijas ni `overflow: hidden` en la página para lograrlo; si algo no cabe, se compacta o se omite solo el antetítulo decorativo.
 - Textos en español de México; nada inventado sobre la app (se verifica contra `../vaiven-backend/specs` y `../vaiven-frontend/specs`).
 - Textos legales: **borrador del agente, revisión de una persona** antes de publicar.
 - Nunca secretos en el repositorio.
