@@ -86,7 +86,7 @@ Prioridad: **P0** = sin esto no hay app · **P1** = esperado · **P2** = recorta
 | 014 | **IA (v1.1, después de la 1.0)** | Sugerir título y categoría a partir de una foto, siempre con revisión de quien publica (proveedor gratuito; interruptor `AI_ENABLED`) | BE-A / MO-A (+ MO-B cumplimiento) | P1 | 004, 005, 011, 013 | 23 nov–1 dic |
 | 015 | **ML: recomendaciones (v1.1)** | «Recomendado para ti»: recomendador híbrido propio (colaborativo objeto-objeto + contenido), evaluado con Hit@10/Recall@10/MRR contra popularidad; interruptor `RECO_ENABLED` | BE-B / MO-B | P1 | 005, 006, 007, 013 | 23 nov–1 dic |
 | L001 | Landing: base y páginas legales | Sitio estático, privacidad, términos, eliminación de cuenta, publicación gratuita | MO-B | P0 | — | 2–5 nov |
-| L002 | Landing: página principal | Información de la app, cómo funciona, FAQ, botón a Google Play | MO-B | P1 | L001 | 9–16 nov |
+| L002 | Landing: página principal | Una sola pantalla: qué es VAIVÉN, botón destacado a Google Play y redes sociales (el detalle vive en la ficha de la tienda y en las páginas legales) | MO-B | P1 | L001 | 9–16 nov |
 
 **Regla de cierre (todas las specs desde la 002):** una spec está terminada solo cuando su última tarea pasa. Backend: «Despliegue» (`@devops-mcp` ejecuta `scripts/deploy.sh staging` en la VM de Azure y verifica los endpoints por HTTPS). Landing: «Despliegue» en Render (static site). Móvil: «Verificación en Expo Go» (`@probador-expo` recorre los criterios de aceptación contra el staging ya desplegado). Backend 013 y móvil 013 (producción y Google Play) siguen su propio proceso. La spec siguiente no empieza hasta que la anterior esté cerrada.
 

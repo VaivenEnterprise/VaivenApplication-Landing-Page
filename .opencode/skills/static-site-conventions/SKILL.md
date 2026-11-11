@@ -38,7 +38,7 @@ Cabecera y pie salen de `docs/plantilla.html` (copiar tal cual).
 - Nombres de clase por bloque (`.hero`, `.steps`, `.faq`), sin ids para estilos.
 
 ## JavaScript (solo mejora)
-- ES module pequeño: menú móvil y enlace a Google Play desde `config.js`.
+- ES module pequeño: enlace a Google Play, correo, fecha legal y enlaces de redes sociales desde `config.js`.
 - Sin librerías, sin `eval`, sin `innerHTML` con datos externos.
 - Si `playUrl` está vacío, el botón muestra «Próximamente en Google Play» y no es un enlace.
 
@@ -47,3 +47,14 @@ Cabecera y pie salen de `docs/plantilla.html` (copiar tal cual).
 - Un `h1` y jerarquía `h2 → h3` sin saltos.
 - Enlaces con texto descriptivo («Leer el aviso de privacidad»), nunca «clic aquí».
 - Imágenes: `alt` útil, `width`/`height`, `loading="lazy"` (no en la primera).
+
+## Portada de una sola pantalla (`body.home`)
+- La portada cabe en el alto visible sin desplazarse (Art. VIII.7): el cuerpo mide `min-height: 100dvh`, el `main` ocupa lo que sobra y la foto es el único bloque flexible en teléfono (`flex: 1 0 120px`).
+- Tamaños con `clamp()`/`min()` y `vh`/`dvh`, nunca alturas fijas ni `overflow: hidden` en la página: si no cabe, la página crece.
+- Mide con un navegador real (`scrollHeight <= innerHeight`) en 1920×1080, 1366×768, 1280×720, 1024×600, 768×1024, 390×844, 360×640 y 320×568 antes de cerrar la tarea.
+- Botón de Google Play: elemento de mayor peso visual (acento, `--cta-h`); sin URL es texto con `aria-disabled`, nunca un enlace roto.
+
+## Redes sociales
+- Íconos solo de `assets/img/social.svg` (`<svg><use href="/assets/img/social.svg#facebook"/></svg>`); cada uno dentro de `span.social-link[data-social]` con texto `.sr-only`.
+- Las URL van únicamente en `SITE.social` de `assets/js/config.js`; vacío = ícono sin enlace; `site.js` solo acepta `https` del dominio de la red. No inventes cuentas.
+

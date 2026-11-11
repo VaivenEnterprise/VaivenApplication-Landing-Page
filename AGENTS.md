@@ -11,7 +11,7 @@ Instrucciones para cualquier agente de OpenCode que trabaje en `vaiven-landing-p
 Si algo no está definido, **no lo inventes**: pregunta o anótalo como `[NEEDS CLARIFICATION]`.
 
 ## 2. Proyecto en una línea
-Sitio **estático** (HTML + CSS + JS mínimo, sin compilar) que presenta VAIVÉN, publica las páginas legales que exige Google Play y envía a la persona a descargar la app en Google Play. Sin servicios, sin formularios, sin analítica, sin costo.
+Sitio **estático** (HTML + CSS + JS mínimo, sin compilar) que presenta VAIVÉN en **una sola pantalla**, publica las páginas legales que exige Google Play, envía a la persona a descargar la app en Google Play y enlaza a las redes sociales de VAIVÉN. Sin servicios, sin formularios, sin analítica, sin costo.
 
 ## 3. Flujo SDD
 | Fase | Quién | Resultado |
@@ -53,6 +53,8 @@ Sin `npm install`: no hay dependencias.
 ## 7. Reglas duras
 - Solo se editan los archivos que lista la tarea.
 - Sin `<form>`, sin cookies, sin recursos de otros dominios, sin analítica, sin fuentes externas.
+- Redes sociales: solo los cinco glifos de `assets/img/social.svg` como enlaces a los perfiles; las URL van únicamente en `SITE.social` de `assets/js/config.js` y no se inventan. Sin widgets ni scripts de las redes (Art. V.3 y VII).
+- La portada (`body.home`) cabe en una pantalla sin desplazarse (Art. VIII.7): no uses alturas fijas ni `overflow: hidden` en la página para lograrlo; si algo no cabe, se compacta o se omite solo el antetítulo decorativo.
 - Textos en español de México; nada inventado sobre la app (se verifica contra `../vaiven-backend/specs` y `../vaiven-frontend/specs`).
 - Textos legales: **borrador del agente, revisión de una persona** antes de publicar.
 - Nunca secretos en el repositorio.
@@ -61,4 +63,6 @@ Sin `npm install`: no hay dependencias.
 1. `node scripts/check.mjs` sin errores. 2. Revisión visual a 360/768/1280 px. 3. Marcar `[x]` en `tasks.md`. 4. Anexar a `memoria.md` si hubo decisión. 5. Tarea final de la spec: despliegue por MCP con `@devops-mcp` (Art. XII).
 
 ## Repositorio y PR (Art. XIII)
-- Una rama por spec (`spec/NNN-nombre`) y una PR por spec; `main` protegida. Solo `@gestor-repo` usa el MCP de GitHub (token `GITHUB_PERSONAL_ACCESS_TOKEN`); nunca fusiona ni borra: una persona revisa y fusiona. Nunca se suben secretos.
+- Una rama de integracion por spec (`spec/SPEC-NN`), creada desde `develop`: implementar sus tareas ahi o en ramas `tipo/SPEC-NN-TNNN` con PR hacia la misma SPEC. Al completar la spec, PR hacia `develop`; publicar con PR `develop` -> `main`. Se conserva tarea -> `develop`. El segmento `SCRUM-NN-` es opcional tras la barra en ambos formatos; los nombres anteriores siguen siendo validos. Titulos de PR libres; completar Resumen, Validación y Seguridad. Solo `@gestor-repo` usa el MCP de GitHub; nunca fusiona ni borra: una persona revisa y fusiona. Nunca se suben secretos.
+
+- Tambien se admiten ramas por fase `tipo/SPEC-NN-Fase-N` (ejemplo: `feat/SPEC-02-Fase-3`, con SCRUM opcional), creadas desde la spec y con PR hacia esa misma SPEC o hacia develop. Implementar sus tareas una por una. No enviar fases directamente a main. Ver `docs/devsecops.md`.
