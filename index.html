@@ -7,474 +7,80 @@
   <title>VAIVÉN — Las cosas van y vienen</title>
   <meta name="description" content="Comparte, presta y encuentra objetos con personas de tu comunidad. Las cosas van y vienen.">
   <link rel="canonical" href="https://vaiven-landing.onrender.com/">
-  <link rel="icon" type="image/png" href="assets/img/icon.png">
-  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
   <meta property="og:title" content="VAIVÉN — Las cosas van y vienen">
   <meta property="og:description" content="Comparte, presta y encuentra objetos con personas de tu comunidad.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vaiven-landing.onrender.com/">
-  <meta property="og:image" content="https://vaiven-landing.onrender.com/assets/img/fondo.jpeg">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      color-scheme: dark;
-      --orange: #f36a21;
-      --orange-soft: #ff8a4b;
-      --orange-pale: #ffd0b8;
-      --ink: #1c1715;
-      --white: #fff;
-      --muted: rgba(255, 255, 255, .82);
-      --line: rgba(255, 255, 255, .18);
-
-      /* Margen lateral único: header, texto y footer quedan siempre alineados.
-         En pantallas muy anchas el contenido se centra en un máx. de 1320px. */
-      --edge: max(clamp(20px, 5vw, 72px), calc((100% - 1320px) / 2));
+  <meta property="og:image" content="https://vaiven-landing.onrender.com/assets/img/og-image.png">
+  <meta property="og:locale" content="es_MX">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script type="module" src="/assets/js/site.js" defer></script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "VAIVÉN",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Android",
+      "inLanguage": "es-MX",
+      "url": "https://vaiven-landing.onrender.com/",
+      "description": "VAIVÉN conecta a personas para compartir, prestar y encontrar objetos de uso cotidiano."
     }
-
-    *, *::before, *::after { box-sizing: border-box; }
-
-    html {
-      -webkit-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-      background: var(--ink);
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      min-height: 100dvh;
-      color: var(--white);
-      background: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    img { display: block; max-width: 100%; }
-
-    /* ───────── Estructura general ───────── */
-    .page {
-      position: relative;
-      isolation: isolate;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      min-height: 100dvh;
-      overflow: hidden;
-    }
-
-    /* ───────── Header ───────── */
-    .header {
-      position: absolute;
-      inset: 0 0 auto 0;
-      z-index: 3;
-      padding: 24px var(--edge);
-      padding-top: max(24px, env(safe-area-inset-top));
-    }
-
-    .brand {
-      display: inline-block;
-      padding: 7px;
-      border-radius: 18px;
-      background: #fff;
-      box-shadow: 0 10px 32px rgba(0, 0, 0, .28);
-      transition: transform .2s ease;
-    }
-
-    .brand:hover { transform: translateY(-2px); }
-
-    .brand:focus-visible {
-      outline: 3px solid var(--orange-soft);
-      outline-offset: 3px;
-    }
-
-    .brand img {
-      height: clamp(64px, 7vw, 84px);
-      width: auto;
-      border-radius: 12px;
-    }
-
-    /* ───────── Hero ───────── */
-    .hero {
-      position: relative;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      padding: 150px var(--edge) 64px;
-    }
-
-    .hero-media {
-      position: absolute;
-      inset: 0 0 0 auto;
-      z-index: -1;
-      width: 58%;
-      /* La foto se funde con el fondo oscuro en el borde izquierdo. */
-      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 34%);
-              mask-image: linear-gradient(90deg, transparent 0, #000 34%);
-    }
-
-    .hero-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 62% center;
-    }
-
-    /* Oscurecimiento sutil para que la foto no compita con el texto. */
-    .hero-media::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(0deg, rgba(28, 23, 21, .55) 0%, transparent 38%);
-      pointer-events: none;
-    }
-
-    .hero-copy {
-      width: min(600px, 58%);
-      animation: rise .7s cubic-bezier(.2, .7, .2, 1) both;
-    }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: none; }
-    }
-
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 0 0 22px;
-      color: var(--orange-pale);
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      content: "";
-      flex: none;
-      width: 34px;
-      height: 2px;
-      background: var(--orange);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.7rem, 5.6vw, 5.4rem);
-      line-height: 1;
-      letter-spacing: -.05em;
-      font-weight: 800;
-      text-wrap: balance;
-    }
-
-    h1 span {
-      display: block;
-      color: var(--orange-soft);
-    }
-
-    .description {
-      max-width: 27em;
-      margin: 24px 0 0;
-      color: var(--muted);
-      font-size: clamp(1rem, 1.4vw, 1.2rem);
-      line-height: 1.65;
-      text-wrap: pretty;
-    }
-
-    /* ───────── Google Play (próximamente) ───────── */
-    .store {
-      display: inline-flex;
-      align-items: center;
-      gap: 16px;
-      margin-top: 32px;
-      padding: 10px 20px 10px 18px;
-      border-radius: 16px;
-      background: #fff;
-      color: #3b3836;
-      box-shadow: 0 12px 34px rgba(0, 0, 0, .32);
-    }
-
-    .store-label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: .7rem;
-      font-weight: 700;
-      letter-spacing: .08em;
-      line-height: 1.25;
-      text-transform: uppercase;
-    }
-
-    .store-label::before {
-      content: "";
-      flex: none;
-      width: 8px;
-      height: 8px;
-      margin-left: 4px;
-      border-radius: 50%;
-      background: var(--orange);
-      box-shadow: 0 0 0 4px rgba(243, 106, 33, .2);
-    }
-
-    .store img {
-      height: 34px;
-      width: auto;
-      padding-left: 16px;
-      border-left: 1px solid #e7e2df;
-      box-sizing: content-box;
-    }
-
-    /* ───────── Valores ───────── */
-    .values {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 28px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .values li {
-      padding: 9px 16px;
-      border: 1px solid rgba(255, 255, 255, .3);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .08);
-      font-size: .92rem;
-      font-weight: 650;
-      letter-spacing: .02em;
-      -webkit-backdrop-filter: blur(6px);
-              backdrop-filter: blur(6px);
-    }
-
-    /* ───────── Footer ───────── */
-    footer {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 6px 28px;
-      padding: 16px var(--edge);
-      padding-bottom: max(16px, env(safe-area-inset-bottom));
-      border-top: 1px solid var(--line);
-      background: rgba(28, 23, 21, .78);
-      color: rgba(255, 255, 255, .72);
-      font-size: .8rem;
-      -webkit-backdrop-filter: blur(10px);
-              backdrop-filter: blur(10px);
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0 24px;
-    }
-
-    footer a {
-      display: inline-block;
-      padding: 6px 0;           /* área táctil más cómoda en móvil */
-      color: #fff;
-      text-decoration: none;
-      transition: color .2s ease;
-    }
-
-    footer a:hover { color: #ff9a65; }
-
-    footer a:focus-visible {
-      outline: 2px solid #ff9a65;
-      outline-offset: 3px;
-      border-radius: 3px;
-    }
-
-    /* ───────── Botones de redes sociales ───────── */
-    .social-buttons {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      margin: 40px 0 0;
-    }
-
-    .social-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, .08);
-      border: 1px solid var(--line);
-      transition: background .2s ease, transform .2s ease;
-      text-decoration: none;
-    }
-
-    .social-btn img {
-      width: 22px;
-      height: 22px;
-      display: block;
-    }
-
-    .social-btn:hover {
-      background: rgba(255, 255, 255, .18);
-      transform: translateY(-2px);
-    }
-
-    .social-btn:focus-visible {
-      outline: 3px solid var(--orange-soft);
-      outline-offset: 2px;
-    }
-
-    /* ───────── Tablet vertical y móvil: foto arriba, texto debajo ───────── */
-    @media (max-width: 720px), (max-width: 1000px) and (orientation: portrait) {
-      .header { padding-top: max(16px, env(safe-area-inset-top)); }
-      .brand { padding: 5px; border-radius: 14px; }
-      .brand img { height: 56px; border-radius: 10px; }
-
-      .hero {
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-start;
-        padding: 0 var(--edge) 40px;
-      }
-
-      .hero-media {
-        position: relative;
-        inset: auto;
-        z-index: 0;
-        flex: 1 0 auto;
-        width: auto;
-        min-height: clamp(300px, 44svh, 520px);
-        max-height: 70svh;
-        margin: 0 calc(var(--edge) * -1);   /* la foto ocupa todo el ancho */
-        -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
-                mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
-      }
-
-      .hero-media img {
-        position: absolute;
-        inset: 0;
-        object-position: 70% 40%;
-      }
-
-      .hero-copy {
-        width: 100%;
-        max-width: 620px;
-        margin-top: -36px;                  /* se monta sobre el degradado */
-        position: relative;
-      }
-
-      .eyebrow { margin-bottom: 16px; font-size: .7rem; }
-      h1 { font-size: clamp(2.6rem, 12.5vw, 4.6rem); }
-      .description { margin-top: 18px; font-size: 1rem; line-height: 1.6; }
-      .store { margin-top: 26px; }
-      .values { margin-top: 22px; gap: 8px; }
-      .values li { padding: 8px 13px; font-size: .85rem; }
-    }
-
-    /* Móviles muy angostos */
-    @media (max-width: 380px) {
-      .store { gap: 12px; padding: 9px 14px; }
-      .store img { height: 28px; padding-left: 12px; }
-      .store-label { font-size: .64rem; }
-      .values li { padding: 7px 11px; font-size: .8rem; }
-    }
-
-    /* Móvil en horizontal / pantallas bajas: compactar para no desbordar */
-    @media (max-height: 560px) and (orientation: landscape) {
-      .header { padding-block: 12px; }
-      .brand img { height: 48px; }
-      .hero { padding-top: 84px; padding-bottom: 28px; }
-      .eyebrow { margin-bottom: 10px; }
-      h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
-      .description { margin-top: 12px; font-size: .95rem; line-height: 1.5; }
-      .store { margin-top: 18px; padding-block: 7px; }
-      .store img { height: 26px; }
-      .values { margin-top: 16px; }
-      footer { padding-block: 8px; }
-    }
-
-    @media (min-width: 1700px) {
-      .hero-media img { object-position: 60% 44%; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
-      }
-    }
-  </style>
+  </script>
 </head>
-<body>
-  <div class="page">
-    <header class="header">
-      <a class="brand" href="/" aria-label="VAIVÉN, página principal">
-        <img src="assets/img/logo.jpeg" width="637" height="649" alt="VAIVÉN — Las cosas van y vienen">
-      </a>
-    </header>
+<body class="home">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-    <main class="hero" id="contenido">
-      <div class="hero-media">
-        <img src="assets/img/fondo.jpeg" width="1264" height="823" fetchpriority="high"
-             alt="Dos personas intercambian una caja con juguetes y billetes; la caja lleva el logo de VAIVÉN">
-      </div>
+  <header class="site-header">
+    <a class="brand" href="/"><img src="/assets/img/logo.svg" width="119" height="32" alt="VAIVÉN, ir al inicio"></a>
+  </header>
 
-      <section class="hero-copy" aria-labelledby="hero-title">
-        <p class="eyebrow">Una comunidad que comparte</p>
-        <h1 id="hero-title">Las cosas <span>van y vienen.</span></h1>
-        <p class="description">
-          Lo que hoy necesitas, alguien más puede compartirlo.
-          Presta, encuentra y dale una nueva vida a los objetos
-          con las personas de tu comunidad.
+  <main id="contenido" class="hero">
+    <div class="hero-media">
+      <img src="/assets/img/fondo.webp" width="1600" height="893" fetchpriority="high"
+           alt="Una vecina le pasa una hidrolavadora a otra persona frente a una cochera, mientras revisa su teléfono">
+    </div>
 
-          
-        </p>
-        
+    <section class="hero-copy" aria-labelledby="hero-title">
+      <p class="eyebrow">Una comunidad que comparte</p>
+      <h1 id="hero-title">Las cosas <span>van y vienen.</span></h1>
+      <p class="description">
+        Lo que hoy necesitas, alguien más puede compartirlo.
+        Presta, encuentra y dale una nueva vida a los objetos
+        con las personas de tu comunidad.
+      </p>
 
-        <div class="store" role="group" aria-label="Próximamente en Google Play">
-          
-          <span class="store-label"><span>Próximamente<br>en</span></span>
+      <p class="store" data-play-link>
+        <svg class="store-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M12 4v11m0 0-5-5m5 5 5-5M5 20h14"/></svg>
+        <span class="store-text">Próximamente en Google Play</span>
+      </p>
 
-          <img src="assets/img/google-play.png" width="500" height="131" alt="Google Play">
-          <nav class="social-buttons" aria-label="Síguenos en redes sociales">
-          <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en Facebook">
-            <img src="/assets/img/social-facebook.svg" alt="Facebook">
-          </a>
-          <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en X (Twitter)">
-            <img src="/assets/img/social-x.svg" alt="X (Twitter)">
-          </a>
-          <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en YouTube">
-            <img src="/assets/img/social-youtube.svg" alt="YouTube">
-          </a>
-        </nav>
-        </div>
+      <ul class="values" aria-label="Comparte, encuentra y conecta">
+        <li>Comparte</li>
+        <li>Encuentra</li>
+        <li>Conecta</li>
+      </ul>
 
-        <ul class="values" aria-label="Comparte, encuentra y conecta">
-          <li>Comparte</li>
-          <li>Encuentra</li>
-          <li>Conecta</li>
-        </ul>
+      <ul class="social" aria-label="Redes sociales de VAIVÉN">
+        <li><span class="social-link" data-social="facebook" data-name="Facebook"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><use href="/assets/img/social.svg#facebook"/></svg><span class="sr-only">Facebook, próximamente</span></span></li>
+        <li><span class="social-link" data-social="instagram" data-name="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><use href="/assets/img/social.svg#instagram"/></svg><span class="sr-only">Instagram, próximamente</span></span></li>
+        <li><span class="social-link" data-social="x" data-name="X"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><use href="/assets/img/social.svg#x"/></svg><span class="sr-only">X, próximamente</span></span></li>
+        <li><span class="social-link" data-social="youtube" data-name="YouTube"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><use href="/assets/img/social.svg#youtube"/></svg><span class="sr-only">YouTube, próximamente</span></span></li>
+        <li><span class="social-link" data-social="tiktok" data-name="TikTok"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><use href="/assets/img/social.svg#tiktok"/></svg><span class="sr-only">TikTok, próximamente</span></span></li>
+      </ul>
+    </section>
+  </main>
 
-        
-      </section>
-    </main>
-
-    <footer>
-      <nav class="footer-links" aria-label="Enlaces legales y de contacto">
-        <a href="/privacidad/">Privacidad</a>
-        <a href="/terminos/">Términos y condiciones</a>
-        <a href="/eliminar-cuenta/">Eliminar cuenta</a>
-        <a href="mailto:vaivenedeltrabajo@gmail.com">Contacto</a>
-      </nav>
-      <span class="copyright">© 2026 VAIVÉN</span>
-    </footer>
-  </div>
+  <footer class="site-footer">
+    <nav class="footer-links" aria-label="Enlaces legales y de contacto">
+      <a href="/privacidad/">Privacidad</a>
+      <a href="/terminos/">Términos y condiciones</a>
+      <a href="/eliminar-cuenta/">Eliminar cuenta</a>
+      <a href="mailto:vaivenedeltrabajo@gmail.com" data-support-link>Contacto</a>
+    </nav>
+    <p class="copyright">© 2026 VAIVÉN</p>
+  </footer>
 </body>
 </html>

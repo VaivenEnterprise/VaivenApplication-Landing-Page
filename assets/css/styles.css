@@ -1,212 +1,759 @@
-/* Tokens de diseño — VAIVÉN con paleta oficial e imagen de fondo */
+/* VAIVÉN — hoja de estilos única (Art. III).
+   Tokens en :root, mobile-first, tipografía del dispositivo, sin recursos externos. */
+
 :root {
-  --color-texto: #3f3939;
-  --color-texto-claro: #666;
-  --color-acento: #ff6721;
-  --color-fondo: #ffffff;
-  --color-secundario: #3f3939;
-  --color-fondo-suave: #f5f0eb;
+  color-scheme: dark;
+
+  /* Paleta */
+  --color-fondo: #1c1715;
+  --color-texto: #ffffff;
+  --color-texto-suave: rgba(255, 255, 255, .82);
+  --color-texto-tenue: rgba(255, 255, 255, .72);
+  --color-acento: #f36a21;
+  --color-acento-claro: #ff8a4b;
+  --color-acento-palido: #ffd0b8;
+  --color-linea: rgba(255, 255, 255, .18);
+  --color-superficie: rgba(255, 255, 255, .08);
+  --color-superficie-fuerte: rgba(255, 255, 255, .18);
+  --color-sombra: rgba(0, 0, 0, .32);
+
+  /* Tipografía */
+  --fuente: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Espaciado */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-7: 32px;
-  --space-8: 40px;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --font-titulo: "SF Pro Display", "Segoe UI", system-ui, sans-serif;
-  --font-cuerpo: "SF Pro Text", "Segoe UI", system-ui, sans-serif;
-  --font-tamaño-base: 16px;
-  --font-tamaño-l: 32px;
-  --font-tamaño-xl: 48px;
-  --font-peso-normal: 400;
-  --font-peso-negrita: 700;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-  --transition-fast: 150ms ease;
-  --transition-normal: 300ms ease;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Radios y sombras */
+  --radio-sm: 6px;
+  --radio-md: 14px;
+  --radio-pill: 999px;
+  --sombra-suave: 0 12px 34px var(--color-sombra);
+  --sombra-acento: 0 14px 36px rgba(243, 106, 33, .38);
+
+  /* Tamaños de control: objetivo táctil mínimo (Art. VIII.1) y botón principal */
+  --tap: 44px;
+  --logo-h: 32px;
+  --cta-h: 56px;
+
+  /* Margen lateral único: cabecera, texto y pie quedan alineados.
+     En pantallas muy anchas el contenido se centra con un máximo de 1320px. */
+  --edge: max(clamp(20px, 5vw, 72px), calc((100% - 1320px) / 2));
 }
 
-/* Reset y base */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: var(--font-tamaño-base); scroll-behavior: smooth; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--color-fondo);
+}
+
 body {
-  font-family: var(--font-cuerpo);
-  color: var(--color-texto);
-  background: var(--color-fondo);
-  line-height: 1.6;
-}
-
-/* Skip link */
-.skip-link {
-  position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden;
-}
-.skip-link:focus { left: 0; top: 0; width: auto; height: auto; padding: var(--space-2); background: var(--color-acento); color: white; z-index: 9999; }
-
-/* Contenedor */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-3); }
-
-/* Header compacto con colores oficiales */
-.site-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 60px;
-  padding: 0 var(--space-3);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--color-fondo);
-  border-bottom: 1px solid rgba(255,103,33,0.3);
-  z-index: 100;
-}
-.site-header .container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-.logo { font-family: var(--font-titulo); font-weight: var(--font-peso-negrita); font-size: 1.6rem; color: var(--color-acento); text-decoration: none; }
-.btn-download {
-  display: inline-block;
-  background: var(--color-acento);
-  color: white;
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  font-weight: var(--font-peso-negrita);
-  font-size: 0.95rem;
-  transition: var(--transition-fast);
-}
-.btn-download:hover { background: #d4571e; transform: translateY(-1px); }
-
-/* Área principal hero con imagen de fondo */
-.hero-area { padding: var(--space-8) 0 0 0; max-width: 1200px; margin: 0 auto; position: relative; }
-.hero-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-8);
-  align-items: center;
-  max-width: 1000px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-.hero-text {
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
   color: var(--color-texto);
-  max-width: 500px;
-}
-.hero-text h1 {
-  font-family: var(--font-titulo);
-  font-size: var(--font-tamaño-xl);
-  font-weight: var(--font-peso-negrita);
-  color: var(--color-acento);
-  line-height: 1.3;
-  margin: 0 0 var(--space-4);
-}
-.hero-text p {
-  color: var(--color-texto-claro);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin: 0 0 var(--space-4);
-}
-.hero-text .btn-download {
-  display: inline-block;
-  background: var(--color-acento);
-  color: white;
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  font-weight: var(--font-peso-negrita);
-  font-size: 1.05rem;
+  background: var(--color-fondo);
+  font-family: var(--fuente);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Ilustración SVG superpuesta */
-.hero-illustration {
-  text-align: center;
-  max-width: 250px;
-}
-.hero-illustration svg {
+img {
+  display: block;
   max-width: 100%;
   height: auto;
-  fill: var(--color-acento) !important;
 }
 
-/* Fraja inferior - 3 conceptos */
-.strip-concepts {
-  background: var(--color-secundario);
-  padding: var(--space-4) 0;
-  margin: var(--space-4) 0;
-}
-.strip-content {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-}
-.strip-concept {
-  text-align: center;
-  flex: 1;
-  min-width: 100px;
-}
-.strip-concept svg {
-  width: 32px;
-  height: 32px;
-  margin: 0 auto var(--space-2);
-  fill: var(--color-acento);
-}
-.strip-concept span {
-  color: var(--color-texto);
-  font-size: 0.85rem;
+/* ───────── Saltar al contenido ───────── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
-/* Footer */
-.site-footer {
-  padding: var(--space-4) 0;
-  border-top: 1px solid rgba(255,103,33,0.3);
-  color: #ffffff;
-  font-size: 0.85rem;
-}
-.site-footer .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--space-3);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-}
-.site-footer .footer-links {
-  display: flex;
-  gap: var(--space-2);
-}
-.site-footer a {
-  color: rgba(255,255,255,0.9);
+.skip-link:focus {
+  left: var(--space-3);
+  top: var(--space-3);
+  width: auto;
+  height: auto;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radio-sm);
+  background: var(--color-acento);
+  color: var(--color-fondo);
+  font-weight: 700;
   text-decoration: none;
-}
-.site-footer a:hover { text-decoration: underline; }
-.site-footer .copyright {
-  margin-top: var(--space-2);
-  text-align: center;
-  width: 100%;
-  color: rgba(255,255,255,0.7);
+  z-index: 1000;
 }
 
-/* Responsive */
-@media (max-width: 48em) {
-  .site-header { height: 50px; padding: var(--space-2) var(--space-3); }
-  .site-header .container { flex-direction: column; gap: var(--space-3); }
-  .logo { font-size: 1.4rem; color: var(--color-acento); }
-  .btn-download { font-size: 0.85rem; padding: var(--space-1) var(--space-2); }
-  .hero-content { grid-template-columns: 1fr; gap: var(--space-4); max-width: none; }
-  .hero-text h1 { font-size: var(--font-tamaño-l); color: var(--color-acento); }
-  .hero-text p { font-size: 1rem; }
-  .strip-concepts { padding: var(--space-3) 0; }
-  .strip-content { gap: var(--space-3); }
-  .site-footer { padding: var(--space-3) 0; font-size: 0.8rem; }
-  .site-footer .container { gap: var(--space-3); }
-  .site-footer .footer-links { order: 2; width: 100%; justify-content: center; }
-  .site-footer .copyright { margin-top: var(--space-1); }
+/* ───────── Cabecera (idéntica en todas las páginas) ───────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--edge);
+  padding-top: max(var(--space-3), env(safe-area-inset-top));
+  border-bottom: 1px solid var(--color-linea);
+  background: rgba(28, 23, 21, .72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--space-3);
+  border-radius: var(--radio-md);
+  background: var(--color-texto);
+  text-decoration: none;
+  box-shadow: var(--sombra-suave);
+  transition: transform .2s ease;
+}
+
+.brand img {
+  width: auto;
+  height: var(--logo-h);
+}
+
+.brand:hover {
+  transform: translateY(-2px);
+}
+
+.brand:focus-visible {
+  outline: 3px solid var(--color-acento-claro);
+  outline-offset: 3px;
+}
+
+/* ───────── Contenido principal ───────── */
+main#contenido {
+  flex: 1;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ───────── Portada (index.html): una sola pantalla ─────────
+   El cuerpo ocupa el alto visible; el contenido se dimensiona con vh/dvh para caber sin desplazarse.
+   Si la pantalla es tan pequeña que no cabe, la página crece y se desplaza (nunca se recorta). */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: var(--space-5) var(--edge);
+  overflow: hidden;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: 0;
+  width: 64%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 18%);
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 14% 30%;
+}
+
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(28, 23, 21, .5) 0%, transparent 34%);
+  pointer-events: none;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  width: min(500px, 40%);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+  color: var(--color-acento-palido);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  flex: none;
+  width: 34px;
+  height: 2px;
+  background: var(--color-acento);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, min(4.4vw, 8.6vh), 4.4rem);
+  line-height: 1;
+  letter-spacing: -.05em;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.hero h1 span {
+  display: block;
+  color: var(--color-acento-claro);
+}
+
+.description {
+  max-width: 27em;
+  margin: var(--space-4) 0 0;
+  color: var(--color-texto-suave);
+  font-size: clamp(.95rem, min(1.3vw, 2.6vh), 1.15rem);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* Botón principal: Google Play (con enlace) o aviso «Próximamente» (sin enlace) */
+.store {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--cta-h);
+  margin: var(--space-5) 0 0;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radio-pill);
+  background: var(--color-acento);
+  color: var(--color-fondo);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: var(--sombra-acento);
+}
+
+.store-icon {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Sin enlace todavía: sin flecha de descarga y sin aspecto de botón activo */
+.store:not(a) {
+  background: var(--color-acento-claro);
+  cursor: default;
+}
+
+.store:not(a) .store-icon {
+  display: none;
+}
+
+.store:not(a)::before {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-fondo);
+}
+
+a.store {
+  transition: transform .2s ease, background-color .2s ease;
+}
+
+a.store:hover {
+  transform: translateY(-2px);
+  background: var(--color-acento-claro);
+}
+
+a.store:focus-visible {
+  outline: 3px solid var(--color-texto);
+  outline-offset: 4px;
+}
+
+.values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.values li {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: var(--radio-pill);
+  background: var(--color-superficie);
+  font-size: .85rem;
+  font-weight: 650;
+  letter-spacing: .02em;
+}
+
+/* Redes sociales: íconos en botones circulares de 44 px; sin URL en config.js quedan sin enlace */
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap);
+  height: var(--tap);
+  border: 1px solid var(--color-linea);
+  border-radius: 50%;
+  background: var(--color-superficie);
+  color: var(--color-texto-tenue);
+}
+
+.social-link svg {
+  fill: currentColor;
+}
+
+a.social-link {
+  color: var(--color-texto);
+  transition: background-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+a.social-link:hover {
+  background: var(--color-acento);
+  color: var(--color-fondo);
+  transform: translateY(-2px);
+}
+
+a.social-link:focus-visible {
+  outline: 3px solid var(--color-acento-claro);
+  outline-offset: 3px;
+}
+
+/* ───────── Páginas legales ───────── */
+main#contenido > .legal {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-7) var(--edge) var(--space-8);
+  color: var(--color-texto-suave);
+}
+
+.legal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+  color: var(--color-acento-palido);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.legal-badge::before {
+  content: "";
+  flex: none;
+  width: 34px;
+  height: 2px;
+  background: var(--color-acento);
+}
+
+.legal-updated {
+  margin: 0 0 var(--space-5);
+  font-size: .9rem;
+}
+
+.legal h1 {
+  margin: 0 0 var(--space-5);
+  color: var(--color-texto);
+  font-size: clamp(1.7rem, 3.5vw, 2.2rem);
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+}
+
+.legal h2 {
+  margin: var(--space-6) 0 var(--space-3);
+  color: var(--color-acento-claro);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.legal p {
+  margin: 0 0 var(--space-4);
+}
+
+.legal ul,
+.legal ol {
+  margin: 0 0 var(--space-4);
+  padding-left: var(--space-5);
+}
+
+.legal li {
+  margin-bottom: var(--space-2);
+}
+
+.legal a {
+  color: var(--color-acento-claro);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal a:hover {
+  color: var(--color-acento);
+}
+
+.legal a:focus-visible,
+.footer-links a:focus-visible {
+  outline: 2px solid var(--color-acento-claro);
+  outline-offset: 3px;
+  border-radius: var(--radio-sm);
+}
+
+.table-scroll {
+  margin: 0 0 var(--space-5);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-linea);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--color-texto);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+td {
+  font-size: .95rem;
+}
+
+/* ───────── Página 404 ───────── */
+main#contenido > .not-found {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--edge);
+  text-align: center;
+}
+
+.not-found h1 {
+  margin: 0 0 var(--space-4);
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -.04em;
+}
+
+.not-found p {
+  margin: 0 0 var(--space-5);
+  color: var(--color-texto-suave);
+}
+
+.not-found a {
+  color: var(--color-acento-claro);
+}
+
+/* ───────── Pie (idéntico en todas las páginas) ───────── */
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  padding: var(--space-4) var(--edge);
+  padding-bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-linea);
+  background: rgba(28, 23, 21, .78);
+  color: var(--color-texto-tenue);
+  font-size: .8rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-5);
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-texto);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--color-acento-claro);
+}
+
+.copyright {
+  margin: 0;
+}
+
+/* ───────── Tablet vertical y móvil: la foto va arriba y el texto debajo, todo en una pantalla ───────── */
+@media (max-width: 720px) and (min-height: 561px), (max-width: 1000px) and (orientation: portrait) {
+  .site-header {
+    padding-block: var(--space-1);
+  }
+
+  .brand {
+    min-height: var(--tap);
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0 var(--edge) var(--space-3);
+  }
+
+  .hero-media {
+    position: relative;
+    inset: auto;
+    flex: 1 0 120px;
+    width: auto;
+    max-height: 56dvh;
+    margin: 0 calc(var(--edge) * -1);
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+  }
+
+  .hero-media img {
+    position: absolute;
+    inset: 0;
+    object-position: 44% 38%;
+  }
+
+  .hero-copy {
+    flex: none;
+    width: 100%;
+    max-width: 620px;
+    margin-top: calc(var(--space-5) * -1);
+  }
+
+  .eyebrow {
+    margin-bottom: var(--space-1);
+    font-size: .7rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.9rem, min(10vw, 5.6dvh), 4.2rem);
+  }
+
+  .description {
+    margin-top: var(--space-2);
+    font-size: .9rem;
+    line-height: 1.45;
+  }
+
+  .store {
+    min-height: 52px;
+    margin-top: var(--space-3);
+    padding-inline: var(--space-5);
+  }
+
+  .values {
+    margin-top: var(--space-2);
+  }
+
+  .social {
+    margin-top: var(--space-2);
+  }
+
+  .site-footer {
+    padding-block: var(--space-1);
+    gap: 0 var(--space-4);
+  }
+
+  /* En móvil los enlaces y el copyright comparten renglones para ahorrar alto */
+  .site-footer {
+    justify-content: flex-start;
+  }
+
+  .footer-links {
+    display: contents;
+  }
+
+  .copyright {
+    margin-left: auto;
+  }
+
+  main#contenido > .legal {
+    padding-top: var(--space-6);
+  }
+}
+
+/* Teléfonos: botón de Google Play y redes a todo el ancho */
+@media (max-width: 480px) {
+  .store {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .social {
+    justify-content: space-between;
+  }
+}
+
+/* Teléfonos de pantalla corta: se omite el antetítulo decorativo y se aprieta el texto */
+@media (max-width: 720px) and (max-height: 620px) and (orientation: portrait) {
+  .eyebrow {
+    display: none;
+  }
+
+  .description {
+    font-size: .85rem;
+    line-height: 1.4;
+  }
+}
+
+/* Móviles muy angostos */
+@media (max-width: 380px) {
+  .store {
+    padding-inline: var(--space-4);
+    font-size: .95rem;
+  }
+
+  .values li {
+    font-size: .8rem;
+  }
+}
+
+/* Tablet y móvil en horizontal: la columna de texto gana ancho */
+@media (max-width: 1000px) and (orientation: landscape) and (max-height: 700px), (min-width: 721px) and (max-width: 1000px) and (orientation: landscape) {
+  .hero-media {
+    width: 56%;
+  }
+
+  .hero-copy {
+    width: min(500px, 52%);
+  }
+
+  .eyebrow {
+    font-size: .7rem;
+    letter-spacing: .12em;
+  }
+}
+
+/* Pantallas bajas (portátiles pequeños, móvil en horizontal): se compacta la portada para que siga cabiendo */
+@media (max-height: 700px) and (min-width: 721px) {
+  .hero {
+    padding-block: var(--space-3);
+  }
+
+  .eyebrow {
+    margin-bottom: var(--space-3);
+  }
+
+  .store {
+    min-height: 48px;
+    margin-top: var(--space-4);
+  }
+
+  .values,
+  .social {
+    margin-top: var(--space-3);
+  }
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
+  .site-header {
+    padding-block: var(--space-1);
+  }
+
+  .hero {
+    padding-block: var(--space-2);
+  }
+
+  .eyebrow {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.7rem, 9vh, 2.4rem);
+  }
+
+  .site-footer {
+    padding-block: var(--space-1);
+  }
+
+  .description {
+    margin-top: var(--space-2);
+    font-size: .82rem;
+    line-height: 1.35;
+  }
+
+  .store {
+    min-height: var(--tap);
+    margin-top: var(--space-2);
+  }
+
+  .values,
+  .social {
+    margin-top: var(--space-2);
+  }
+}
+
+/* Pantallas muy anchas: se ajusta el encuadre de la foto */
+@media (min-width: 1700px) {
+  .hero-media img {
+    object-position: 20% 34%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }

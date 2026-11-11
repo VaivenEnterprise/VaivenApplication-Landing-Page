@@ -1,50 +1,71 @@
 import { SITE } from "./config.js";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const supportEmail = SITE.supportEmail;
-  const playUrl = SITE.playUrl;
-  const today = new Date();
+const email = String(SITE.supportEmail ?? "").trim();
+const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const playUrl = String(SITE.playUrl ?? "").trim();
+const playOk = /^https:\/\/play\.google\.com\/store\/apps\/details\?id=[\w.]+$/.test(playUrl);
 
-  // Rellenar el correo de soporte en el HTML
-  const supportElements = document.querySelectorAll("[data-support-email]");
-  supportElements.forEach((el) => {
-    el.textContent = supportEmail;
-    // Validar formato de correo antes de construir el enlace mailto: (evita inyección de URL)
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailRegex.test(supportEmail)) {
-      el.setAttribute("href", `mailto:${supportEmail}`);
-    } else {
-      el.removeAttribute("href");
-    }
-  });
+// Correo de soporte: se rellena solo si es válido (evita mailto mal formado).
+for (const el of document.querySelectorAll("[data-support-link]")) {
+  if (emailOk) el.setAttribute("href", `mailto:${email}`);
+  else el.removeAttribute("href");
+}
+for (const el of document.querySelectorAll("[data-support-email]")) {
+  if (emailOk) el.textContent = email;
+}
 
-  // Botón de Google Play
-  const playButtons = document.querySelectorAll("[data-play-link]");
-  playButtons.forEach((el) => {
-    if (playUrl) {
-      el.href = playUrl;
-      el.textContent = "Disponible en Google Play";
-      el.removeAttribute("data-play-link");
-    } else {
-      el.textContent = "Próximamente en Google Play";
-      el.removeAttribute("href");
-      el.setAttribute("aria-disabled", "true");
-      el.style.cursor = "not-allowed";
-    }
-  });
-
-  // Menú móvil
-  const nav = document.querySelector(".site-nav");
-  const menuBtn = document.querySelector(".menu-toggle");
-  if (nav && menuBtn) {
-    menuBtn.addEventListener("click", function () {
-      nav.classList.toggle("nav-open");
-    });
+// Fecha de última actualización de los textos legales.
+if (SITE.legalUpdated) {
+  for (const el of document.querySelectorAll("[data-legal-updated]")) {
+    el.textContent = `Última actualización: ${SITE.legalUpdated}`;
   }
+}
 
-  // Enfocar el primer elemento interactivo después de cargar
-  setTimeout(() => {
-    const firstFocusable = document.querySelector("a[href], button");
-    if (firstFocusable) firstFocusable.focus();
-  }, 100);
-});
+// Botón de Google Play: sin URL publicada queda como texto, nunca como enlace roto.
+const play = document.querySelector("[data-play-link]");
+if (play) {
+  if (playOk) {
+    const link = document.createElement("a");
+    link.className = play.className;
+    link.href = playUrl;
+    link.rel = "noopener noreferrer";
+    link.append(...play.childNodes);
+    const label = link.querySelector(".store-text");
+    if (label) label.textContent = "Disponible en Google Play";
+    play.replaceWith(link);
+  } else {
+    play.setAttribute("aria-disabled", "true");
+  }
+}
+
+// Redes sociales: con URL https del dominio de la red, el ícono pasa a ser enlace; si no, queda sin enlace.
+const SOCIAL_HOSTS = {
+  facebook: /^(www\.)?facebook\.com$/,
+  instagram: /^(www\.)?instagram\.com$/,
+  x: /^(www\.)?(x|twitter)\.com$/,
+  youtube: /^(www\.)?(youtube\.com|youtu\.be)$/,
+  tiktok: /^(www\.)?tiktok\.com$/,
+};
+
+function socialUrl(network) {
+  try {
+    const url = new URL(String(SITE.social?.[network] ?? "").trim());
+    return url.protocol === "https:" && SOCIAL_HOSTS[network]?.test(url.hostname) ? url.href : "";
+  } catch {
+    return "";
+  }
+}
+
+for (const el of document.querySelectorAll("[data-social]")) {
+  const href = socialUrl(el.dataset.social);
+  if (!href) continue;
+  const link = document.createElement("a");
+  link.className = el.className;
+  link.href = href;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.append(...el.childNodes);
+  const label = link.querySelector(".sr-only");
+  if (label) label.textContent = `VAIVÉN en ${el.dataset.name}`;
+  el.replaceWith(link);
+}

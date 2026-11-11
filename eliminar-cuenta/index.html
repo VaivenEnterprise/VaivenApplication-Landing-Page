@@ -7,26 +7,28 @@
   <title>Eliminar cuenta — VAIVÉN</title>
   <meta name="description" content="Cómo eliminar tu cuenta de VAIVÉN: desde la app, por correo si no tienes la app, condición de reservas activas y qué se elimina y qué se conserva.">
   <link rel="canonical" href="https://vaiven-landing.onrender.com/eliminar-cuenta/">
-  <link rel="icon" type="image/png" href="/assets/img/icon.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
   <meta property="og:title" content="Eliminar cuenta — VAIVÉN">
-  <meta property="og:description" content="Eliminar cuenta de VAIVÉN">
+  <meta property="og:description" content="Pasos para eliminar tu cuenta de VAIVÉN y qué datos se conservan.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vaiven-landing.onrender.com/eliminar-cuenta/">
-  <link rel="stylesheet" href="/assets/css/legal.css">
+  <meta property="og:image" content="https://vaiven-landing.onrender.com/assets/img/og-image.png">
+  <meta property="og:locale" content="es_MX">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script type="module" src="/assets/js/site.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-  <header>
-    <a class="brand" href="/" aria-label="VAIVÉN, página principal">
-      <img src="/assets/img/logo.jpeg" width="637" height="649" alt="VAIVÉN — Las cosas van y vienen">
-    </a>
+  <header class="site-header">
+    <a class="brand" href="/"><img src="/assets/img/logo.svg" width="119" height="32" alt="VAIVÉN, ir al inicio"></a>
   </header>
 
   <main id="contenido">
-    <article>
+    <article class="legal">
       <p class="legal-badge">Borrador pendiente de revisión legal</p>
-      <p class="legal-updated">Última actualización: <?php echo date('F d, Y'); ?></p>
+      <p class="legal-updated" data-legal-updated>Última actualización: 6 de noviembre de 2026</p>
       <h1>Eliminar cuenta</h1>
 
       <section>
@@ -38,12 +40,12 @@
           <li>Confirma tu contraseña para verificar tu identidad.</li>
           <li>Selecciona <strong>Eliminar</strong>.</li>
         </ol>
-        <p>Al eliminar tu cuenta, tus datos se anonimizarán y no podrán identificarse con tu persona. Tus reservas, evidencia e incidencias se conservarán sin datos que identifiquen a la persona, por seguridad de la contraparte.</p>
+        <p>Al eliminar tu cuenta, tus datos se anonimizan y no pueden identificarse con tu persona. Tus reservas, evidencia e incidencias se conservan sin datos que identifiquen a la persona, por seguridad de la contraparte.</p>
       </section>
 
       <section>
         <h2>Si no tienes la app</h2>
-        <p>Envía un correo a <a href="mailto:vaivenedeltrabajo@gmail.com">vaivenedeltrabajo@gmail.com</a> solicitando el borrado de tu cuenta. Incluye tu dirección de correo registrada y, de ser posible, tu nombre de usuario. Respondemos en un plazo de ≤ 10 días hábiles y confirmamos el borrado una vez procesado.</p>
+        <p>Envía un correo a <a href="mailto:vaivenedeltrabajo@gmail.com" data-support-link data-support-email>vaivenedeltrabajo@gmail.com</a> solicitando el borrado de tu cuenta. Incluye tu dirección de correo registrada y, de ser posible, tu nombre de usuario. Respondemos en un plazo de 10 días hábiles y confirmamos el borrado una vez procesado.</p>
       </section>
 
       <section>
@@ -54,38 +56,26 @@
       <section>
         <h2>Qué se elimina y qué se conserva</h2>
         <ul>
-          <li>Se eliminan: datos personales identificables, historial de sesiones, preferencias de usuario.</li>
-          <li>Se conservan (anonimizados): registros técnicos, evidencia de incidencias (sin datos personales), datos de seguridad para prevención de fraude, estadísticas agregadas.</li>
+          <li>Se eliminan: datos personales identificables, historial de sesiones y preferencias de usuario.</li>
+          <li>Se conservan (anonimizados): registros técnicos, evidencia de incidencias sin datos personales, datos de seguridad para prevención de fraude y estadísticas agregadas.</li>
         </ul>
       </section>
 
       <section>
         <h2>Contacto</h2>
-        <p>Para dudas sobre la eliminación de tu cuenta, escríbenos a <a href="mailto:vaivenedeltrabajo@gmail.com">vaivenedeltrabajo@gmail.com</a>.</p>
+        <p>Para dudas sobre la eliminación de tu cuenta, escríbenos a <a href="mailto:vaivenedeltrabajo@gmail.com" data-support-link data-support-email>vaivenedeltrabajo@gmail.com</a>.</p>
       </section>
     </article>
-
-    <nav class="social-buttons" aria-label="Síguenos en redes sociales">
-      <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en Facebook">
-        <img src="/assets/img/social-facebook.svg" alt="Facebook">
-      </a>
-      <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en X (Twitter)">
-        <img src="/assets/img/social-x.svg" alt="X (Twitter)">
-      </a>
-      <a class="social-btn" href="#" rel="noopener noreferrer" aria-label="VAIVÉN en YouTube">
-        <img src="/assets/img/social-youtube.svg" alt="YouTube">
-      </a>
-    </nav>
   </main>
 
-  <footer>
+  <footer class="site-footer">
     <nav class="footer-links" aria-label="Enlaces legales y de contacto">
       <a href="/privacidad/">Privacidad</a>
       <a href="/terminos/">Términos y condiciones</a>
       <a href="/eliminar-cuenta/">Eliminar cuenta</a>
-      <a href="mailto:vaivenedeltrabajo@gmail.com">Contacto</a>
+      <a href="mailto:vaivenedeltrabajo@gmail.com" data-support-link>Contacto</a>
     </nav>
-    <span class="copyright" data-support-email>© 2026 VAIVÉN. Borrador pendiente de revisión legal.</span>
+    <p class="copyright">© 2026 VAIVÉN</p>
   </footer>
 </body>
 </html>
