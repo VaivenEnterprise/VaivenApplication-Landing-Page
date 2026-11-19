@@ -1,11 +1,13 @@
 # Constitución — VAIVÉN Landing
 
-> **Versión 1.4.0** · 2026-11-11 · Enmendada el 2026-11-01 (repositorios separados; **MINOR:** se elimina todo lo de repositorio y pipeline y se agrega el Art. XII de despliegue por MCP) · Máxima autoridad del proyecto `vaiven-landing-page/`. Si algo la contradice, gana este documento.
+> **Versión 1.4.1** · 2026-11-11 · Enmendada el 2026-11-01 (repositorios separados; **MINOR:** se elimina todo lo de repositorio y pipeline y se agrega el Art. XII de despliegue por MCP) · Máxima autoridad del proyecto `vaiven-landing-page/`. Si algo la contradice, gana este documento.
 >
 > **Enmienda 1.2.0 (2026-11-02, MINOR):** se agrega el Art. XIII (repositorio y pull requests en GitHub, con MCP de GitHub); se reemplaza la declaración de «sin repositorio».
 >
 > **Enmienda 1.3.0 (2026-11-11, MINOR):** a petición de la persona responsable de la landing se permiten los **íconos de las redes sociales de VAIVÉN** como enlaces a sus perfiles (Art. II.1, V.3 y VII.1), se permite una **fotografía de fondo aportada por el equipo** con origen y licencia anotados (Art. V.4) y se fija que la **portada cabe en una pantalla** (Art. VIII.7). **Esta enmienda cambia el texto de la máxima autoridad: requiere revisión y aprobación de una persona antes de fusionarse.** **Aprobada por la persona responsable el 2026-11-11.**
 > **Enmienda 1.4.0 (2026-11-11, MINOR; aprobada por la persona responsable el 2026-11-11):** la landing adopta el sistema de diseño de la app (`vaiven-diseno-landing.md`: paleta crema y terracota, radios, sombras y escala tipográfica) y su tipografía **Plus Jakarta Sans**, **alojada en el propio sitio** (`assets/fonts/`, WOFF2 de 27 KB, licencia SIL OFL). Cambia el Art. III (fila «Estilos»). El Art. VII.1 no cambia: la fuente no viene de ningún CDN. 
+>
+> **Enmienda 1.4.1 (2026-11-12, PATCH; pendiente de aprobación humana):** el Art. VII.1 aclara que la **preferencia de tema (claro u oscuro)** se guarda en el `localStorage` del propio navegador (clave `vaiven-tema`, valor `light` o `dark`). No es una cookie, no sale del dispositivo, no se envía a ningún servidor y no identifica a nadie. Si no se aprueba, se quita el botón de tema y `assets/js/theme.js`, y el sitio vuelve a seguir solo al sistema.
 >
 > Comparte con las constituciones de `vaiven-backend/` y `vaiven-frontend/` las reglas de idioma (es-MX) y de secretos.
 
@@ -65,7 +67,7 @@ vaiven-landing-page/            # raíz del repositorio
 4. El responsable no afirma que VAIVÉN procese pagos: los pagos son entre personas.
 
 ## Art. VII — Privacidad del sitio
-1. Sin cookies, sin analítica, sin píxeles, sin incrustaciones de terceros (mapas, videos, widgets o botones «compartir» de redes) y sin fuentes ni librerías desde CDN. Un **enlace** a un perfil de una red social no es una incrustación: no carga nada de la red hasta que la persona lo abre. Por eso no hay aviso de cookies.
+1. Sin cookies, sin analítica, sin píxeles, sin incrustaciones de terceros (mapas, videos, widgets o botones «compartir» de redes) y sin fuentes ni librerías desde CDN. Un **enlace** a un perfil de una red social no es una incrustación: no carga nada de la red hasta que la persona lo abre. Por eso no hay aviso de cookies. La única excepción es la preferencia de tema, guardada solo en el navegador de la persona (ver enmienda 1.4.1).
 2. Los enlaces externos usan `rel="noopener noreferrer"`, son `https` y, en las redes sociales, del dominio de la propia red (lo verifica `check.mjs`).
 
 ## Art. VIII — Accesibilidad, rendimiento y SEO

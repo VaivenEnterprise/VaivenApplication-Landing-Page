@@ -11,7 +11,7 @@ export const SITE = {
     facebook: "",
     instagram: "",
     x: "",
-    youtube: "",
+    youtube: "https://www.youtube.com/channel/UCkY2Dt0dGl9tn6tahpj1AlQ",
     tiktok: "",
   },
 };

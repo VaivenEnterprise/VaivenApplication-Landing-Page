@@ -229,3 +229,49 @@ Respuestas de la persona responsable:
 - **Revisión visual (L002-T009):** la persona reporta «un par de errores nada graves» de UI/UX en la responsividad móvil, sin detallarlos; se atienden cuando los indique o los encuentre `dev-web`.
 
 Veredicto actualizado de conformidad (sobre el de esta misma fecha): Art. V.4 ahora **cumple** con el origen anotado (falta el nombre de la herramienta de IA); las enmiendas 1.3.0 y 1.4.0 están aprobadas. Siguen abiertos CA-09 (no se pudo contrastar con las specs de backend y móvil), la revisión legal (L001-T011) y T009/T010 de L002. L002-T011 sigue sin marcar.
+
+## Movimiento y canal de YouTube — 2026-11-12 [dev-web]
+
+| ID | Fecha | Decisión | Fundamento |
+|---|---|---|---|
+| D-024 | 2026-11-12 | La portada tiene animación de entrada (la foto aparece; el texto sube 8 px en escalones de 100 ms) y los botones con enlace (Google Play y redes) responden al cursor y al toque. Solo `transform` y `opacity`, duraciones de 100/150/200/300 ms, sin bucles, y sin animación con `prefers-reduced-motion: reduce`. Los botones inertes no se animan. | Pedido de la persona; P-25; skill `motion` |
+| D-025 | 2026-11-12 | Primer perfil social real: canal de YouTube de VAIVÉN, `https://www.youtube.com/channel/UCkY2Dt0dGl9tn6tahpj1AlQ`, en `SITE.social.youtube`. | Aportado por la persona; L002-T016 (avance) |
+
+- Verificación (Chrome real): al inicio los elementos tienen opacidad 0 y a 1 s quedan en 1 sin transformación residual; con movimiento reducido no hay animación; el ícono de YouTube es un enlace `https` con `rel="noopener noreferrer"` y `target="_blank"` y sube 2 px al pasar el cursor; los otros cuatro siguen sin enlace; sin desplazamiento en 11 tamaños × 2 temas (22 de 22); `check.mjs` verde.
+- Pendientes de L002-T016: URL de Facebook, Instagram, X y TikTok.
+- ROADMAP: L002 pasa a 23 tareas (total 409); replicar en los otros dos repositorios.
+
+## Diseño que genera confianza — 2026-11-12 [dev-web · spec-writer]
+
+| ID | Fecha | Decisión | Fundamento |
+|---|---|---|---|
+| D-026 | 2026-11-12 | La franja de la portada deja de ser «Comparte / Encuentra / Conecta» y pasa a tres señales de confianza con ícono: «Zona aproximada», «Clave cifrada» y «Reporta contenido». Solo se afirma lo que ya dicen las páginas legales; no se agregan cifras, reseñas, sellos de «verificado» ni comparaciones. Se evitó «Chat privado» y «Acuerdos claros»: el chat y las reservas aún no existen en la app (el documento de diseño pide anunciarlos solo como «próximamente»). | Pedido de la persona; RF-03 (cambiado), Art. V.2 y V.5 |
+
+- **Advertencia:** las tres señales se apoyan en páginas legales que siguen como borrador (L001-T011). Si la revisión legal cambia esos textos, hay que revisar estas afirmaciones (CA-09).
+- Verificación: `check.mjs` verde; sin desplazamiento en 15 tamaños × 2 temas (30 de 30) en Chrome real.
+- Ajustes para seguir cabiendo en teléfonos: antetítulo omitido hasta 640 px de alto y foto mínima de 80 px en pantallas de 340 px o menos.
+- ROADMAP: L002 pasa a 24 tareas (total 410); replicar en los otros dos repositorios.
+
+## Cambio manual de tema — 2026-11-12 [dev-web · spec-writer]
+
+| ID | Fecha | Decisión | Fundamento |
+|---|---|---|---|
+| D-027 | 2026-11-12 | Botón en la cabecera para pasar de tema claro a oscuro y al revés cuando la persona quiera. La elección se guarda en `localStorage` (`vaiven-tema`), manda sobre el sistema y se recuerda entre páginas; sin elección guardada se sigue al sistema, también en vivo. Sin JavaScript el botón no aparece. | Pedido de la persona; P-27 |
+
+- **Constitución:** guardar algo en el navegador roza el Art. VII.1 («sin cookies»). `localStorage` no es una cookie y la preferencia no sale del dispositivo, pero se redactó la **enmienda 1.4.1** (PATCH) para dejarlo escrito; está **pendiente de aprobación** (L002-T026).
+- **Aviso de privacidad:** no menciona el almacenamiento local del navegador. Si la revisión legal (L001-T011) lo considera necesario, agregar una línea.
+- Verificación (Chrome real): alterna y persiste tras recargar y en otra página; sistema claro/oscuro correcto sin elección guardada y en vivo; atributo puesto antes de `DOMContentLoaded` (sin parpadeo); sin JS el botón está oculto y el tema sigue al sistema; sin desplazamiento en 15 tamaños × 2 temas; `check.mjs` verde; JS total 4.9 KB.
+- ROADMAP: L002 pasa a 26 tareas (total 412); replicar en los otros dos repositorios.
+
+## Logotipo sin fondo — 2026-11-12 [dev-web]
+
+| ID | Fecha | Decisión | Fundamento |
+|---|---|---|---|
+| D-028 | 2026-11-12 | El logotipo de la cabecera es el PNG transparente entregado (`vaiven.png`), **sin píldora blanca**, en `logo.webp` (40 px de alto, 3×). En tema oscuro se usa `logo-oscuro.webp`, que cambia solo el gris del «ven» por crema `#F6EDE6` (el naranja y las proporciones no cambian). Se regeneran `og-image.png` y `apple-touch-icon.png`; se retiran `logo.svg` y `logo-vertical.svg` (la vectorización de D-020 queda reemplazada). | Pedido de la persona; P-28 |
+
+- Se resuelve el pendiente de D-020 (reemplazar la vectorización del JPEG por un original): ahora el logotipo viene de una imagen transparente de la persona. `favicon.svg` (emblema vectorizado) no cambió.
+- El lema «Las cosas van y vienen» solo aparece en `og-image.png`; en la cabecera sería ilegible a 40 px.
+- Verificación (Chrome real): en claro se descarga solo `logo.webp` y en oscuro solo `logo-oscuro.webp`; cabecera con el botón de tema alineada; sin desplazamiento en 15 tamaños × 2 temas; `check.mjs` verde.
+- ROADMAP: L002 pasa a 27 tareas (total 413); replicar en los otros dos repositorios.
+
+| D-029 | 2026-11-12 | La persona entregó una nueva versión del logotipo transparente (emblema + «Vaiven», **sin el lema «Las cosas van y vienen»**) y pidió usarla en lugar de la anterior. Se regeneraron `logo.webp`, `logo-oscuro.webp`, `og-image.png` (ya sin lema) y `apple-touch-icon.png`; no cambian HTML, CSS ni JS. Sustituye lo dicho sobre el lema en D-028. | Instrucción de la persona responsable |
