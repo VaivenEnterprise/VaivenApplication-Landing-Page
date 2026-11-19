@@ -32,7 +32,6 @@
   --ink: #2a1f1a;
   --muted: #6f6058;
   --on-primary: #ffffff;
-  --brand-bg: #ffffff; /* el logotipo siempre va sobre blanco */
   --header-bg: rgba(255, 246, 238, .88);
 
   /* Degradados */
@@ -62,9 +61,17 @@
   --shadow-card: 0 4px 16px rgba(138, 58, 27, .10);
   --shadow-button: 0 8px 20px rgba(194, 78, 36, .30);
 
+  /* Movimiento: solo estas duraciones; entrar con ease-out, salir con ease-in; solo transform y opacity */
+  --motion-100: 100ms;
+  --motion-150: 150ms;
+  --motion-200: 200ms;
+  --motion-300: 300ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+
   /* Tamaños de control: objetivo táctil mínimo (Art. VIII.1), logotipo y botón principal */
   --tap: 44px;
-  --logo-h: 32px;
+  --logo-h: 40px;
   --cta-h: 56px;
 
   /* Margen lateral único: cabecera, texto y pie quedan alineados.
@@ -72,10 +79,36 @@
   --edge: max(clamp(20px, 5vw, 72px), calc((100% - 1120px) / 2));
 }
 
-/* Tema oscuro (según el sistema). Mismos roles que el claro: crema → café cálido; terracota y verde
-   se aclaran solo cuando son texto. El botón principal conserva su degradado y su texto blanco. */
+/* Tema oscuro. Mismos roles que el claro: crema → café cálido; terracota y verde se aclaran solo cuando son texto.
+   El botón principal conserva su degradado y su texto blanco. Sin JavaScript sigue al sistema; con JavaScript
+   `theme.js` fija `data-theme` (elección guardada o sistema) y el botón de la cabecera lo cambia. */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --primary-soft: #3a2418;
+  --primary-ink: #ffc8aa;
+  --primary-text: #ff8a5b;
+  --secondary-soft: #17352a;
+  --secondary-pressed: #8fe0bc;
+  --bg: #1c1715;
+  --surface: #2a221e;
+  --surface-muted: #241d19;
+  --border: #3b312b;
+  --field-border: #8a7b72;
+  --ink: #f6ede6;
+  --muted: #c2b3a9;
+  --header-bg: rgba(28, 23, 21, .88);
+  --grad-auth: linear-gradient(135deg, #2a1d17 0%, #241b17 50%, #1c1715 100%);
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, .35);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, .40);
+  --shadow-button: 0 8px 20px rgba(0, 0, 0, .45);
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --primary-soft: #3a2418;
     --primary-ink: #ffc8aa;
     --primary-text: #ff8a5b;
@@ -159,6 +192,7 @@ img {
   z-index: 50;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: var(--space-3) var(--edge);
   padding-top: max(var(--space-3), env(safe-area-inset-top));
   border-bottom: 1px solid var(--border);
@@ -171,12 +205,9 @@ img {
   display: inline-flex;
   align-items: center;
   min-height: var(--tap);
-  padding: 0 var(--space-3);
   border-radius: var(--radius-lg);
-  background: var(--brand-bg);
   text-decoration: none;
-  box-shadow: var(--shadow-card);
-  transition: transform .12s ease;
+  transition: transform var(--motion-100) var(--ease-out);
 }
 
 .brand img {
@@ -184,11 +215,85 @@ img {
   height: var(--logo-h);
 }
 
+/* Logotipo sin fondo: en tema oscuro el «ven» gris pasa a crema (logo-oscuro.webp) */
+.brand .logo-oscuro,
+:root[data-theme="dark"] .brand .logo-claro {
+  display: none;
+}
+
+:root[data-theme="dark"] .brand .logo-oscuro {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .brand .logo-claro {
+    display: none;
+  }
+
+  :root:not([data-theme]) .brand .logo-oscuro {
+    display: block;
+  }
+}
+
 .brand:active {
   transform: scale(.98);
 }
 
 .brand:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* Botón de tema: círculo de 44 px; el ícono muestra a qué tema se pasa (luna → oscuro, sol → claro) */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--tap);
+  height: var(--tap);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: transform var(--motion-150) var(--ease-out);
+}
+
+.theme-toggle[hidden] {
+  display: none;
+}
+
+.theme-toggle svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-toggle .icon-sun,
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+.theme-toggle:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+  transform: scale(.98);
+  transition-duration: var(--motion-100);
+}
+
+.theme-toggle:focus-visible {
   outline: 3px solid var(--primary);
   outline-offset: 3px;
 }
@@ -332,16 +437,35 @@ main#contenido {
   background: var(--primary);
 }
 
+/* Con enlace: el tono oscuro entra como una capa que solo cambia de opacidad; sube 1 px al pasar el cursor */
 a.store {
-  transition: transform .12s ease, background-color .12s ease;
+  position: relative;
+  isolation: isolate;
+  transition: transform var(--motion-150) var(--ease-out);
+}
+
+a.store::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--primary-pressed);
+  opacity: 0;
+  transition: opacity var(--motion-150) var(--ease-out);
 }
 
 a.store:hover {
-  background: var(--primary-pressed);
+  transform: translateY(-1px);
+}
+
+a.store:hover::before {
+  opacity: 1;
 }
 
 a.store:active {
   transform: scale(.98);
+  transition-duration: var(--motion-100);
 }
 
 a.store:focus-visible {
@@ -359,15 +483,25 @@ a.store:focus-visible {
 }
 
 .values li {
-  padding: var(--space-1) var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-2);
   border-radius: var(--radius-pill);
   background: var(--secondary-soft);
   color: var(--secondary-pressed);
   font-size: .75rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1rem;
-  letter-spacing: .8px;
-  text-transform: uppercase;
+}
+
+.values svg {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Redes sociales: íconos en botones circulares de 44 px; sin URL en config.js quedan sin enlace */
@@ -397,19 +531,36 @@ a.store:focus-visible {
   fill: currentColor;
 }
 
+/* Con enlace: sube 2 px, el borde pasa a terracota y una sombra entra solo con opacidad */
 a.social-link {
+  position: relative;
   color: var(--primary-ink);
-  transition: background-color .12s ease, color .12s ease, transform .12s ease;
+  transition: transform var(--motion-150) var(--ease-out);
+}
+
+a.social-link::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-card);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-150) var(--ease-out);
 }
 
 a.social-link:hover {
   border-color: var(--primary);
-  background: var(--primary);
-  color: var(--on-primary);
+  transform: translateY(-2px);
+}
+
+a.social-link:hover::after {
+  opacity: 1;
 }
 
 a.social-link:active {
   transform: scale(.98);
+  transition-duration: var(--motion-100);
 }
 
 a.social-link:focus-visible {
@@ -586,7 +737,6 @@ main#contenido > .not-found {
   color: var(--ink);
   font-weight: 600;
   text-decoration: none;
-  transition: color .12s ease;
 }
 
 .footer-links a:hover {
@@ -695,7 +845,7 @@ main#contenido > .not-found {
 }
 
 /* Teléfonos de pantalla corta: se omite el antetítulo decorativo y se aprieta el texto */
-@media (max-width: 720px) and (max-height: 620px) and (orientation: portrait) {
+@media (max-width: 720px) and (max-height: 640px) and (orientation: portrait) {
   .eyebrow {
     display: none;
   }
@@ -725,7 +875,7 @@ main#contenido > .not-found {
   }
 
   .hero-media {
-    flex-basis: 96px;
+    flex-basis: 80px;
   }
 
   .values {
@@ -812,6 +962,48 @@ main#contenido > .not-found {
 @media (min-width: 1700px) {
   .hero-media img {
     object-position: 20% 34%;
+  }
+}
+
+/* Entrada de la portada: la foto aparece y el texto sube 8 px en escalones (opacity + transform, una sola vez) */
+@keyframes aparece {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes sube {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-media {
+    animation: aparece var(--motion-300) var(--ease-out) backwards;
+  }
+
+  .hero-copy > * {
+    animation: sube var(--motion-300) var(--ease-out) backwards;
+  }
+
+  .hero-copy > .eyebrow,
+  .hero-copy > h1 {
+    animation-delay: 0ms;
+  }
+
+  .hero-copy > .description {
+    animation-delay: 100ms;
+  }
+
+  .hero-copy > .store {
+    animation-delay: 200ms;
+  }
+
+  .hero-copy > .values,
+  .hero-copy > .social {
+    animation-delay: 300ms;
   }
 }
 
