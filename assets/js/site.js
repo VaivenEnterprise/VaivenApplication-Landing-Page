@@ -69,3 +69,25 @@ for (const el of document.querySelectorAll("[data-social]")) {
   if (label) label.textContent = `VAIVÉN en ${el.dataset.name}`;
   el.replaceWith(link);
 }
+
+// Cambio manual de tema: se recuerda en este navegador (sin cookies) y manda sobre el del sistema.
+const themeToggle = document.querySelector("[data-theme-toggle]");
+if (themeToggle) {
+  const root = document.documentElement;
+  const isDark = () => root.getAttribute("data-theme") === "dark";
+  const sync = () => {
+    themeToggle.setAttribute("aria-label", isDark() ? "Cambiar a tema claro" : "Cambiar a tema oscuro");
+    for (const meta of document.querySelectorAll('meta[name="theme-color"]')) {
+      meta.setAttribute("content", isDark() ? "#1c1715" : "#faf6f0");
+      meta.removeAttribute("media");
+    }
+  };
+  themeToggle.addEventListener("click", () => {
+    const next = isDark() ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("vaiven-tema", next); } catch {}
+  });
+  new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+  sync();
+  themeToggle.hidden = false;
+}

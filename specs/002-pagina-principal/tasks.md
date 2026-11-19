@@ -13,7 +13,7 @@
 - [x] **T002** Cabecera y pie idénticos en las cuatro páginas
   - Archivos: `docs/plantilla.html`, `index.html`, `privacidad/index.html`, `terminos/index.html`, `eliminar-cuenta/index.html`
   - Agente: `dev-web` · Depende de: T001 · **Construida en el árbol de trabajo**
-  - Aceptación: cabecera con `a.brand` (logotipo `logo.svg`, con `alt`) y sin navegación; pie con Privacidad, Términos y condiciones, Eliminar cuenta, Contacto (`mailto:`) y copyright; `check.mjs` confirma que no divergen de la plantilla
+  - Aceptación: cabecera con `a.brand` (logotipo `logo.webp`, con `alt`) y sin navegación; pie con Privacidad, Términos y condiciones, Eliminar cuenta, Contacto (`mailto:`) y copyright; `check.mjs` confirma que no divergen de la plantilla
   - Refs: RF-01, RF-04, CA-07, P-10, P-11
 
 - [x] **T003** Hoja de estilos única con tokens
@@ -95,6 +95,7 @@
   - Refs: P-21, Art. X.1
 
 - [ ] **T016** URL reales de las redes sociales (**la hace una persona**)
+  - **Avance 2026-11-12:** YouTube ya tiene su URL (`https://www.youtube.com/channel/UCkY2Dt0dGl9tn6tahpj1AlQ`); faltan Facebook, Instagram, X y TikTok.
   - Archivos: `assets/js/config.js`, `memoria.md` (solo anexar)
   - Agente: — (manual) · Depende de: T014 y de que existan los perfiles
   - Aceptación: las cinco URL (o las que existan) en `SITE.social`; los íconos correspondientes abren el perfil; `check.mjs` verde; se anota en `memoria.md`
@@ -113,9 +114,9 @@
   - Refs: Art. I.3, Art. XI
 
 - [x] **T019** Logotipo en cabecera, favicon e imagen social
-  - Archivos: `assets/img/logo.svg`, `assets/img/logo-vertical.svg`, `assets/img/favicon.svg`, `assets/img/apple-touch-icon.png`, `assets/img/og-image.png`, `docs/plantilla.html`, `index.html`, `404.html`, `privacidad/index.html`, `terminos/index.html`, `eliminar-cuenta/index.html`, `assets/css/styles.css`
+  - Archivos: `assets/img/logo.webp`, `assets/img/logo-oscuro.webp`, `assets/img/favicon.svg`, `assets/img/apple-touch-icon.png`, `assets/img/og-image.png`, `docs/plantilla.html`, `index.html`, `404.html`, `privacidad/index.html`, `terminos/index.html`, `eliminar-cuenta/index.html`, `assets/css/styles.css`
   - Agente: `dev-web` · Depende de: T002 · **Construida en el árbol de trabajo; la persona confirma que la vectorización respeta su logotipo o aporta el original**
-  - Aceptación: la cabecera de las cinco páginas es idéntica a la plantilla y muestra `logo.svg` con `alt` y `width`/`height`; el favicon es el emblema; `og-image.png` 1200×630 ≤ 150 KB con el logotipo completo; sin desplazamiento nuevo en la portada; `check.mjs` verde
+  - Aceptación: la cabecera de las cinco páginas es idéntica a la plantilla y muestra `logo.webp` con `alt` y `width`/`height`; el favicon es el emblema; `og-image.png` 1200×630 ≤ 150 KB con el logotipo completo; sin desplazamiento nuevo en la portada; `check.mjs` verde
   - Refs: RF-01, RF-07, P-22
 
 - [x] **T020** Sistema de diseño de la app en portada y páginas legales
@@ -136,5 +137,35 @@
   - Aceptación: `prefers-color-scheme` cambia los tokens sin tocar el HTML; sin desplazamiento en ambos temas (8 tamaños medidos en Chrome real); contraste AA en oscuro (texto 14.6–15.4:1, acento 7.6:1, píldoras 8.6–9.8:1); `check.mjs` verde
   - Refs: P-24, RF-12
 
-| Total | 22 tareas |
+- [x] **T023** Animación de entrada y de botones
+  - Archivos: `assets/css/styles.css`
+  - Agente: `dev-web` · Depende de: T020 · **Hecha y medida el 2026-11-12**
+  - Aceptación: duraciones solo de 100/150/200/300 ms; solo `transform` y `opacity`; ease-out al entrar; sin bucles; sin animación con `prefers-reduced-motion: reduce`; sin desplazamiento nuevo (22 combinaciones de tamaño y tema medidas); `check.mjs` verde
+  - Refs: P-25, Art. VIII.2
+
+- [x] **T024** Señales de confianza en la portada
+  - Archivos: `index.html`, `assets/css/styles.css`
+  - Agente: `dev-web` · Depende de: T020 · **Hecha y medida el 2026-11-12**
+  - Aceptación: tres señales con ícono propio (pin, candado, escudo), cada una respaldada por las páginas legales; sin cifras ni sellos inventados; sin desplazamiento en 15 tamaños × 2 temas (30 de 30, Chrome real); `check.mjs` verde
+  - Refs: P-26, RF-03, Art. V.2, Art. V.5
+
+- [x] **T025** Botón para cambiar de tema
+  - Archivos: `assets/js/theme.js`, `assets/js/site.js`, `assets/css/styles.css`, las seis páginas (cabecera y `<head>`), `docs/plantilla.html`
+  - Agente: `dev-web` · Depende de: T022 · **Hecha y probada el 2026-11-12**
+  - Aceptación: alterna claro y oscuro y recuerda la elección entre páginas y recargas; sin elección guardada sigue al sistema, también en vivo; sin parpadeo (el atributo está puesto al cargar el DOM); sin JavaScript el botón no se ve y el sitio sigue al sistema; etiqueta accesible que cambia; botón de 44 px con foco visible; cabecera igual en las seis páginas; JS ≤ 5 KB (4.9 KB); sin desplazamiento en 30 casos (Chrome real); `check.mjs` verde
+  - Refs: P-27, RF-12, Art. VII.1
+
+- [ ] **T026** Enmienda 1.4.1 de la constitución (**la aprueba una persona**)
+  - Archivos: `constitution.md`
+  - Agente: `spec-writer` (redacción) · Depende de: T025 · **Redactada; sin aprobar**
+  - Aceptación: una persona aprueba guardar la preferencia de tema en `localStorage`; si no la aprueba, se quita el botón y `theme.js`
+  - Refs: Art. I.3, Art. VII.1
+
+- [x] **T027** Logotipo sin fondo
+  - Archivos: `assets/img/logo.webp`, `assets/img/logo-oscuro.webp`, `assets/img/og-image.png`, `assets/img/apple-touch-icon.png`, `assets/css/styles.css`, las seis páginas (cabecera)
+  - Agente: `dev-web` · Depende de: T019 · **Hecha y medida el 2026-11-12**
+  - Aceptación: logotipo de la persona (`vaiven.png`, transparente) en la cabecera sin píldora, con variante legible en tema oscuro; `alt` y `width`/`height` reales; cabecera igual en las seis páginas; imágenes ≤ 150 KB; sin desplazamiento en 30 casos (Chrome real); `check.mjs` verde
+  - Refs: P-28, RF-01, RF-07
+
+| Total | 27 tareas |
 |---|---|
