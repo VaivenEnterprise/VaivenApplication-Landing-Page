@@ -1,11 +1,13 @@
 # Constitución — VAIVÉN Landing
 
-> **Versión 1.4.1** · 2026-11-11 · Enmendada el 2026-11-01 (repositorios separados; **MINOR:** se elimina todo lo de repositorio y pipeline y se agrega el Art. XII de despliegue por MCP) · Máxima autoridad del proyecto `vaiven-landing-page/`. Si algo la contradice, gana este documento.
+> **Versión 1.5.0-propuesta** · 2026-11-26 · Enmendada el 2026-11-01 (repositorios separados; **MINOR:** se elimina todo lo de repositorio y pipeline y se agrega el Art. XII de despliegue por MCP) · Máxima autoridad del proyecto `vaiven-landing-page/`. Si algo la contradice, gana este documento.
 >
 > **Enmienda 1.2.0 (2026-11-02, MINOR):** se agrega el Art. XIII (repositorio y pull requests en GitHub, con MCP de GitHub); se reemplaza la declaración de «sin repositorio».
 >
 > **Enmienda 1.3.0 (2026-11-11, MINOR):** a petición de la persona responsable de la landing se permiten los **íconos de las redes sociales de VAIVÉN** como enlaces a sus perfiles (Art. II.1, V.3 y VII.1), se permite una **fotografía de fondo aportada por el equipo** con origen y licencia anotados (Art. V.4) y se fija que la **portada cabe en una pantalla** (Art. VIII.7). **Esta enmienda cambia el texto de la máxima autoridad: requiere revisión y aprobación de una persona antes de fusionarse.** **Aprobada por la persona responsable el 2026-11-11.**
 > **Enmienda 1.4.0 (2026-11-11, MINOR; aprobada por la persona responsable el 2026-11-11):** la landing adopta el sistema de diseño de la app (`vaiven-diseno-landing.md`: paleta crema y terracota, radios, sombras y escala tipográfica) y su tipografía **Plus Jakarta Sans**, **alojada en el propio sitio** (`assets/fonts/`, WOFF2 de 27 KB, licencia SIL OFL). Cambia el Art. III (fila «Estilos»). El Art. VII.1 no cambia: la fuente no viene de ningún CDN. 
+>
+> **Enmienda 1.5.0 (2026-11-26, MINOR; propuesta pendiente de aprobación humana):** se permite analítica opcional mediante GTM/GA4 con carga condicionada a consentimiento, Consent Mode con valores publicitarios denegados, gestión de preferencias y divulgación en el aviso de privacidad. Se actualizan los artículos VII y IX.
 >
 > **Enmienda 1.4.1 (2026-11-12, PATCH; pendiente de aprobación humana):** el Art. VII.1 aclara que la **preferencia de tema (claro u oscuro)** se guarda en el `localStorage` del propio navegador (clave `vaiven-tema`, valor `light` o `dark`). No es una cookie, no sale del dispositivo, no se envía a ningún servidor y no identifica a nadie. Si no se aprueba, se quita el botón de tema y `assets/js/theme.js`, y el sitio vuelve a seguir solo al sistema.
 >
@@ -67,22 +69,24 @@ vaiven-landing-page/            # raíz del repositorio
 4. El responsable no afirma que VAIVÉN procese pagos: los pagos son entre personas.
 
 ## Art. VII — Privacidad del sitio
-1. Sin cookies, sin analítica, sin píxeles, sin incrustaciones de terceros (mapas, videos, widgets o botones «compartir» de redes) y sin fuentes ni librerías desde CDN. Un **enlace** a un perfil de una red social no es una incrustación: no carga nada de la red hasta que la persona lo abre. Por eso no hay aviso de cookies. La única excepción es la preferencia de tema, guardada solo en el navegador de la persona (ver enmienda 1.4.1).
-2. Los enlaces externos usan `rel="noopener noreferrer"`, son `https` y, en las redes sociales, del dominio de la propia red (lo verifica `check.mjs`).
+1. No se cargan píxeles, incrustaciones de terceros (mapas, videos, widgets o botones «compartir» de redes) ni fuentes o librerías desde CDN. La única analítica permitida es Google Analytics 4 administrada mediante el contenedor oficial de Google Tag Manager `GTM-NSQNXS47`. El contenedor no se solicita ni se ejecuta hasta que la persona acepte expresamente la analítica. La decisión se guarda en `localStorage` (`vaiven-analytics-consent`: `granted` o `denied`); no se usan cookies propias para guardar el consentimiento. El estado predeterminado de Consent Mode es denegado para analítica y publicidad; al aceptar solo se concede `analytics_storage`, mientras que los permisos publicitarios permanecen denegados. Rechazar no limita el acceso al sitio. La persona puede modificar su decisión desde el aviso de privacidad.
+2. La preferencia de tema se guarda solo en el navegador de la persona (ver enmienda 1.4.1).
+3. Los enlaces externos usan `rel="noopener noreferrer"`, son `https` y, en las redes sociales, del dominio de la propia red (lo verifica `check.mjs`). Los enlaces a perfiles no cargan recursos de las redes hasta que la persona los abre. La interacción con dichos enlaces se envía a GA4 únicamente cuando la persona ha aceptado analítica.
 
 ## Art. VIII — Accesibilidad, rendimiento y SEO
 1. HTML semántico (`header`, `nav`, `main`, `footer`, un solo `h1` por página), `lang="es-MX"`, enlace «Saltar al contenido», foco visible, contraste AA, objetivos táctiles ≥ 44 px, navegable con teclado y sin depender del color.
 2. `alt` en toda imagen informativa (vacío si es decorativa); texto escalable; `prefers-reduced-motion` respetado.
 3. Mobile-first y legible desde 320 px; sin desplazamiento horizontal.
-4. Imágenes ≤ 150 KB (WebP/AVIF/SVG), con `width` y `height`, `loading="lazy"` salvo la primera; CSS ≤ 30 KB y JS ≤ 5 KB sin comprimir.
+4. Imágenes ≤ 150 KB (WebP/AVIF/SVG), con `width` y `height`, `loading="lazy"` salvo la primera; CSS ≤ 30 KB y JS ≤ 9 KB sin comprimir (incluye la gestión de consentimiento y el cargador de analítica opcional).
 5. Metadatos por página: `<title>` único, `description`, `canonical`, Open Graph y `theme-color`; `robots.txt` y `sitemap.xml` válidos.
 6. Meta: Lighthouse móvil ≥ 90 en rendimiento, accesibilidad, buenas prácticas y SEO.
 7. **La portada cabe en una pantalla**: todo su contenido (marca, frase central, botón de Google Play, redes sociales y pie) se ve sin desplazarse en escritorio y en teléfonos desde 360×640 en vertical. En pantallas bajas solo puede omitirse el antetítulo decorativo; el resto del contenido nunca se recorta ni se oculta. En pantallas aún más bajas (teléfono en horizontal) se permite el desplazamiento antes que recortar. Las páginas legales sí se desplazan.
 
 ## Art. IX — Seguridad y despliegue
 1. Sin secretos en el repositorio (no los necesita). Sin `.env`.
-2. `_headers` define `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` restrictiva y una `Content-Security-Policy` estricta (`default-src 'self'`; sin `unsafe-inline` en scripts).
-3. Despliegue como **static site de Render** (sin comando de compilación, directorio de publicación `.`), creado y desplegado por MCP (Art. XII). Antes de desplegar pasa `node scripts/check.mjs`.
+2. `_headers` define `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` restrictiva y una `Content-Security-Policy` estricta (`default-src 'self'`; sin `unsafe-inline` ni `unsafe-eval`). Se permiten únicamente los orígenes de Google Tag Manager y Google Analytics necesarios para la etiqueta aprobada; `script-src` solo permite el host de GTM y `connect-src`/`img-src` los endpoints de medición de Google.
+3. El código del sitio carga GTM de forma dinámica después del consentimiento; no se incluye código JavaScript inline ni iframe `noscript`, porque ambos omitirían el control de consentimiento.
+4. Despliegue como **static site de Render** (sin comando de compilación, directorio de publicación `.`), creado y desplegado por MCP (Art. XII). Antes de desplegar pasa `node scripts/check.mjs`.
 
 ## Art. X — Calidad
 1. `node scripts/check.mjs` debe pasar antes de dar por hecha una tarea: enlaces internos, `lang`, `title`, `description`, `canonical`, un `h1`, `alt`, estructura común, ausencia de recursos externos y de `<form>`, tamaños de archivos.

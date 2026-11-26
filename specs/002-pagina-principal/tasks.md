@@ -85,7 +85,7 @@
 - [x] **T014** Íconos de redes sociales
   - Archivos: `assets/img/social.svg`, `assets/js/config.js`, `assets/js/site.js`
   - Agente: `dev-web` · Depende de: T001 y de la enmienda 1.3.0 (T018) · **Construida en el árbol de trabajo**
-  - Aceptación: sprite con cinco `<symbol>` (facebook, instagram, x, youtube, tiktok) de Simple Icons (CC0); `SITE.social` con las cinco claves vacías; `site.js` convierte cada `[data-social]` en `<a href rel="noopener noreferrer" target="_blank">` solo si la URL es `https` y del dominio de la red, y lo deja sin enlace si no (probado con vacía, válida, `http`, otro dominio y `javascript:`); JS ≤ 5 KB; `check.mjs` verde
+  - Aceptación: sprite con cinco `<symbol>` (facebook, instagram, x, youtube, tiktok) de Simple Icons (CC0); `SITE.social` con las cinco claves vacías; `site.js` convierte cada `[data-social]` en `<a href rel="noopener noreferrer" target="_blank">` solo si la URL es `https` y del dominio de la red, y lo deja sin enlace si no (probado con vacía, válida, `http`, otro dominio y `javascript:`); JS ≤ 9 KB; `check.mjs` verde
   - Refs: RF-13, CA-10, P-18, P-19, Art. V.3, Art. VII
 
 - [x] **T015** Verificador ampliado para íconos y redes
@@ -95,7 +95,7 @@
   - Refs: P-21, Art. X.1
 
 - [ ] **T016** URL reales de las redes sociales (**la hace una persona**)
-  - **Avance 2026-11-12:** YouTube ya tiene su URL (`https://www.youtube.com/channel/UCkY2Dt0dGl9tn6tahpj1AlQ`); faltan Facebook, Instagram, X y TikTok.
+  - **Avance 2026-11-26:** se configuraron las URL proporcionadas para Facebook, Instagram, TikTok y YouTube; X permanece sin URL. Confirmar manualmente que el enlace compartido de Facebook abre el perfil oficial.
   - Archivos: `assets/js/config.js`, `memoria.md` (solo anexar)
   - Agente: — (manual) · Depende de: T014 y de que existan los perfiles
   - Aceptación: las cinco URL (o las que existan) en `SITE.social`; los íconos correspondientes abren el perfil; `check.mjs` verde; se anota en `memoria.md`
@@ -152,7 +152,7 @@
 - [x] **T025** Botón para cambiar de tema
   - Archivos: `assets/js/theme.js`, `assets/js/site.js`, `assets/css/styles.css`, las seis páginas (cabecera y `<head>`), `docs/plantilla.html`
   - Agente: `dev-web` · Depende de: T022 · **Hecha y probada el 2026-11-12**
-  - Aceptación: alterna claro y oscuro y recuerda la elección entre páginas y recargas; sin elección guardada sigue al sistema, también en vivo; sin parpadeo (el atributo está puesto al cargar el DOM); sin JavaScript el botón no se ve y el sitio sigue al sistema; etiqueta accesible que cambia; botón de 44 px con foco visible; cabecera igual en las seis páginas; JS ≤ 5 KB (4.9 KB); sin desplazamiento en 30 casos (Chrome real); `check.mjs` verde
+  - Aceptación: alterna claro y oscuro y recuerda la elección entre páginas y recargas; sin elección guardada sigue al sistema, también en vivo; sin parpadeo (el atributo está puesto al cargar el DOM); sin JavaScript el botón no se ve y el sitio sigue al sistema; etiqueta accesible que cambia; botón de 44 px con foco visible; cabecera igual en las seis páginas; JS ≤ 9 KB (4.9 KB); sin desplazamiento en 30 casos (Chrome real); `check.mjs` verde
   - Refs: P-27, RF-12, Art. VII.1
 
 - [ ] **T026** Enmienda 1.4.1 de la constitución (**la aprueba una persona**)
@@ -169,3 +169,9 @@
 
 | Total | 27 tareas |
 |---|---|
+
+
+- [ ] **T020** Redes oficiales, dominio y analítica opcional con consentimiento (2026-11-26)
+  - Archivos: `assets/js/config.js`, `assets/js/site.js`, `assets/css/styles.css`, `index.html`, páginas legales, `404.html`, `_headers`, `robots.txt`, `sitemap.xml`, `privacidad/index.html`, `constitution.md`, `specs/002-pagina-principal/spec.md`, `scripts/check.mjs`, `docs/publicacion.md`, `memoria.md`.
+  - Aceptación: URL pública unificada; perfiles configurados desde `SITE.social`; GTM `GTM-NSQNXS47` solo se carga tras consentimiento; GA4 `G-BFYRHQWCTC` se configura en el contenedor; rechazar evita cargar GTM; evento `social_click`; CSP permite solo hosts necesarios sin `unsafe-inline`; aviso de privacidad actualizado y marcado para revisión humana; `node scripts/check.mjs` pasa.
+  - Revisión humana obligatoria de la enmienda constitucional y del aviso legal antes de fusionar/publicar.

@@ -10,7 +10,7 @@ _Última actualización: 2026-11-06_
 | Constitución | v1.1.0 |
 | Specs | L001 (base y páginas legales) y L002 (página principal): implementadas |
 | Sitio | Landing page completa en index.html y páginas asociadas |
-| URL pública | `https://vaiven-landing.onrender.com/` (por definir subdominio) |
+| URL pública | `https://vaivenapplication-landing-page.onrender.com/` |
 | URL de Google Play | `vaivenedeltrabajo@gmail.com` (config.js) |
 
 ## 2. Decisiones
@@ -93,7 +93,7 @@ Esta sección **corrige** afirmaciones anteriores que no eran ciertas. No se bor
 - Servido local (Node, sin dependencias): `/`, `/privacidad/`, `/terminos/`, `/eliminar-cuenta/`, `/404.html`, `/robots.txt`, `/sitemap.xml`, CSS, JS e imágenes devuelven **200**; una ruta inexistente devuelve **404** con la página propia.
 - Peso publicado ≈ 200 KB (CSS 11.5 + JS 1.7 + imágenes 161 + HTML 23).
 - Botón de Play: `SITE.playUrl` está vacío, así que el sitio muestra «Próximamente en Google Play» como texto, no como enlace roto. Al publicar la app basta llenar `playUrl` en `assets/js/config.js`.
-- Fecha legal: `SITE.legalUpdated` = «6 de noviembre de 2026», inyectada por `site.js` en `[data-legal-updated]`.
+- Fecha legal: `SITE.legalUpdated` = «26 de noviembre de 2026», inyectada por `site.js` en `[data-legal-updated]`.
 
 ### Pendientes abiertos (no los resuelve el agente)
 
@@ -275,3 +275,11 @@ Veredicto actualizado de conformidad (sobre el de esta misma fecha): Art. V.4 ah
 - ROADMAP: L002 pasa a 27 tareas (total 413); replicar en los otros dos repositorios.
 
 | D-029 | 2026-11-12 | La persona entregó una nueva versión del logotipo transparente (emblema + «Vaiven», **sin el lema «Las cosas van y vienen»**) y pidió usarla en lugar de la anterior. Se regeneraron `logo.webp`, `logo-oscuro.webp`, `og-image.png` (ya sin lema) y `apple-touch-icon.png`; no cambian HTML, CSS ni JS. Sustituye lo dicho sobre el lema en D-028. | Instrucción de la persona responsable |
+
+
+## 8. Cambios preparados el 2026-11-26
+- URL canónica del sitio: `https://vaivenapplication-landing-page.onrender.com/`.
+- Perfiles proporcionados por la persona responsable: Facebook `https://www.facebook.com/share/1GSDMA1Fzn/` (enlace compartido; confirmar que abre el perfil oficial), Instagram `https://www.instagram.com/vaiven2026/`, TikTok `https://www.tiktok.com/@vaiven10` y YouTube `https://www.youtube.com/@VeivenApp`. X permanece sin enlace configurado.
+- GTM: `GTM-NSQNXS47`; GA4: `G-BFYRHQWCTC`; flujo `VAIVEN Landing Page` (ID `16363483394`).
+- GTM se carga solo tras aceptar analítica. El consentimiento se guarda en `localStorage`; no se carga el contenedor al rechazar.
+- Pendiente: confirmar que el enlace de Facebook abre el perfil correcto; configurar la etiqueta de Google y el evento `social_click` dentro de GTM; revisar legalmente el aviso de privacidad y aprobar la enmienda 1.5.0 antes de fusionar y desplegar.

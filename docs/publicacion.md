@@ -12,18 +12,26 @@
 | Root Directory | _vacío_ (la raíz del repositorio es el sitio) |
 | Build Command | _vacío_ (sin compilación, Art. III) |
 | Publish Directory | `.` |
-| URL pública | `https://vaiven-landing.onrender.com/` (debe coincidir con `SITE.url` en `assets/js/config.js`, con `canonical` y con `sitemap.xml`) |
+| URL pública | `https://vaivenapplication-landing-page.onrender.com/` (debe coincidir con `SITE.url` en `assets/js/config.js`, con `canonical` y con `sitemap.xml`) |
 | Cabeceras | las del archivo `_headers` de la raíz (Render lo lee al publicar) |
 
 Cada fusión a `main` publica una versión nueva. Por eso `main` solo recibe PR con CI en verde (`docs/devsecops.md`).
 
 ## URL para la ficha de Google Play
 
-- Política de privacidad: `https://vaiven-landing.onrender.com/privacidad/`
-- Eliminación de cuenta: `https://vaiven-landing.onrender.com/eliminar-cuenta/`
-- Términos y condiciones: `https://vaiven-landing.onrender.com/terminos/`
+- Política de privacidad: `https://vaivenapplication-landing-page.onrender.com/privacidad/`
+- Eliminación de cuenta: `https://vaivenapplication-landing-page.onrender.com/eliminar-cuenta/`
+- Términos y condiciones: `https://vaivenapplication-landing-page.onrender.com/terminos/`
 
 No entregarlas a la ficha hasta que L001-T011 (revisión legal humana) quite la etiqueta de borrador.
+
+## Google Tag Manager y Analytics
+
+- Contenedor web: `GTM-NSQNXS47`. Se carga únicamente tras aceptar analítica en el aviso del sitio.
+- Flujo GA4: `VAIVEN Landing Page`; ID `G-BFYRHQWCTC`. Crear en GTM una **Etiqueta de Google** con este ID y activador de inicialización/todas las páginas. La etiqueta no debe configurarse para ignorar el consentimiento.
+- Crear una etiqueta de evento GA4 con nombre `social_click`, activada por el evento personalizado `social_click`, y mapear `social_network` como parámetro.
+- Probar con Vista previa de GTM y DebugView de GA4 antes de publicar la versión del contenedor.
+- No publicar la etiqueta hasta que el aviso de privacidad y la enmienda constitucional hayan sido revisados por una persona.
 
 ## Verificación después de desplegar
 

@@ -95,7 +95,7 @@ sitemap.xml                      (incluye las cuatro URL del sitio)
 | III | HTML a mano, un CSS, JS mínimo, sin dependencias ni compilación |
 | IV | Estructura de carpetas, plantilla común y `config.js` como único origen de valores |
 | V | Nada inventado; íconos de terceros solo los de las cinco redes (V.3 enmendado) y sin URL inventadas; origen de la foto declarado como pendiente |
-| VII | Sin cookies, analítica, terceros ni CDN; los enlaces a redes no cargan nada de ellas |
+| VII | Sin analítica antes del consentimiento; GTM/GA4 solo tras aceptación, sin píxeles ni incrustaciones; los enlaces a redes no cargan recursos hasta abrirlos |
 | VIII | Accesibilidad, rendimiento, SEO y límites de tamaño; portada en una pantalla (VIII.7) |
 | IX | CSP estricta en `_headers`, sin secretos |
 | X | `check.mjs` como puerta de calidad y revisión de `revisor-constitucion` |

@@ -38,7 +38,7 @@ La landing es **una sola pantalla**: marca, frase central, botón de Google Play
 | RF-09 | **Valores en un solo lugar:** nombre del sitio, URL, enlace de Google Play, correo de soporte y fecha de actualización legal viven en `assets/js/config.js`. El HTML trae un valor de reserva legible sin JavaScript. |
 | RF-10 | **Botón de Google Play:** mientras `playUrl` esté vacía, se muestra «Próximamente en Google Play» como **texto y no como enlace** (con punto indicador, sin flecha, `aria-disabled="true"` y cursor normal); con URL válida de `play.google.com`, se convierte en enlace «Disponible en Google Play» con flecha de descarga propia y `rel="noopener noreferrer"`. Nunca un enlace roto ni `href="#"`. Mientras no exista la insignia oficial (T007), el botón es propio y no imita el logotipo de Google Play (Art. V.3). El texto sobre el fondo de acento cumple contraste AA. |
 | RF-11 | **Mejora progresiva:** el sitio funciona sin JavaScript. El JS (`assets/js/site.js`) solo rellena correo, fecha legal y botón de Play. |
-| RF-12 | **Sin recursos externos:** un solo archivo CSS propio, sin fuentes ni librerías de CDN, sin `<style>` ni `style=` en línea, sin `<form>` y sin terceros (Art. III y VII). |
+| RF-12 | **Recursos externos controlados:** un solo archivo CSS propio, sin fuentes ni librerías de CDN, sin `<style>` ni `style=` en línea y sin `<form>`. La única integración externa permitida es GTM/GA4 después del consentimiento (Art. VII y IX). |
 | RF-13 | **Redes sociales:** debajo de los tres conceptos, una lista «Redes sociales de VAIVÉN» con cinco íconos, en este orden: Facebook, Instagram, X, YouTube y TikTok. Cada ícono es un círculo de 44 px con el glifo monocromático de `assets/img/social.svg` (un solo archivo local, CC0) y texto accesible. Las URL viven en `SITE.social` de `assets/js/config.js`; si una está vacía el ícono se muestra **sin enlace** (texto accesible «…, próximamente»); si es válida (`https` y del dominio de la red) se convierte en enlace «VAIVÉN en …» con `rel="noopener noreferrer"` y `target="_blank"`. Sin widgets, contadores, píxeles ni scripts de las redes (Art. VII). |
 | RF-14 | **Fondo:** fotografía `assets/img/fondo.webp` (WebP, 1600×893, ≤ 150 KB, `fetchpriority="high"`, `width`/`height` reales y `alt` descriptivo de la escena). En escritorio ocupa el lado derecho con un degradado hacia el fondo oscuro para que el texto conserve contraste; en teléfono va arriba. Su origen y licencia se anotan en `memoria.md` (Art. V.4). |
 | RNF-01 | Lighthouse móvil ≥ 90 en rendimiento, accesibilidad, buenas prácticas y SEO; peso total publicado < 500 KB. |
@@ -77,7 +77,7 @@ La landing es **una sola pantalla**: marca, frase central, botón de Google Play
 
 ## 5. Fuera de alcance
 
-Registro, inicio de sesión, contacto por formulario, blog, testimonios, cifras de uso, reseñas, comparativas con otras plataformas, versión para iPhone, videos incrustados, analítica, cookies.
+Registro, inicio de sesión, contacto por formulario, blog, testimonios, cifras de uso, reseñas, comparativas con otras plataformas, versión para iPhone, videos incrustados, píxeles publicitarios, cookies antes del consentimiento.
 
 Además, por D-013/D-014: **navegación por secciones y anclas**, secciones largas de «cómo funciona», categorías, confianza o preguntas frecuentes **dentro de la landing**, y llamadas a la acción repetidas. Tampoco se incluyen capturas de la app mientras no exista una versión estable.
 
@@ -94,3 +94,12 @@ Además, por D-013/D-014: **navegación por secciones y anclas**, secciones larg
 - [NEEDS CLARIFICATION: aprobación humana de la enmienda 1.3.0 de la constitución (Art. II.1, V.3, V.4, VII y VIII.7).]
 
 > **Resuelto (2026-11-11):** la paleta, los radios, las sombras y la tipografía de la portada y de las páginas legales son los del sistema de diseño de la app (`vaiven-diseno-landing.md`): primario `#C24E24`, fondo `#FAF6F0`, tinta `#2A1F1A`, Plus Jakarta Sans. Sustituye a las dos paletas anteriores de esta pregunta. El logotipo conserva sus colores propios. Ver P-23.
+
+
+## 7. Enmienda propuesta — analítica con consentimiento (2026-11-26)
+- Contenedor web: `GTM-NSQNXS47`.
+- Destino GA4: flujo «VAIVEN Landing Page», ID de medición `G-BFYRHQWCTC`. La etiqueta GA4 se configura dentro de GTM, no se duplica en el HTML.
+- GTM solo se carga tras aceptar analítica; rechazo mantiene el sitio funcional sin solicitar el contenedor.
+- Consent Mode inicia con `analytics_storage`, `ad_storage`, `ad_user_data` y `ad_personalization` en `denied`; al aceptar solo se concede `analytics_storage`.
+- Evento de capa de datos: `social_click`, con parámetro `social_network`.
+- El aviso de privacidad describe finalidad, datos técnicos, Google LLC, enlaces a sus políticas y la forma de cambiar la decisión. El aviso permanece como borrador pendiente de revisión humana.

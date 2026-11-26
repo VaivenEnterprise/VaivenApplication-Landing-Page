@@ -9,7 +9,7 @@ import { join, dirname, resolve, posix, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const BASE = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE_URL = "https://vaiven-landing.onrender.com";
+const SITE_URL = "https://vaivenapplication-landing-page.onrender.com";
 
 const PAGES = [
   { file: "index.html", url: "/" },
@@ -31,7 +31,7 @@ const REQUIRED = [
 ];
 
 const MAX_CSS = 30 * 1024;
-const MAX_JS = 5 * 1024;
+const MAX_JS = 9 * 1024;
 const MAX_IMG = 150 * 1024;
 const MAX_TOTAL = 500 * 1024;
 
@@ -301,7 +301,7 @@ else ok(`CSS: ${Math.round(cssSize / 1024)} KB`);
 
 let jsSize = 0;
 for (const f of jsFiles) jsSize += (await stat(join(BASE, ...f.split("/")))).size;
-if (jsSize > MAX_JS) fail(`JS de ${Math.round(jsSize / 1024)} KB (máx. 5 KB)`);
+if (jsSize > MAX_JS) fail(`JS de ${Math.round(jsSize / 1024)} KB (máx. 9 KB)`);
 else ok(`JS: ${Math.round(jsSize / 1024)} KB`);
 
 for (const f of imgFiles) {
@@ -350,9 +350,26 @@ if (headers) {
   for (const [re, label] of required) if (!re.test(headers)) fail(`_headers: falta ${label}`);
   if (/unsafe-inline|unsafe-eval/i.test(headers)) fail("_headers: la CSP no debe permitir unsafe-inline ni unsafe-eval");
   if (!errors.some((e) => e.startsWith("_headers"))) ok("_headers con cabeceras de seguridad");
+  for (const host of ["https://www.googletagmanager.com", "https://www.google-analytics.com"]) {
+    if (!headers.includes(host)) fail(`_headers: falta permitir ${host} para la analítica consentida`);
+  }
+  if ((headers.match(/img-src /g) ?? []).length !== 1) fail("_headers: debe existir una sola directiva img-src en la CSP");
 }
 
-// 7. Redes sociales de la portada (Art. VII.2): cinco redes, íconos sin enlace roto y URLs de config.js válidas
+// 7. Consentimiento y Google Tag Manager: nunca cargar el contenedor antes de aceptar.
+const config = (await readIfExists("assets/js/config.js")) ?? "";
+const siteJs = (await readIfExists("assets/js/site.js")) ?? "";
+if (!/tagManagerId:\s*"GTM-NSQNXS47"/.test(config)) fail("config.js: falta el contenedor GTM de VAIVÉN");
+if (!siteJs.includes('currentConsent === "granted"') || !siteJs.includes('analytics_storage: "denied"') || !siteJs.includes('analytics_storage: "granted"'))
+  fail("site.js: GTM debe depender del consentimiento y usar Consent Mode");
+if (!siteJs.includes('event: "social_click"') || !siteJs.includes('social_network:')) fail("site.js: falta el evento social_click con social_network");
+for (const page of PAGES) {
+  const html = (await readIfExists(page.file)) ?? "";
+  if (/googletagmanager\.com\/gtm\.js/i.test(html)) fail(`${page.file}: GTM no debe cargarse directamente desde HTML; debe esperar consentimiento`);
+}
+if (!errors.some((e) => e.includes("GTM") || e.includes("Consent Mode") || e.includes("social_click"))) ok("GTM: carga condicionada a consentimiento y evento social_click");
+
+// 8. Redes sociales de la portada (Art. VII.2): cinco redes, íconos sin enlace roto y URLs de config.js válidas
 const NETWORKS = {
   facebook: ["facebook.com", "www.facebook.com"],
   instagram: ["instagram.com", "www.instagram.com"],

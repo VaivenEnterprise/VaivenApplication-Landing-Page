@@ -25,7 +25,7 @@
 - [x] **T004** Verificador automático
   - Archivos: `scripts/check.mjs`
   - Agente: `dev-web` · Depende de: T001, T003
-  - Aceptación: valida CA-02 y CA-05 y el Art. X: enlaces internos existentes, `lang`, `title` único, `description`, `canonical`, un `h1`, `alt`, cabecera/pie iguales a la plantilla, sin `<form>`, sin URL de otros dominios en `src`/`href` de recursos (salvo `mailto:` y enlaces `<a>` con `rel="noopener noreferrer"`), tamaños (CSS ≤ 30 KB, JS ≤ 5 KB, imágenes ≤ 150 KB); sale con código ≠ 0 si falla; solo módulos de Node
+  - Aceptación: valida CA-02 y CA-05 y el Art. X: enlaces internos existentes, `lang`, `title` único, `description`, `canonical`, un `h1`, `alt`, cabecera/pie iguales a la plantilla, sin `<form>`, sin URL de otros dominios en `src`/`href` de recursos (salvo `mailto:` y enlaces `<a>` con `rel="noopener noreferrer"`), tamaños (CSS ≤ 30 KB, JS ≤ 9 KB, imágenes ≤ 150 KB); sale con código ≠ 0 si falla; solo módulos de Node
   - Refs: RF-07 · P-04
 
 - [x] **T005** Aviso de privacidad (borrador)
