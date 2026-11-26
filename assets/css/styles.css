@@ -1,0 +1,1018 @@
+/* VAIVÉN — hoja de estilos única (Art. III).
+   Tokens del sistema de diseño de la app (vaiven-diseno-landing.md), mobile-first,
+   Plus Jakarta Sans alojada en el propio sitio (sin recursos externos). */
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/assets/fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+}
+
+:root {
+  color-scheme: light dark;
+
+  /* Marca */
+  --primary: #c24e24;
+  --primary-pressed: #a33f1a;
+  --primary-soft: #fbe4d8;
+  --primary-ink: #8a3a1b;
+  --primary-text: var(--primary); /* acento como texto sobre el fondo de la página */
+  --secondary: #1b7a57;
+  --secondary-pressed: #146b4b;
+  --secondary-soft: #ddf1e7;
+
+  /* Neutros */
+  --bg: #faf6f0;
+  --surface: #ffffff;
+  --surface-muted: #f3eee7;
+  --border: #e9ded2;
+  --field-border: #968880;
+  --ink: #2a1f1a;
+  --muted: #6f6058;
+  --on-primary: #ffffff;
+  --header-bg: rgba(255, 246, 238, .88);
+
+  /* Degradados */
+  --grad-auth: linear-gradient(135deg, #fff6ee 0%, #fbe3d3 50%, #f6c9b0 100%);
+  --grad-primary: linear-gradient(90deg, #c65227 0%, #ae411a 100%);
+
+  /* Tipografía */
+  --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Espaciado (px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Radios y sombras */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+  --shadow-soft: 0 2px 8px rgba(42, 31, 26, .06);
+  --shadow-card: 0 4px 16px rgba(138, 58, 27, .10);
+  --shadow-button: 0 8px 20px rgba(194, 78, 36, .30);
+
+  /* Movimiento: solo estas duraciones; entrar con ease-out, salir con ease-in; solo transform y opacity */
+  --motion-100: 100ms;
+  --motion-150: 150ms;
+  --motion-200: 200ms;
+  --motion-300: 300ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+
+  /* Tamaños de control: objetivo táctil mínimo (Art. VIII.1), logotipo y botón principal */
+  --tap: 44px;
+  --logo-h: 40px;
+  --cta-h: 56px;
+
+  /* Margen lateral único: cabecera, texto y pie quedan alineados.
+     En pantallas muy anchas el contenido se centra con un máximo de 1120px. */
+  --edge: max(clamp(20px, 5vw, 72px), calc((100% - 1120px) / 2));
+}
+
+/* Tema oscuro. Mismos roles que el claro: crema → café cálido; terracota y verde se aclaran solo cuando son texto.
+   El botón principal conserva su degradado y su texto blanco. Sin JavaScript sigue al sistema; con JavaScript
+   `theme.js` fija `data-theme` (elección guardada o sistema) y el botón de la cabecera lo cambia. */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --primary-soft: #3a2418;
+  --primary-ink: #ffc8aa;
+  --primary-text: #ff8a5b;
+  --secondary-soft: #17352a;
+  --secondary-pressed: #8fe0bc;
+  --bg: #1c1715;
+  --surface: #2a221e;
+  --surface-muted: #241d19;
+  --border: #3b312b;
+  --field-border: #8a7b72;
+  --ink: #f6ede6;
+  --muted: #c2b3a9;
+  --header-bg: rgba(28, 23, 21, .88);
+  --grad-auth: linear-gradient(135deg, #2a1d17 0%, #241b17 50%, #1c1715 100%);
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, .35);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, .40);
+  --shadow-button: 0 8px 20px rgba(0, 0, 0, .45);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --primary-soft: #3a2418;
+    --primary-ink: #ffc8aa;
+    --primary-text: #ff8a5b;
+    --secondary-soft: #17352a;
+    --secondary-pressed: #8fe0bc;
+    --bg: #1c1715;
+    --surface: #2a221e;
+    --surface-muted: #241d19;
+    --border: #3b312b;
+    --field-border: #8a7b72;
+    --ink: #f6ede6;
+    --muted: #c2b3a9;
+    --header-bg: rgba(28, 23, 21, .88);
+    --grad-auth: linear-gradient(135deg, #2a1d17 0%, #241b17 50%, #1c1715 100%);
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, .35);
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, .40);
+    --shadow-button: 0 8px 20px rgba(0, 0, 0, .45);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--bg);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  color: var(--ink);
+  background: var(--bg);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.375;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ───────── Saltar al contenido ───────── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-link:focus {
+  left: var(--space-3);
+  top: var(--space-3);
+  width: auto;
+  height: auto;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-weight: 700;
+  text-decoration: none;
+  z-index: 1000;
+}
+
+/* ───────── Cabecera (idéntica en todas las páginas) ───────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--edge);
+  padding-top: max(var(--space-3), env(safe-area-inset-top));
+  border-bottom: 1px solid var(--border);
+  background: var(--header-bg);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: transform var(--motion-100) var(--ease-out);
+}
+
+.brand img {
+  width: auto;
+  height: var(--logo-h);
+}
+
+/* Logotipo sin fondo: en tema oscuro el «ven» gris pasa a crema (logo-oscuro.webp) */
+.brand .logo-oscuro,
+:root[data-theme="dark"] .brand .logo-claro {
+  display: none;
+}
+
+:root[data-theme="dark"] .brand .logo-oscuro {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .brand .logo-claro {
+    display: none;
+  }
+
+  :root:not([data-theme]) .brand .logo-oscuro {
+    display: block;
+  }
+}
+
+.brand:active {
+  transform: scale(.98);
+}
+
+.brand:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* Botón de tema: círculo de 44 px; el ícono muestra a qué tema se pasa (luna → oscuro, sol → claro) */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--tap);
+  height: var(--tap);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: transform var(--motion-150) var(--ease-out);
+}
+
+.theme-toggle[hidden] {
+  display: none;
+}
+
+.theme-toggle svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-toggle .icon-sun,
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+.theme-toggle:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+  transform: scale(.98);
+  transition-duration: var(--motion-100);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* ───────── Contenido principal ───────── */
+main#contenido {
+  flex: 1;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ───────── Portada (index.html): una sola pantalla ─────────
+   El cuerpo ocupa el alto visible; el contenido se dimensiona con vh/dvh para caber sin desplazarse.
+   Si la pantalla es tan pequeña que no cabe, la página crece y se desplaza (nunca se recorta). */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: var(--space-5) var(--edge);
+  overflow: hidden;
+  background: var(--grad-auth);
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: 0;
+  width: 64%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 22%);
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 14% 30%;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  width: min(500px, 40%);
+}
+
+/* Píldora: tipo «eyebrow» de la app */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 var(--space-4);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--primary-soft);
+  color: var(--primary-ink);
+  font-size: .75rem;
+  font-weight: 700;
+  line-height: 1rem;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(2rem, min(4.4vw, 8.6vh), 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.hero h1 span {
+  display: block;
+  color: var(--primary-text);
+}
+
+.description {
+  max-width: 27em;
+  margin: var(--space-4) 0 0;
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.375;
+  text-wrap: pretty;
+}
+
+/* Botón principal: Google Play (con enlace) o aviso «Próximamente» (sin enlace) */
+.store {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--cta-h);
+  margin: var(--space-5) 0 0;
+  padding: var(--space-3) var(--space-6);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-lg);
+  background: var(--grad-primary);
+  color: var(--on-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: var(--shadow-button);
+}
+
+.store-icon {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Sin enlace todavía: se ve destacado pero no activo (sin flecha de descarga ni sombra) */
+.store:not(a) {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary-ink);
+  box-shadow: none;
+  cursor: default;
+}
+
+.store:not(a) .store-icon {
+  display: none;
+}
+
+.store:not(a)::before {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+/* Con enlace: el tono oscuro entra como una capa que solo cambia de opacidad; sube 1 px al pasar el cursor */
+a.store {
+  position: relative;
+  isolation: isolate;
+  transition: transform var(--motion-150) var(--ease-out);
+}
+
+a.store::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--primary-pressed);
+  opacity: 0;
+  transition: opacity var(--motion-150) var(--ease-out);
+}
+
+a.store:hover {
+  transform: translateY(-1px);
+}
+
+a.store:hover::before {
+  opacity: 1;
+}
+
+a.store:active {
+  transform: scale(.98);
+  transition-duration: var(--motion-100);
+}
+
+a.store:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 4px;
+}
+
+.values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.values li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--secondary-soft);
+  color: var(--secondary-pressed);
+  font-size: .75rem;
+  font-weight: 600;
+  line-height: 1rem;
+}
+
+.values svg {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Redes sociales: íconos en botones circulares de 44 px; sin URL en config.js quedan sin enlace */
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap);
+  height: var(--tap);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--muted);
+  box-shadow: var(--shadow-soft);
+}
+
+.social-link svg {
+  fill: currentColor;
+}
+
+/* Con enlace: sube 2 px, el borde pasa a terracota y una sombra entra solo con opacidad */
+a.social-link {
+  position: relative;
+  color: var(--primary-ink);
+  transition: transform var(--motion-150) var(--ease-out);
+}
+
+a.social-link::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-card);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-150) var(--ease-out);
+}
+
+a.social-link:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+a.social-link:hover::after {
+  opacity: 1;
+}
+
+a.social-link:active {
+  transform: scale(.98);
+  transition-duration: var(--motion-100);
+}
+
+a.social-link:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* ───────── Páginas legales: tarjeta blanca de 28 px de radio ───────── */
+main#contenido > .legal {
+  width: min(720px, calc(100% - 40px));
+  margin: var(--space-6) auto var(--space-8);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  color: var(--ink);
+}
+
+.legal-badge {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 var(--space-4);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--primary-soft);
+  color: var(--primary-ink);
+  font-size: .75rem;
+  font-weight: 700;
+  line-height: 1rem;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+}
+
+.legal-updated {
+  margin: 0 0 var(--space-5);
+  color: var(--muted);
+  font-size: .8125rem;
+  line-height: 1.125rem;
+  font-weight: 500;
+}
+
+.legal h1 {
+  margin: 0 0 var(--space-5);
+  color: var(--ink);
+  font-size: clamp(1.625rem, 3.5vw, 2.25rem);
+  line-height: 1.2;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.legal h2 {
+  margin: var(--space-6) 0 var(--space-3);
+  color: var(--primary-ink);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.legal p {
+  margin: 0 0 var(--space-4);
+}
+
+.legal ul,
+.legal ol {
+  margin: 0 0 var(--space-4);
+  padding-left: var(--space-5);
+}
+
+.legal li {
+  margin-bottom: var(--space-2);
+}
+
+.legal a {
+  color: var(--primary-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal a:hover {
+  color: var(--primary-pressed);
+}
+
+.legal a:focus-visible,
+.footer-links a:focus-visible,
+.not-found a:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.table-scroll {
+  margin: 0 0 var(--space-5);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--surface-muted);
+  color: var(--ink);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+}
+
+td {
+  font-size: .9375rem;
+}
+
+/* ───────── Página 404 ───────── */
+main#contenido > .not-found {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--edge);
+  text-align: center;
+}
+
+.not-found h1 {
+  margin: 0 0 var(--space-4);
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.not-found p {
+  margin: 0 0 var(--space-5);
+  color: var(--muted);
+}
+
+.not-found a {
+  color: var(--primary-ink);
+  font-weight: 700;
+}
+
+/* ───────── Pie (idéntico en todas las páginas) ───────── */
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  padding: var(--space-4) var(--edge);
+  padding-bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--muted);
+  font-size: .8125rem;
+  line-height: 1.125rem;
+  font-weight: 500;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-5);
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--primary-ink);
+  text-decoration: underline;
+}
+
+.copyright {
+  margin: 0;
+}
+
+/* ───────── Tablet vertical y móvil: la foto va arriba y el texto debajo, todo en una pantalla ───────── */
+@media (max-width: 720px) and (min-height: 561px), (max-width: 1000px) and (orientation: portrait) {
+  .site-header {
+    padding-block: var(--space-1);
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0 var(--edge) var(--space-3);
+  }
+
+  .hero-media {
+    position: relative;
+    inset: auto;
+    flex: 1 0 120px;
+    width: auto;
+    max-height: 56dvh;
+    margin: 0 calc(var(--edge) * -1);
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+  }
+
+  .hero-media img {
+    position: absolute;
+    inset: 0;
+    object-position: 44% 38%;
+  }
+
+  .hero-copy {
+    flex: none;
+    width: 100%;
+    max-width: 620px;
+    margin-top: calc(var(--space-5) * -1);
+  }
+
+  .eyebrow {
+    margin-bottom: var(--space-1);
+  }
+
+  .hero h1 {
+    font-size: clamp(1.9rem, min(10vw, 5.6dvh), 3.5rem);
+  }
+
+  .description {
+    margin-top: var(--space-2);
+  }
+
+  .store {
+    min-height: 52px;
+    margin-top: var(--space-3);
+    padding-inline: var(--space-5);
+  }
+
+  .values {
+    margin-top: var(--space-2);
+  }
+
+  .social {
+    margin-top: var(--space-2);
+  }
+
+  .site-footer {
+    justify-content: flex-start;
+    padding-block: var(--space-1);
+    gap: 0 var(--space-4);
+  }
+
+  /* En móvil los enlaces y el copyright comparten renglones para ahorrar alto */
+  .footer-links {
+    display: contents;
+  }
+
+  .copyright {
+    margin-left: auto;
+  }
+
+  main#contenido > .legal {
+    margin-top: var(--space-5);
+    padding: var(--space-5);
+  }
+}
+
+/* Teléfonos: botón de Google Play y redes a todo el ancho */
+@media (max-width: 480px) {
+  .store {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .social {
+    justify-content: space-between;
+  }
+}
+
+/* Teléfonos de pantalla corta: se omite el antetítulo decorativo y se aprieta el texto */
+@media (max-width: 720px) and (max-height: 640px) and (orientation: portrait) {
+  .eyebrow {
+    display: none;
+  }
+
+  .description {
+    font-size: .9375rem;
+    line-height: 1.3;
+  }
+}
+
+/* Móviles muy angostos */
+@media (max-width: 380px) {
+  .store {
+    padding-inline: var(--space-4);
+  }
+}
+
+/* Móviles angostos y cortos (320×568): el texto corrido baja un paso para que todo quepa */
+@media (max-width: 340px) and (max-height: 620px) {
+  .description {
+    font-size: .875rem;
+    line-height: 1.3;
+  }
+
+  .store {
+    min-height: 48px;
+  }
+
+  .hero-media {
+    flex-basis: 80px;
+  }
+
+  .values {
+    gap: var(--space-1);
+  }
+
+  .values li {
+    padding-inline: var(--space-2);
+    letter-spacing: .4px;
+  }
+}
+
+/* Tablet y móvil en horizontal: la columna de texto gana ancho */
+@media (max-width: 1000px) and (orientation: landscape) and (max-height: 700px), (min-width: 721px) and (max-width: 1000px) and (orientation: landscape) {
+  .hero-media {
+    width: 56%;
+  }
+
+  .hero-copy {
+    width: min(500px, 52%);
+  }
+}
+
+/* Pantallas bajas (portátiles pequeños, móvil en horizontal): se compacta la portada para que siga cabiendo */
+@media (max-height: 700px) and (min-width: 721px) {
+  .hero {
+    padding-block: var(--space-3);
+  }
+
+  .eyebrow {
+    margin-bottom: var(--space-3);
+  }
+
+  .store {
+    min-height: 48px;
+    margin-top: var(--space-4);
+  }
+
+  .values,
+  .social {
+    margin-top: var(--space-3);
+  }
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
+  .site-header {
+    padding-block: var(--space-1);
+  }
+
+  .hero {
+    padding-block: var(--space-2);
+  }
+
+  .eyebrow {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.7rem, 9vh, 2.4rem);
+  }
+
+  .site-footer {
+    padding-block: var(--space-1);
+  }
+
+  .description {
+    margin-top: var(--space-2);
+    font-size: .9375rem;
+    line-height: 1.3;
+  }
+
+  .store {
+    min-height: var(--tap);
+    margin-top: var(--space-2);
+  }
+
+  .values,
+  .social {
+    margin-top: var(--space-2);
+  }
+}
+
+/* Pantallas muy anchas: se ajusta el encuadre de la foto */
+@media (min-width: 1700px) {
+  .hero-media img {
+    object-position: 20% 34%;
+  }
+}
+
+/* Entrada de la portada: la foto aparece y el texto sube 8 px en escalones (opacity + transform, una sola vez) */
+@keyframes aparece {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes sube {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-media {
+    animation: aparece var(--motion-300) var(--ease-out) backwards;
+  }
+
+  .hero-copy > * {
+    animation: sube var(--motion-300) var(--ease-out) backwards;
+  }
+
+  .hero-copy > .eyebrow,
+  .hero-copy > h1 {
+    animation-delay: 0ms;
+  }
+
+  .hero-copy > .description {
+    animation-delay: 100ms;
+  }
+
+  .hero-copy > .store {
+    animation-delay: 200ms;
+  }
+
+  .hero-copy > .values,
+  .hero-copy > .social {
+    animation-delay: 300ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

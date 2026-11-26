@@ -1,8 +1,14 @@
 # Constitución — VAIVÉN Landing
 
-> **Versión 1.2.0** · 2026-10-28 · Enmendada el 2026-11-01 (repositorios separados; **MINOR:** se elimina todo lo de repositorio y pipeline y se agrega el Art. XII de despliegue por MCP) · Máxima autoridad del proyecto `vaiven-landing-page/`. Si algo la contradice, gana este documento.
+> **Versión 1.4.1** · 2026-11-11 · Enmendada el 2026-11-01 (repositorios separados; **MINOR:** se elimina todo lo de repositorio y pipeline y se agrega el Art. XII de despliegue por MCP) · Máxima autoridad del proyecto `vaiven-landing-page/`. Si algo la contradice, gana este documento.
 >
 > **Enmienda 1.2.0 (2026-11-02, MINOR):** se agrega el Art. XIII (repositorio y pull requests en GitHub, con MCP de GitHub); se reemplaza la declaración de «sin repositorio».
+>
+> **Enmienda 1.3.0 (2026-11-11, MINOR):** a petición de la persona responsable de la landing se permiten los **íconos de las redes sociales de VAIVÉN** como enlaces a sus perfiles (Art. II.1, V.3 y VII.1), se permite una **fotografía de fondo aportada por el equipo** con origen y licencia anotados (Art. V.4) y se fija que la **portada cabe en una pantalla** (Art. VIII.7). **Esta enmienda cambia el texto de la máxima autoridad: requiere revisión y aprobación de una persona antes de fusionarse.** **Aprobada por la persona responsable el 2026-11-11.**
+> **Enmienda 1.4.0 (2026-11-11, MINOR; aprobada por la persona responsable el 2026-11-11):** la landing adopta el sistema de diseño de la app (`vaiven-diseno-landing.md`: paleta crema y terracota, radios, sombras y escala tipográfica) y su tipografía **Plus Jakarta Sans**, **alojada en el propio sitio** (`assets/fonts/`, WOFF2 de 27 KB, licencia SIL OFL). Cambia el Art. III (fila «Estilos»). El Art. VII.1 no cambia: la fuente no viene de ningún CDN. 
+>
+> **Enmienda 1.4.1 (2026-11-12, PATCH; pendiente de aprobación humana):** el Art. VII.1 aclara que la **preferencia de tema (claro u oscuro)** se guarda en el `localStorage` del propio navegador (clave `vaiven-tema`, valor `light` o `dark`). No es una cookie, no sale del dispositivo, no se envía a ningún servidor y no identifica a nadie. Si no se aprueba, se quita el botón de tema y `assets/js/theme.js`, y el sitio vuelve a seguir solo al sistema.
+>
 > Comparte con las constituciones de `vaiven-backend/` y `vaiven-frontend/` las reglas de idioma (es-MX) y de secretos.
 
 ## Art. I — Metodología
@@ -12,7 +18,7 @@
 4. Los modelos gratuitos son débiles: tareas pequeñas (1–3 archivos), explícitas y verificables.
 
 ## Art. II — Alcance: solo información
-1. La landing es **informativa**: explica qué es VAIVÉN, cómo funciona, qué se puede compartir, cómo se cuida a las personas, y envía a **Google Play** para descargar la app.
+1. La landing es **informativa**: explica qué es VAIVÉN, cómo funciona, qué se puede compartir, cómo se cuida a las personas, y envía a **Google Play** para descargar la app. Puede enlazar a los perfiles oficiales de VAIVÉN en redes sociales (Art. V.3).
 2. **Prohibido**: registro, inicio de sesión, formularios que recojan datos personales, pagos, paneles, comentarios, chats o cualquier servicio. Si algo necesita backend, no pertenece a esta landing.
 3. Contacto solo mediante un enlace `mailto:` al correo de soporte.
 4. Las páginas legales (privacidad, términos, eliminación de cuenta) son parte del sitio porque Google Play exige URL públicas para ellas.
@@ -22,7 +28,7 @@
 | Pieza | Decisión |
 |---|---|
 | Páginas | HTML5 semántico escrito a mano, **sin framework y sin paso de compilación** |
-| Estilos | CSS propio con variables (*tokens*) en un solo archivo; sistema de tipografía del dispositivo (sin fuentes externas) |
+| Estilos | CSS propio con variables (*tokens*) en un solo archivo; tipografía **Plus Jakarta Sans alojada en el propio sitio** (WOFF2 ≤ 40 KB, sin fuentes de terceros), con la del dispositivo como respaldo |
 | Scripts | JavaScript vanilla mínimo (ES modules), solo para mejoras (menú móvil y enlace a Google Play); el sitio funciona sin JS |
 | Dependencias | **Ninguna** en producción. Para verificar: Node ≥ 20 con módulos integrados (sin `npm install`) |
 | Hosting | Estático y gratuito (**static site de Render**, desplegado por MCP) con subdominio gratuito; **no se compra dominio** |
@@ -48,8 +54,10 @@ vaiven-landing-page/            # raíz del repositorio
 ## Art. V — Contenido y marca
 1. Todo el texto en **español de México**; tuteo cercano y claro.
 2. Prohibido inventar cifras, usuarios, reseñas, premios, alianzas o funciones. Solo se afirma lo que la app hace según las specs de `../vaiven-backend/specs` y `../vaiven-frontend/specs`.
-3. No se muestran imágenes ni logotipos de terceros salvo la **insignia oficial de «Disponible en Google Play»**, descargada del recurso oficial de Google y usada sin alteraciones y respetando sus lineamientos. No se dibuja ni se imita.
-4. Ilustraciones: SVG propios o capturas reales de la app (cuando existan); nada de bancos de imágenes con licencia dudosa.
+3. No se muestran imágenes ni logotipos de terceros salvo:
+   - la **insignia oficial de «Disponible en Google Play»**, descargada del recurso oficial de Google y usada sin alteraciones y respetando sus lineamientos. No se dibuja ni se imita; mientras no exista, el botón es propio, de texto, y no imita el logotipo de Google Play; y
+   - los **glifos monocromáticos de Facebook, Instagram, X, YouTube y TikTok**, solo como enlaces a los perfiles de VAIVÉN en esas redes (nunca como señal de alianza o respaldo). Se guardan en un solo archivo local (`assets/img/social.svg`, Simple Icons, licencia CC0) y se usan sin alterar su forma. Un ícono sin URL configurada se muestra sin enlace; nunca un enlace roto ni inventado.
+4. Ilustraciones: SVG propios o capturas reales de la app (cuando existan). Fotografías o imágenes de fondo: las aporta el equipo y se anota su **origen y licencia en `memoria.md`**; nada de bancos de imágenes con licencia dudosa.
 5. No se compara con otras plataformas ni se promete seguridad absoluta.
 
 ## Art. VI — Legal
@@ -59,8 +67,8 @@ vaiven-landing-page/            # raíz del repositorio
 4. El responsable no afirma que VAIVÉN procese pagos: los pagos son entre personas.
 
 ## Art. VII — Privacidad del sitio
-1. Sin cookies, sin analítica, sin píxeles, sin incrustaciones de terceros (mapas, videos, redes) y sin fuentes ni librerías desde CDN. Por eso no hay aviso de cookies.
-2. Los enlaces externos usan `rel="noopener noreferrer"`.
+1. Sin cookies, sin analítica, sin píxeles, sin incrustaciones de terceros (mapas, videos, widgets o botones «compartir» de redes) y sin fuentes ni librerías desde CDN. Un **enlace** a un perfil de una red social no es una incrustación: no carga nada de la red hasta que la persona lo abre. Por eso no hay aviso de cookies. La única excepción es la preferencia de tema, guardada solo en el navegador de la persona (ver enmienda 1.4.1).
+2. Los enlaces externos usan `rel="noopener noreferrer"`, son `https` y, en las redes sociales, del dominio de la propia red (lo verifica `check.mjs`).
 
 ## Art. VIII — Accesibilidad, rendimiento y SEO
 1. HTML semántico (`header`, `nav`, `main`, `footer`, un solo `h1` por página), `lang="es-MX"`, enlace «Saltar al contenido», foco visible, contraste AA, objetivos táctiles ≥ 44 px, navegable con teclado y sin depender del color.
@@ -69,6 +77,7 @@ vaiven-landing-page/            # raíz del repositorio
 4. Imágenes ≤ 150 KB (WebP/AVIF/SVG), con `width` y `height`, `loading="lazy"` salvo la primera; CSS ≤ 30 KB y JS ≤ 5 KB sin comprimir.
 5. Metadatos por página: `<title>` único, `description`, `canonical`, Open Graph y `theme-color`; `robots.txt` y `sitemap.xml` válidos.
 6. Meta: Lighthouse móvil ≥ 90 en rendimiento, accesibilidad, buenas prácticas y SEO.
+7. **La portada cabe en una pantalla**: todo su contenido (marca, frase central, botón de Google Play, redes sociales y pie) se ve sin desplazarse en escritorio y en teléfonos desde 360×640 en vertical. En pantallas bajas solo puede omitirse el antetítulo decorativo; el resto del contenido nunca se recorta ni se oculta. En pantallas aún más bajas (teléfono en horizontal) se permite el desplazamiento antes que recortar. Las páginas legales sí se desplazan.
 
 ## Art. IX — Seguridad y despliegue
 1. Sin secretos en el repositorio (no los necesita). Sin `.env`.

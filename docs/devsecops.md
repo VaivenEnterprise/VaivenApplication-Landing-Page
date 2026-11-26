@@ -4,17 +4,17 @@ Solicitud del responsable: integrar CI, seguridad y validacion de ramas y PRs en
 
 ## Ramas y revisores
 
-- Cambios en tipo/SCRUM-01-SPEC-01-T001 (feat, feature, fix, bugfix, hotfix, chore, ci, docs, refactor, test, perf, security, release, build o revert) hacia develop.
-- Publicaciones de develop hacia main; urgencias en hotfix/SCRUM-01-SPEC-01-T001 hacia main y despues sincronizacion de main hacia develop.
-- Titulos Conventional Commits; completar Resumen, Validación y Seguridad en el PR.
+- Cambios en tipo/SPEC-01-T001 (feat, feature, fix, bugfix, hotfix, chore, ci, docs, refactor, test, perf, security, release, build o revert) hacia develop.
+- Publicaciones de develop hacia main; urgencias en hotfix/SPEC-01-T001 hacia main y despues sincronizacion de main hacia develop.
+- Titulos libres; completar Resumen, Validación y Seguridad en el PR.
 - Revisores solicitados: @JesusTrz y @JosephYanez27. JesusTrz tiene escritura; JosephYanez27 solo lectura al preparar esta configuracion y su aprobacion aun no cuenta como obligatoria. Un administrador debe concederle escritura antes de agregarlo a CODEOWNERS.
 - Una aprobacion de un code owner distinto al autor, aprobacion del ultimo cambio, conversaciones resueltas y rama actualizada. Cambios nuevos invalidan aprobaciones anteriores.
 
 ## Controles
 
-CI corre en PRs, push a main/develop, manualmente y semanalmente. Required checks agrega Policy, Quality, Secrets y CodeQL; falla si un control requerido falla o se cancela. CodeQL solo se omite cuando no hay aplicacion inicializada.
+CI corre en PRs, push a main/develop/spec/**, manualmente y semanalmente. Required checks agrega Policy, Quality, Secrets y CodeQL; falla si un control requerido falla o se cancela. CodeQL solo se omite cuando no hay aplicacion inicializada.
 
-Policy verifica nombres, destino, titulo, secciones del PR y archivos sensibles. Gitleaks examina el historial alcanzable completo y los archivos actuales, con salida redactada, binario versionado y SHA-256 verificado. Las acciones se fijan por commit y Dependabot propone actualizaciones hacia develop. El token es de lectura salvo la carga de resultados de CodeQL. No se usan secretos de despliegue en PRs.
+Policy verifica nombres, destino, secciones del PR y archivos sensibles. Gitleaks examina el historial alcanzable completo y los archivos actuales, con salida redactada, binario versionado y SHA-256 verificado. Las acciones se fijan por commit y Dependabot propone actualizaciones hacia develop. El token es de lectura salvo la carga de resultados de CodeQL. No se usan secretos de despliegue en PRs.
 
 Al existir index.html: node scripts/check.mjs debe validar las paginas, enlaces, metadatos y restricciones del sitio. No se agregan dependencias de produccion ni un paso de compilacion. La revision visual sigue siendo obligatoria. CodeQL analiza JavaScript, incluido el verificador, cuando el sitio esta inicializado.
 
@@ -40,7 +40,31 @@ CodeQL exporta SARIF y el workflow bloquea hallazgos con security-severity >= 7 
 
 ## Nombres de ramas con trazabilidad
 
-Formato obligatorio para ramas de trabajo: `tipo/SCRUM-NN-SPEC-NN-TNNN`. SCRUM y SPEC requieren al menos dos digitos; la tarea al menos tres; se admiten numeros mayores. Ejemplo: `chore/SCRUM-01-SPEC-01-T001`. No se permiten sufijos ni segmentos adicionales. La validacion comprueba el formato, no la existencia del ticket en Jira.
+Formato para ramas de tareas: `tipo/SPEC-NN-TNNN`. SPEC requiere al menos dos digitos; la tarea al menos tres; se admiten numeros mayores. Ejemplo: `chore/SPEC-01-T001`. No se permiten sufijos ni segmentos adicionales. La validacion comprueba el formato, no la existencia del ticket en Jira.
 
 Se conservan las promociones develop -> main, la sincronizacion main -> develop y las ramas automaticas dependabot/* solo para PRs del bot autentico hacia develop. La regla se ejecuta en Policy; para bloquear la fusion se debe exigir Required checks en la proteccion de ramas. No impide crear una rama en GitHub.
 
+
+## Trabajo por spec completa
+
+Crear `spec/SPEC-02` desde `develop`. No lleva sufijo de tarea. SCRUM y SPEC requieren al menos dos digitos, sin texto adicional.
+
+Implementar las tareas en esa rama, una a la vez, o crear ramas de tarea desde ella y abrir sus PRs hacia la rama de spec. Por ejemplo, `feat/SPEC-02-T001` -> `spec/SPEC-02`. El segmento opcional SCRUM-NN- puede variar por tarea; el numero SPEC debe coincidir (02 y 002 son equivalentes). Los titulos de PR son libres; Resumen, Validación y Seguridad siguen siendo obligatorios.
+
+Al completar la spec: PR de la rama de spec hacia `develop`. Para actualizarla: PR `develop` -> rama de spec. No se permite spec -> main ni integrar tareas de otra SPEC. Se conserva el flujo tarea -> develop y la promocion develop -> main.
+
+CI se ejecuta en push y PR hacia `spec/**`, ademas de main/develop. Primero integrar esta configuracion en develop y despues crear las ramas de spec. Para una spec ya creada, incorporar estos archivos antes de usar el nuevo flujo.
+
+Las protecciones administrativas no se activan con estos archivos. Si se quiere exigir revision y Required checks tambien en specs, un administrador debe incluir las ramas `spec/**` en un ruleset activo. Sin esa configuracion, los checks se ejecutan pero no impiden por si solos una fusion.
+
+## Ticket SCRUM opcional
+
+Formatos: `spec/SPEC-02` para una spec completa y `feat/SPEC-02-T001` para una tarea (con los tipos existentes). Tambien se aceptan `spec/SCRUM-01-SPEC-02` y `feat/SCRUM-15-SPEC-02-T001`. Si se incluye SCRUM, conserva mayusculas y al menos dos digitos. SPEC sigue siendo obligatorio con al menos dos digitos; T sigue siendo obligatorio en ramas de tarea con al menos tres. Los destinos permitidos, las revisiones y los controles de seguridad no cambian.
+
+## Ramas por fase
+
+Tambien se permite `tipo/SPEC-NN-Fase-N`, por ejemplo `feat/SPEC-02-Fase-3`, con los mismos tipos de cambio que las tareas. `SCRUM-NN-` sigue siendo opcional: `feat/SCRUM-01-SPEC-02-Fase-3`. Se escribe `Fase` exactamente asi y su numero lleva uno o mas digitos (incluido 0 si el plan tiene fase cero). SPEC mantiene al menos dos digitos.
+
+Crear la rama de fase desde la rama de spec y abrir su PR hacia esa misma SPEC; tambien se permite fase -> develop. No se permite fase -> main, ni fase -> otra SPEC. Las ramas de fase no son destinos de PR de tareas: implementar las tareas de la fase en ella y conservar el formato por tarea para los flujos existentes. Los titulos de PR siguen siendo libres y se mantienen las secciones de evidencia y los controles de seguridad.
+
+Las ramas de spec existentes deben incorporar esta actualizacion desde develop para validar PRs de fase con la nueva politica.
